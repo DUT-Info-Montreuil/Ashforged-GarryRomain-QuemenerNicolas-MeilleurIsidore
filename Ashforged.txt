@@ -1,0 +1,128 @@
+﻿										Ashforged
+
+
+
+
+Monde Post-apocalyptique - Monde actuel (plutôt moderne) en ruines.
+
+
+On créera des structures (ruines, sous terrains, immeubles etc…).
+
+
+Plus les statistiques du personnages augmentent, plus les monstres seront renforcés.
+
+
+On utilisera des tables de fabrication pour pouvoir créer des armes, ressources et constructions (murs, escaliers etc…).
+
+
+On pourra par ailleurs améliorer les armes déjà fabriquées, pour cela, on utilisera une table d'amélioration, qui, en fonction des ressources utilisées ajoutera ou non des fonctionnalités (explosion, dégât électrique etc…).
+
+
+On aura plusieurs PNJ qui nous proposeront des quêtes diverses ou nous permettront de leurs acheter des équipements, par exemple vente d’armures ou chasse de monstres.
+
+
+On jouera sur un paramètre de vélocité qui nous permettra de créer des monstres volants (ou qui se déplace sur les plafonds).
+
+
+On utilisera différentes armes, tels que des épées, arc, armes à feu etc… Qui chacune auront une portée, des dégâts, une durabilité, plus la durabilité est faible, plus les dégâts seront réduits.
+
+
+L'objectif sera de compléter toutes les quêtes présentes dans le jeu (une dizaine de difficultés diverses).
+
+
+On utilisera un pourcentage (dégressif, plus les statistiques du joueur sont élevées, plus le pourcentage baissera) pour chaque adversaire dans le jeu, pour qu’ils puissent suivre la progression du joueur. Plus le joueur deviendra fort, plus les adversaires le seront
+
+
+
+-------------------------------------------------------------------------------------------------
+#Ressource  	       | #Utilisation |
+|---		       |---|
+Terre  	   	       | - Permet à certains objets offensif de ralentir les adversaires. |
+Bois	   	       | - Permet de fabriquer des outils de basse qualité et divers objets.|
+Pierre	  	       | - Création d’objets de meilleurs qualité que le bois |
+Fer	   	       | - Permet de créer des outils de très bonne qualité |
+Aluminium  	       | - Utile à la création de plusieurs objets |
+Poudre à canon         | - Utile à la création de plusieurs objets |
+Poudre de perlimpinpin | - Obtenable uniquement sur les boss, cette ressource permettra la création d’objets puissant |
+Plume 		       | - Utile à la création de plusieurs objets |
+Bâton	               | - Utile à la création de plusieurs objets |
+Charbon	               | - Utile à la création de plusieurs objets |
+Fil		       | - Est utile à la fabrication de l’arc mais aussi d’objets divers comme des barrières… |
+Minerai Enchanté       | - Permet de créer certain matériaux d’améliorations |
+Pièces d’or	       | - Ne prends pas d’espace ni de poids dans l’inventaire, servira à des achats mais aussi de ressource de fabrication |
+		
+		À DÉVELOPPER PLUS TARD	 
+
+  	
+
+-------------------------------------------------------------------------------------------------
+#Objet à fabriquer 	       | #Ressources |
+|---		       |---|
+Minerai Enchanté (Matériau de fabrication) | - x Pierre 
+					     - x Fer  
+					     - x Aluminium |
+Gilet pare balles (Permet de réduire les dégâts subis de x%) | - x Fer
+							       - x Minerai Enchanté |
+Arc (Nécessite des flèches, permet de tirer sur des adversaire à mi-distance) | - x Bois
+									        - x Fil |
+Couteau (Permet d’attaquer des adversaires à très courte distance) | - x Bois
+								     - x Bois/Pierre/Fer/Aluminium |
+Epée (Permet d’attaquer des adversaires à courte distance) | - x Bois
+						             - x Bois/Pierre/Fer/Aluminium |
+Sabre (Permet d’attaquer des adversaires à courte distance) |  - x Bois
+						               - x Bois/Pierre/Fer/Aluminium |
+Arme à feu (plusieurs types) (Nécessite des balles, permet de tirer sur des adversaire à distance) | - x Fer
+												     - x Aluminium
+												     - x Minerai enchanté |
+Balle (Possession obligatoire pour utiliser les armes à feu) | - x Aluminium 
+							       - x Poudre à canon |
+
+Hache (Permet d’attaquer à courte distance et récupérer des ressources comme le bois) | - x Bois
+						                                        - x Bois/Pierre/Fer/Aluminium |
+Pioche (Permet uniquement de récupérer des ressources comme de la pierre, du fer, etc) | - x Bois
+						                                         - x Bois/Pierre/Fer/Aluminium |
+Table de Fabrication (Nécessite des ressources, avec lesquelles on pourra améliorer des armes pour augmenter les statistiques ou ajouter des fonctionnalités) | - x Bois
+						                                         									- x Cuir |
+Table d’Amélioration (Nécessite des ressources, avec lesquelles on pourra créer des objets, armes ou outils) | - x Bois
+						                                         		       - x Cuir 
+													       - x Minerai enchanté
+													       - x Pièce d'or |
+Forge (Permet la réparation des outils pour la moitié de leur prix initial) | - x/2 ressource de l’équipement |
+
+				À DÉVELOPPER PLUS TARD
+
+
+
+
+-------------------------------------------------------------------------------------------------
+#Ennemies 	       | #Spécialités |
+|---		       |---|
+Soldats - Montgolfière | Peut se déplacer en l’air sans restriction, il y aura 1 ou 2 ennemies. Il y a 2 types, 1 avec une arme à feu et 1 avec des bombes qu’il larguera. |
+Soldats - Classique    | Se déplace sur terre, peut aussi sauter ou courir. Il utilisera plusieurs types d’armes (déterminer à l’apparition), une arme courte porte, mi-distance, ou à distance. |
+Zombie  	       | Même mécanique de déplacement que le soldat, il apparaîtra, soit sans arme, soit avec une arme à courte portée de basse qualité. |
+Bandit                 | L’adversaire ne pourra pas être vu avant d’être à x distance du joueur, il se déplacera vaguement plus vite que le joueur. |
+Boss 		       | Largement plus grand que les entités classiques, il se déplace plus lentement mais fera des dégâts plus élevés. |
+B¹ - Kozuki            | Samouraï légendaire qui maîtrise parfaitement la technique du sabre à deux mains. Si vous arrivez à le vaincre vous aurez peut-être la chance d’obtenir son sabre légendaire… le Enma. |
+
+
+-------------------------------------------------------------------------------------------------
+#²Personnages Non Joueurs | #Spécialités |
+|---		          |---|
+Paolo 			  | Propose une quête où le PNJ² vous suivra jusqu’à achèvement de celle-ci. (Attaquer un camp de bandit et tous les tuer) |
+Branda 			  | Elle propose une quête, elle aura besoin de vous pour lui apporter certaines ressources. |
+Terry 			  | Ce personnage est un marchand nomade, se déplace aléatoirement, que vous pourrez croiser à de nombreux spots sur la carte. Il vous proposera divers objets qui pourront vous être utiles lors de votre aventure. |
+Salome                    | Contre quelques pièces d’or, elle vous propose une carte avec l’emplacement de quelques structures. Après avoir acheté la carte une première fois, elle vous propose plusieurs amélioration qui, à chaque fois, ajoutera des structures sur cette carte. |
+
+			À DÉVELOPPER PLUS TARD
+
+
+
+*Pour chaque PNJ² de quête, ce dernier vous donnera une récompense à la hauteur de votre exploit.
+B¹ - Signifie que l'ennemie est un boss
+
+
+Mécanique utilisateurs :
+Touches de déplacement du personnage choisi par le joueur. (Par défaut ZQSD)
+Saut du joueur possible ainsi que la possibilité de s’accroupir (espace : saut , ctrl : s’accroupir par défaut )
+Gestion d’inventaire (avec touche i par défaut) 
+Action principale avec clic gauche (à part la pose de bloc, qui se fera avec clique droit, modifiable au choix dans les paramètres)
