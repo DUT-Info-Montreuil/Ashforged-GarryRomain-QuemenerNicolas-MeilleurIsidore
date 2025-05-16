@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.rgarry.ashforged.Controller.Controler">
+   <top>
+      <Label alignment="CENTER" text="Ashforged" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <Pane fx:id="paneperso" BorderPane.alignment="CENTER">
+         <children>
+            <TilePane fx:id="tilepane" alignment="CENTER" BorderPane.alignment="CENTER" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
