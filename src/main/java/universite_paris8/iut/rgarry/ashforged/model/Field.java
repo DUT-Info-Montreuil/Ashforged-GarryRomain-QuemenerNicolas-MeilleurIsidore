@@ -1,0 +1,33 @@
+package universite_paris8.iut.rgarry.ashforged.model;
+
+/*
+    Cette classe définit la structure du terrain, c'est-à-dire quel type de tuile est où.
+ */
+public class Field {
+    private int[][] tiles;
+
+    public Field() {
+        this.tiles = new int[][]{{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2},
+                {2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+                {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+                {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}};
+
+    }
+
+   public int block(int x,int y){
+        return this.tiles[y][x];
+   }
+
+    public int longueur() {
+        return this.tiles[0].length;
+    }
+
+    public int hauteur() {
+        return this.tiles.length;
+    }
+
+
+
+}

@@ -9,9 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import universite_paris8.iut.rgarry.ashforged.Field;
+import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.HelloApplication;
 import universite_paris8.iut.rgarry.ashforged.character.Personnage;
+import universite_paris8.iut.rgarry.ashforged.view.FieldView;
 
 
 import java.net.URL;
@@ -36,12 +37,9 @@ public class Controler implements Initializable {
     private Personnage personnage = HelloApplication.getPersonnage();
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Field field = new Field();
-        double screenWidth = 1920;
-        double screenHeight = 1080;
-        field.createField(tilepane, screenWidth, screenHeight);
+        FieldView field = new FieldView(tilepane);
 
-        paneperso.setPrefSize(field.getTailleField()[0],field.getTailleField()[1]);
+        paneperso.setPrefSize(field.longueur(),field.hauteur());
 
         Image perso = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/personnage.png").toExternalForm());
         ImageView perso2 = new ImageView(perso);

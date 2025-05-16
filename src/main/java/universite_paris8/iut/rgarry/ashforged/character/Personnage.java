@@ -2,10 +2,7 @@ package universite_paris8.iut.rgarry.ashforged.character;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import universite_paris8.iut.rgarry.ashforged.Field;
 import universite_paris8.iut.rgarry.ashforged.Item.Item;
-
-import java.util.Objects;
 
 public class Personnage {
     private int velocity = 1;
