@@ -10,8 +10,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.HelloApplication;
+import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
 import universite_paris8.iut.rgarry.ashforged.view.FieldView;
+import universite_paris8.iut.rgarry.ashforged.view.PersonnageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,23 +32,9 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        FieldView field = new FieldView(tilepane);
-
-        paneperso.setPrefSize(field.longueur(), field.hauteur());
-
-        Image perso = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/personnage.png").toExternalForm());
-        ImageView perso2 = new ImageView(perso);
-
-        perso2.setId("perso");
-
-        perso2.translateXProperty().bind(personnage.getXProperty());
-        perso2.translateYProperty().bind(personnage.getYProperty());
-
-        paneperso.getChildren().add(perso2);
-        paneperso.setFocusTraversable(true);
-        paneperso.requestFocus();
-
-        personnageController.setupKeyHandlers(paneperso);
+        Field field = new Field();
+        FieldView fieldView = new FieldView(tilepane, field);
+        PersonnageView personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
         startTimeline();
     }
 

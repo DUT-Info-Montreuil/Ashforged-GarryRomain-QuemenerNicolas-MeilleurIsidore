@@ -10,8 +10,8 @@ public class FieldView {
     private Field field;
     private TilePane tilepane;
 
-    public FieldView(TilePane tilepane) {
-        this.field = new Field();
+    public FieldView(TilePane tilepane,Field field) {
+        this.field = field;
         this.tilepane = tilepane;
         this.createField(tilepane, 1920, 1080);
     }
@@ -49,14 +49,6 @@ public class FieldView {
                 tilepane.getChildren().add(imageView);
             }
         }
-    }
-
-    public int longueur() {
-        return field.longueur();
-    }
-
-    public int hauteur() {
-        return field.hauteur();
     }
 
 
