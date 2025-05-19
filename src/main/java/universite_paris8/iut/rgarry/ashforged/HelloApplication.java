@@ -17,7 +17,16 @@ public class HelloApplication extends Application {
     public static Item epee = new Item("Epee de fer", 5);
     public static Item arc = new Item("Arc en bois", 3);
     public static Item arc1 = new Item("arc",4);
+
+    // Creation of the main character
     public static Personnage personnage = new Personnage("Hero", 15, new int[]{1, 1, 10, 1},600, 250);
+
+    // Creation of NPC
+    public static Personnage paolo = new Personnage("Paolo", 15, new int[]{1, 1, 10, 1},600, 250);
+    public static Personnage branda = new Personnage("Branda", 15, new int[]{1, 1, 10, 1},600, 250);
+    public static Personnage terry = new Personnage("Terry", 15, new int[]{1, 1, 10, 1},600, 250);
+    public static Personnage salome = new Personnage("Salome", 15, new int[]{1, 1, 10, 1},600, 250);
+
     private static final int GROUND_LEVEL = personnage.getY();
 
     @Override
