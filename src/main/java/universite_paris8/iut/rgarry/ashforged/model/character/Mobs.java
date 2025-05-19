@@ -1,6 +1,4 @@
-package universite_paris8.iut.rgarry.ashforged.character;
-
-import universite_paris8.iut.rgarry.ashforged.Item.Item;
+package universite_paris8.iut.rgarry.ashforged.model.character;
 
 public class Mobs extends Personnage {
     private int stats_multiplier;

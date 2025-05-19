@@ -1,8 +1,8 @@
-package universite_paris8.iut.rgarry.ashforged.character;
+package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import universite_paris8.iut.rgarry.ashforged.Item.Item;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Item;
 
 public class Personnage {
     private int velocity = 1;
@@ -14,7 +14,7 @@ public class Personnage {
     private int pods;
     private int maxPods;
 
-    // Exemple de statistiques: {hp: 5, str: 5, spd: 5,
+    // Exemple de statistiques: {hp: 5, str: 5, spd: 5, ...}
 
     private int stat_point;
     private IntegerProperty x, y;
@@ -33,18 +33,22 @@ public class Personnage {
         this.maxPods =10*stats[1];
     }
 
-//    public void deplacement(char direction) {
-//        switch (direction) {
-//            case 'l':
-//                break;
-//            case 'r':
-//                break;
-//            case 'u':
-//                break;
-//            case 'd':
-//                break;
-//        }
-//    }
+    public void deplacer(char direction) {
+        switch (direction) {
+            case 'u':
+                this.setY((int) (getY() - getVitesse()));
+                break;
+            case 'd':
+                this.setY((int) (getY() + getVitesse()));
+                break;
+            case 'l':
+                this.setX((int) (getX() - getVitesse()));
+                break;
+            case 'r':
+                this.setX((int) (getX() + getVitesse()));
+                break;
+        }
+    }
 
     public String getId() {
         return id;
@@ -100,6 +104,10 @@ public class Personnage {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public int getVitesse() {
+        return this.stats[2];
     }
 
     public void setStats(int[] stats) {

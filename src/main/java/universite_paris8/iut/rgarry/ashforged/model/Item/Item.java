@@ -1,4 +1,4 @@
-package universite_paris8.iut.rgarry.ashforged.Item;
+package universite_paris8.iut.rgarry.ashforged.model.Item;
 
 public class Item {
     private String  id;

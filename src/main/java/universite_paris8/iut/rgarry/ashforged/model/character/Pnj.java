@@ -1,7 +1,6 @@
-package universite_paris8.iut.rgarry.ashforged.character;
+package universite_paris8.iut.rgarry.ashforged.model.character;
 
-import universite_paris8.iut.rgarry.ashforged.Item.Consomable;
-import universite_paris8.iut.rgarry.ashforged.Item.Item;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Item;
 
 public class Pnj extends Personnage {
     private String dialogue;
