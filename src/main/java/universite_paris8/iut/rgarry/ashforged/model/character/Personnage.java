@@ -36,16 +36,16 @@ public class Personnage {
     public void deplacer(char direction) {
         switch (direction) {
             case 'u':
-                this.setY((int) (getY() - getVitesse()));
+                this.setY((getY() - getVitesse()));
                 break;
             case 'd':
-                this.setY((int) (getY() + getVitesse()));
+                this.setY((getY() + getVitesse()));
                 break;
             case 'l':
-                this.setX((int) (getX() - getVitesse()));
+                this.setX((getX() - getVitesse()));
                 break;
             case 'r':
-                this.setX((int) (getX() + getVitesse()));
+                this.setX((getX() + getVitesse()));
                 break;
         }
     }
