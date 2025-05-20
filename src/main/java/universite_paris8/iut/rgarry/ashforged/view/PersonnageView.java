@@ -38,19 +38,18 @@ public class PersonnageView {
         personnageController.setupKeyHandlers(paneperso);
     }
 
+    /***
+     *Change le sprite en fonction de la direction du joueur.
+     *
+     * @param direction
+     */
+
     public void changeSprite(char direction){
-        for(int i = 0; i<this.paneperso.getChildren().size();i++){
-            if(this.paneperso.getChildren().get(i).equals(perso)){
-                this.paneperso.getChildren().remove(perso);
-                if(direction=='r'){
-                    perso.setImage(persoDroite);
-                    this.paneperso.getChildren().add(perso);
-                }
-                else {
-                    perso.setImage(persoGauche);
-                    this.paneperso.getChildren().add(perso);
-                }
-            }
+        if(direction=='r'){
+            perso.setImage(persoDroite);
+        }
+        else{
+            perso.setImage(persoGauche);
         }
     }
 }
