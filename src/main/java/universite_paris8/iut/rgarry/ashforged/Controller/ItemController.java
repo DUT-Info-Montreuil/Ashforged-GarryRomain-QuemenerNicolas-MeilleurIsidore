@@ -48,34 +48,34 @@ public class ItemController {
 
         // Creation of Knife
         this.knife = new Item("Wooden knife", 2);
-        this.knife = new Item("Stone knife", 2);
-        this.knife = new Item("Steel knife", 2);
-        this.knife = new Item("Alluminium knife", 2);
+        this.knife = new Item("Stone knife", 3);
+        this.knife = new Item("Steel knife", 4);
+        this.knife = new Item("Alluminium knife", 3);
 
 
         // Creation of Sword
         this.sword = new Item("Wooden sword", 2);
-        this.sword = new Item("Stone sword", 2);
-        this.sword = new Item("Steel sword", 2);
-        this.sword = new Item("Alluminium sword", 2);
+        this.sword = new Item("Stone sword", 3);
+        this.sword = new Item("Steel sword", 4);
+        this.sword = new Item("Alluminium sword", 3);
 
         // Creation of Sabre
         this.sabre = new Item("Wooden sabre", 2);
-        this.sabre = new Item("Stone sabre", 2);
-        this.sabre = new Item("Steel sabre", 2);
-        this.sabre = new Item("Alluminium sabre", 2);
+        this.sabre = new Item("Stone sabre", 3);
+        this.sabre = new Item("Steel sabre", 4);
+        this.sabre = new Item("Alluminium sabre", 3);
 
         // Creation of Axe
         this.axe = new Item("Wooden axe", 2);
-        this.axe = new Item("Stone axe", 2);
-        this.axe = new Item("Steel axe", 2);
-        this.axe = new Item("Alluminium axe", 2);
+        this.axe = new Item("Stone axe", 3);
+        this.axe = new Item("Steel axe", 4);
+        this.axe = new Item("Alluminium axe", 3);
 
         // Creation of Pickaxe
         this.pickaxe = new Item("Wooden pickaxe", 2);
-        this.pickaxe = new Item("Stone pickaxe", 2);
-        this.pickaxe = new Item("Steel pickaxe", 2);
-        this.pickaxe = new Item("Alluminium pickaxe", 2);
+        this.pickaxe = new Item("Stone pickaxe", 3);
+        this.pickaxe = new Item("Steel pickaxe", 4);
+        this.pickaxe = new Item("Alluminium pickaxe", 3);
 
 
         //Creation of consumable
