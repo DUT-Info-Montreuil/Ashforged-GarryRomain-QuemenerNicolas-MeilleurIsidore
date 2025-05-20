@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
 
-    private static final int GRAVITY = 1;
+
 
     @Override
     public void start(Stage stage) throws IOException {
