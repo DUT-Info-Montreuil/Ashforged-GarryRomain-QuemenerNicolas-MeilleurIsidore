@@ -19,15 +19,12 @@ public class HelloApplication extends Application {
     public static Item arc1 = new Item("arc",4);
 
     // Creation of the main character
-    public static Personnage personnage = new Personnage("Hero", 15, new int[]{1, 1, 10, 1},600, 250);
+    //public static Personnage personnage = new Personnage("Hero", 15, new int[]{1, 1, 10, 1},600, 250);
 
     // Creation of NPC
-    public static Personnage paolo = new Personnage("Paolo", 15, new int[]{1, 1, 10, 1},600, 250);
-    public static Personnage branda = new Personnage("Branda", 15, new int[]{1, 1, 10, 1},600, 250);
-    public static Personnage terry = new Personnage("Terry", 15, new int[]{1, 1, 10, 1},600, 250);
-    public static Personnage salome = new Personnage("Salome", 15, new int[]{1, 1, 10, 1},600, 250);
 
-    private static final int GROUND_LEVEL = personnage.getY();
+
+    //private static final int GROUND_LEVEL = personnage.getY();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -39,11 +36,6 @@ public class HelloApplication extends Application {
         stage.show();
         //applyGravity(personnage, GROUND_LEVEL);
     }
-
-    public static Personnage getPersonnage() {
-        return personnage;
-    }
-
     public static void main(String[] args) {
         launch();
     }

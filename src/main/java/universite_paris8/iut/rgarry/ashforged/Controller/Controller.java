@@ -23,8 +23,9 @@ public class Controller implements Initializable {
     @FXML
     private Pane paneperso;
 
-    private final Personnage personnage = HelloApplication.getPersonnage();
-    private final PersonnageController personnageController = new PersonnageController(personnage);
+    private final PersonnageController personnageController = new PersonnageController();
+    private final Personnage personnage = PersonnageController.getPersonnage();
+
 
     private Timeline timeline;
 
