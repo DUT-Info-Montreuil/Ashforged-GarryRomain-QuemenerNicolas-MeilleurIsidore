@@ -14,12 +14,6 @@ public class HelloApplication extends Application {
 
     private static final int GRAVITY = 1;
 
-    public static Item epee = new Item("Epee de fer", 5);
-    public static Item arc = new Item("Arc en bois", 3);
-    public static Item arc1 = new Item("arc",4);
-    public static Personnage personnage = new Personnage("Hero", 15, new int[]{1, 1, 10, 1},600, 250);
-    private static final int GROUND_LEVEL = personnage.getY();
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -30,11 +24,6 @@ public class HelloApplication extends Application {
         stage.show();
         //applyGravity(personnage, GROUND_LEVEL);
     }
-
-    public static Personnage getPersonnage() {
-        return personnage;
-    }
-
     public static void main(String[] args) {
         launch();
     }

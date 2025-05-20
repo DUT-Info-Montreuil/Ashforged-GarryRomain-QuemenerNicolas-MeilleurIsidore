@@ -11,14 +11,32 @@ public class PersonnageController {
     private final BooleanProperty sPressed = new SimpleBooleanProperty();
     private final BooleanProperty dPressed = new SimpleBooleanProperty();
 
-    private final Personnage personnage;
-    private double velocityY = 0;
+    private static Personnage personnage;
+    private static Personnage paolo;
+    private static Personnage branda;
+    private static Personnage terry;
+    private static Personnage salome;
+
+    private double velocityY;
     private final double gravity = 0.5;
     private final int GROUND_LEVEL = 150;
     private final double jumpStrength = -15;
 
-    public PersonnageController(Personnage personnage) {
-        this.personnage = personnage;
+    public PersonnageController() {
+        // Creation of the main character
+        this.personnage = new Personnage("Hero", 15, new int[]{1, 1, 10, 1},600, 250);
+
+        // Creation of NPC
+        this.paolo = new Personnage("Paolo", 15, new int[]{1, 1, 10, 1},600, 250);
+        this.branda = new Personnage("Branda", 15, new int[]{1, 1, 10, 1},600, 250);
+        this.terry = new Personnage("Terry", 15, new int[]{1, 1, 10, 1},600, 250);
+        this.salome = new Personnage("Salome", 15, new int[]{1, 1, 10, 1},600, 250);
+    }
+
+
+
+    public static Personnage getPersonnage() {
+        return personnage;
     }
 
     public void setupKeyHandlers(Pane pane) {
