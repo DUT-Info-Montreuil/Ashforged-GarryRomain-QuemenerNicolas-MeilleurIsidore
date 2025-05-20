@@ -27,6 +27,7 @@ public class Controller implements Initializable {
 
     private final PersonnageController personnageController = new PersonnageController();
     private final Personnage personnage = PersonnageController.getPersonnage();
+    private PersonnageView personnageView;
 
 
     private Timeline timeline;
@@ -35,7 +36,7 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Field field = new Field();
         FieldView fieldView = new FieldView(tilepane, field);
-        PersonnageView personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
+        this.personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
         startTimeline();
     }
 
@@ -46,12 +47,14 @@ public class Controller implements Initializable {
             }
             if (personnageController.isQPressed()) {
                 personnageController.handleLeft();
+                this.personnageView.changeSprite('l');
             }
             if (personnageController.isSPressed()) {
                 personnageController.handleDown();
             }
             if (personnageController.isDPressed()) {
                 personnageController.handleRight();
+                this.personnageView.changeSprite('r');
             }
             personnageController.applyGravity();
         }));
