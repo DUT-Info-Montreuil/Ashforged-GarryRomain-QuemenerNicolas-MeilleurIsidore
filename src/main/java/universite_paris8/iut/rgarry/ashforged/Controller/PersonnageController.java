@@ -17,7 +17,7 @@ public class PersonnageController {
     private static Personnage terry;
     private static Personnage salome;
 
-    private double velocityY = 0;
+    private double velocityY;
     private final double gravity = 0.5;
     private final int GROUND_LEVEL = 150;
     private final double jumpStrength = -15;
