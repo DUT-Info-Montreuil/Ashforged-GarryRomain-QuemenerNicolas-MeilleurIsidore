@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
 import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
 import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
 
@@ -20,10 +21,23 @@ public class PersonnageController {
     private static Personnage terry;
     private static Personnage salome;
 
+    private static Mobs mongolfière;
+    private static Mobs soldat;
+    private static Mobs zombie;
+    private static Mobs bandit;
+    private static Mobs boss;
+    private static Mobs kozuki;
+
     private double velocityY;
     private final double gravity = 0.5;
     private final int GROUND_LEVEL = 150;
     private final double jumpStrength = -15;
+
+    private Mobs[] mobs;
+    private Mobs[] mobsOnMap = new Mobs[30];
+
+
+
 
     public PersonnageController() {
         // Creation of the main character
@@ -34,9 +48,22 @@ public class PersonnageController {
         this.branda = new Npc("Branda", 15, 100,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Usuable.golden_piece}, 600, 250);;
         this.terry = new Npc("Terry", 15, 100,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Weapon.bow, ItemStock.Usuable.coal}, 600, 250);
         this.salome = new Npc("Salome", 15, 100,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Weapon.bow, ItemStock.Usuable.coal}, 600, 250);
+
+        mobs = new Mobs[] {
+                this.mongolfière = new Mobs("Mongolfière", 15, 100, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.bomb, 600, 250),
+                this.soldat = new Mobs("Soldat", 15, 100, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.stone_sword, 600, 250),
+                this.zombie = new Mobs("Zombie", 15, 100, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.stick, 600, 250),
+                this.bandit = new Mobs("Bandit", 15, 100, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.firearm, 600, 250),
+                this.boss = new Mobs("Boss", 20, 100, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.steel_sabre, 600, 250),
+        };
+        this.kozuki = new Mobs("Kozuki", 30, 100, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.enma, 600, 250);
+
+        mobsOnMap = new Mobs[30];
+
+        for (int i = 0; i < mobsOnMap.length; i++) {
+            mobsOnMap[i] = mobs[(int)(Math.random()* 6)];
+        }
     }
-
-
 
     public static Personnage getPersonnage() {
         return personnage;
@@ -104,5 +131,13 @@ public class PersonnageController {
 
     public boolean isDPressed() {
         return dPressed.get();
+    }
+
+    public void spawnMob(){
+        for (int i = 0; i < mobsOnMap.length; i++) {
+            if (mobsOnMap[i] == null) {
+                mobsOnMap[i] = mobs[(int)(Math.random()* mobsOnMap.length)];
+            }
+        }
     }
 }

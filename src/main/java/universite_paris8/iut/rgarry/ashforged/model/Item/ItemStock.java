@@ -41,7 +41,11 @@ public class ItemStock {
         aluminium_pickaxe("Aluminium pickaxe", 3, 20, 256, "#22"),
 
         // Creation of firearm
-        firearm("Shotgun", 5, 25, 256, "#23");
+        firearm("Shotgun", 5, 25, 256, "#23"),
+
+        bomb("Bomb", 4, 10, 1, "#24"),
+
+        enma("Enma", 10, 30, 300, "#2202");
 
 
 
