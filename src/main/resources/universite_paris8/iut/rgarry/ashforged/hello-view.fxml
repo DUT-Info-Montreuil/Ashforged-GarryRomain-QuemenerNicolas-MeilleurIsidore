@@ -8,9 +8,10 @@
       <Label alignment="CENTER" text="Ashforged" BorderPane.alignment="CENTER" />
    </top>
    <center>
-      <Pane fx:id="paneperso" BorderPane.alignment="CENTER">
+      <Pane fx:id="camera" BorderPane.alignment="CENTER">
          <children>
             <TilePane fx:id="tilepane" alignment="CENTER" BorderPane.alignment="CENTER" />
+            <Pane fx:id="paneperso" prefHeight="0.0" prefWidth="0.0" />
          </children>
       </Pane>
    </center>
