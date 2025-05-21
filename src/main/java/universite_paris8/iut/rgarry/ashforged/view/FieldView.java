@@ -39,10 +39,13 @@ public class FieldView {
                 ImageView imageView;
                 if (field.block(x, y) == 1) {
                     imageView = new ImageView(ciel);
+                    imageView.setId("ciel");
                 } else if (field.block(x, y) == 2) {
                     imageView = new ImageView(terre);
+                    imageView.setId("terre");
                 } else {
                     imageView = new ImageView(pierre);
+                    imageView.setId("pierre");
                 }
                 imageView.setFitWidth(tileWidth);
                 imageView.setFitHeight(tileHeight);

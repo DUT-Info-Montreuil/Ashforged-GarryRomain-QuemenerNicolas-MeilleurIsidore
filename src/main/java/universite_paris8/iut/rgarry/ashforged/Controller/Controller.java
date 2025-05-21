@@ -25,17 +25,19 @@ public class Controller implements Initializable {
     @FXML
     private Pane paneperso;
 
-    private final PersonnageController personnageController = new PersonnageController();
-    private final Personnage personnage = PersonnageController.getPersonnage();
     private PersonnageView personnageView;
-
+    private PersonnageController personnageController;
+    private Personnage personnage;
 
     private Timeline timeline;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Field field = new Field();
+        personnageController = new PersonnageController(tilepane, paneperso);
+        personnage = personnageController.getPersonnage();
         FieldView fieldView = new FieldView(tilepane, field);
+
         this.personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
         startTimeline();
     }
@@ -57,6 +59,10 @@ public class Controller implements Initializable {
                 this.personnageView.changeSprite('r');
             }
             personnageController.applyGravity();
+            personnageController.checkCollisionBottom();
+            personnageController.checkCollisionLeft();
+            personnageController.checkCollisionRight();
+            personnageController.checkCollisionTop();
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();

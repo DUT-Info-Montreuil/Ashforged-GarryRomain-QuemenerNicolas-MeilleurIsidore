@@ -34,21 +34,27 @@ public class Personnage {
         this.maxPods =10*stats[1];
     }
 
-    public void deplacer(char direction) {
+    public void deplacer(char direction, int maxX, int maxY) {
+        int newX = getX();
+        int newY = getY();
+        int vitesse = getVitesse();
+
         switch (direction) {
             case 'u':
-                this.setY((getY() - getVitesse()));
+                newY = Math.max(0, getY() - vitesse);
                 break;
             case 'd':
-                this.setY((getY() + getVitesse()));
+                newY = Math.min(maxY, getY() + vitesse);
                 break;
             case 'l':
-                this.setX((getX() - getVitesse()));
+                newX = Math.max(0, getX() - vitesse);
                 break;
             case 'r':
-                this.setX((getX() + getVitesse()));
+                newX = Math.min(maxX, getX() + vitesse);
                 break;
         }
+        setX(newX);
+        setY(newY);
     }
 
     public String getId() {
