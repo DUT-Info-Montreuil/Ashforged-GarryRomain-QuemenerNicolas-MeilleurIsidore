@@ -69,10 +69,6 @@ public class PersonnageController {
         this.kozuki = new Mobs("Kozuki", 30, 100, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.enma, 600, 250);
 
         mobsOnMap = new Mobs[30];
-
-        for (int i = 0; i < mobsOnMap.length; i++) {
-            mobsOnMap[i] = mobs[(int)(Math.random()* 6)];
-        }
     }
 
 
