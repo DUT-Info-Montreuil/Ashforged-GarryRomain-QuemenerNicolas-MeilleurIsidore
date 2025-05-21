@@ -24,6 +24,8 @@ public class Controller implements Initializable {
     private TilePane tilepane;
     @FXML
     private Pane paneperso;
+    @FXML
+    private Pane camera;
 
     private PersonnageView personnageView;
     private PersonnageController personnageController;
@@ -39,6 +41,10 @@ public class Controller implements Initializable {
         FieldView fieldView = new FieldView(tilepane, field);
 
         this.personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
+
+        camera.translateXProperty().bind(personnage.getXProperty().multiply(-1).add(1920/2));
+        camera.translateYProperty().bind(personnage.getYProperty().multiply(-1).add(1080/2));
+        
         startTimeline();
     }
 
