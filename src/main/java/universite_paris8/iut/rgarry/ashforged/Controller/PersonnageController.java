@@ -36,9 +36,8 @@ public class PersonnageController {
     private static Mobs kozuki;
 
     private double velocityY;
-    private final double gravity = 0.5;
-    private final int GROUND_LEVEL = 150;
-    private final double jumpStrength = -15;
+    private final double GRAVITY = 0.5;
+    private final double JUMP_STRENGHT = -15;
 
     private final TilePane tilePane;
     private final Pane panePerso;
