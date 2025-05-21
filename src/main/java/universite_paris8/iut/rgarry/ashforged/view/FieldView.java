@@ -9,33 +9,32 @@ public class FieldView {
 
     private Field field;
     private TilePane tilepane;
+    private static final double TILE_SIZE = 64; // Taille fixe d'une tuile
 
-    public FieldView(TilePane tilepane,Field field) {
+    public FieldView(TilePane tilepane, Field field) {
         this.field = field;
         this.tilepane = tilepane;
-        this.createField(tilepane, 1920, 1080);
+        this.createField(tilepane);
     }
 
-    public void createField(TilePane tilepane, double screenWidth, double screenHeight) {
+    public void createField(TilePane tilepane) {
         int rows = field.hauteur();
         int cols = field.longueur();
 
-        // Calculate tile size to fit the screen
-        double tileWidth = screenWidth / cols;
-        double tileHeight = screenHeight / rows;
-
+        tilepane.getChildren().clear(); // Clear previous tiles
         tilepane.setPrefColumns(cols);
         tilepane.setPrefRows(rows);
-        tilepane.setPrefSize(screenWidth, screenHeight);
-        tilepane.setHgap(-1);
-        tilepane.setVgap(-1);
+        tilepane.setPrefSize(cols * TILE_SIZE, rows * TILE_SIZE);
+        tilepane.setHgap(0);
+        tilepane.setVgap(0);
+        tilepane.setAlignment(javafx.geometry.Pos.TOP_LEFT);
 
         Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Ciel.png").toExternalForm());
         Image terre = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Terre.png").toExternalForm());
         Image pierre = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Pierre.png").toExternalForm());
 
-        for (int y = 0; y < field.hauteur(); y++) {
-            for (int x = 0; x < field.longueur(); x++) {
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
                 ImageView imageView;
                 if (field.block(x, y) == 1) {
                     imageView = new ImageView(ciel);
@@ -47,12 +46,10 @@ public class FieldView {
                     imageView = new ImageView(pierre);
                     imageView.setId("pierre");
                 }
-                imageView.setFitWidth(tileWidth);
-                imageView.setFitHeight(tileHeight);
+                imageView.setFitWidth(TILE_SIZE);
+                imageView.setFitHeight(TILE_SIZE);
                 tilepane.getChildren().add(imageView);
             }
         }
     }
-
-
 }
