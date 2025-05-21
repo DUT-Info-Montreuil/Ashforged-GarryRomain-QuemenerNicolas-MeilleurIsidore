@@ -2,6 +2,9 @@ package universite_paris8.iut.rgarry.ashforged.Controller;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Pane;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
 import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
 
 public class PersonnageController {
@@ -12,7 +15,7 @@ public class PersonnageController {
     private final BooleanProperty dPressed = new SimpleBooleanProperty();
 
     private static Personnage personnage;
-    private static Personnage paolo;
+    private static Npc paolo;
     private static Personnage branda;
     private static Personnage terry;
     private static Personnage salome;
@@ -27,10 +30,10 @@ public class PersonnageController {
         this.personnage = new Personnage("Hero", 15, new int[]{1, 1, 10, 1},600, 250);
 
         // Creation of NPC
-        this.paolo = new Personnage("Paolo", 15, new int[]{1, 1, 10, 1},600, 250);
-        this.branda = new Personnage("Branda", 15, new int[]{1, 1, 10, 1},600, 250);
-        this.terry = new Personnage("Terry", 15, new int[]{1, 1, 10, 1},600, 250);
-        this.salome = new Personnage("Salome", 15, new int[]{1, 1, 10, 1},600, 250);
+        this.paolo = new Npc("Paolo", 15, 100,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Weapon.bow, ItemStock.Usuable.coal}, 600, 250);
+        this.branda = new Npc("Branda", 15, 100,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Usuable.golden_piece}, 600, 250);;
+        this.terry = new Npc("Terry", 15, 100,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Weapon.bow, ItemStock.Usuable.coal}, 600, 250);
+        this.salome = new Npc("Salome", 15, 100,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Weapon.bow, ItemStock.Usuable.coal}, 600, 250);
     }
 
 

@@ -2,7 +2,8 @@ package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Item;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 
 public class Personnage {
     private int velocity = 1;
@@ -10,7 +11,7 @@ public class Personnage {
     private String name;
     private int level;
     private int[] stats;
-    private Item[] items;
+    private ItemInterface[] items;
     private int pods;
     private int maxPods;
 
@@ -28,7 +29,7 @@ public class Personnage {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.stat_point += 5*(level+1);
-        this.items = new Item[30];
+        this.items = new ItemInterface[30];
         this.pods = pods;
         this.maxPods =10*stats[1];
     }
@@ -135,7 +136,7 @@ public class Personnage {
         System.out.println("------ End of Inventory ------");
     }
 
-    public void addToInventory(Item item) {
+    public void addToInventory(ItemInterface item) {
         System.out.println("------ Add to Inventory ------");
         int i = 0;
         boolean add = false;
@@ -154,7 +155,7 @@ public class Personnage {
         }
     }
 
-    public void removeFromInventory(Item item) {
+    public void removeFromInventory(ItemInterface item) {
         System.out.println("------ Remove from Inventory ------");
         boolean removed = false;
 

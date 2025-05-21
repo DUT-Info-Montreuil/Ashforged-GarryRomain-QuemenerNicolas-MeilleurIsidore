@@ -5,9 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Item;
-import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
-
 import java.io.IOException;
 
 public class HelloApplication extends Application {
