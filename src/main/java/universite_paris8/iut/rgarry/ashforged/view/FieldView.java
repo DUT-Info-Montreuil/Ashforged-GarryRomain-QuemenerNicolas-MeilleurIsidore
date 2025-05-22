@@ -17,6 +17,12 @@ public class FieldView {
         this.createField(tilepane);
     }
 
+    /***
+     * Permet de créer le terrain en fonction du tableau regroupant les tuiles à poser
+     * présent dans la classe FieldView en plaçant les bons tuiles au bon endroit.
+     *
+     * @param tilepane
+     */
     public void createField(TilePane tilepane) {
         int rows = field.hauteur();
         int cols = field.longueur();

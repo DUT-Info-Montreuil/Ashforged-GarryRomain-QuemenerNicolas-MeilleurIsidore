@@ -24,9 +24,9 @@ public class PersonnageController {
 
     private static Personnage personnage;
     private static Npc paolo;
-    private static Personnage branda;
-    private static Personnage terry;
-    private static Personnage salome;
+    private static Npc branda;
+    private static Npc terry;
+    private static Npc salome;
 
     private static Mobs mongolfière;
     private static Mobs soldat;
@@ -76,6 +76,12 @@ public class PersonnageController {
         return personnage;
     }
 
+    /***
+     * Permet de spécifier dans les variables Pressed si une touche est pressée ou non et donc
+     * gérer son déplacment.
+     *
+     * @param pane
+     */
     public void setupKeyHandlers(Pane pane) {
         pane.setOnKeyPressed(event -> {
             switch (event.getCode()) {
@@ -96,6 +102,9 @@ public class PersonnageController {
         });
     }
 
+    /***
+     * Permet d'appliquer une gravité au personnage et qu'il reste fixé au sol.
+     */
     public void applyGravity() {
         velocityY += GRAVITY;
         int steps = (int) Math.abs(velocityY);
@@ -113,6 +122,12 @@ public class PersonnageController {
         }
     }
 
+    /***
+     * Permet de vérifier si le personnage entre en collision avec un bloque et l'empêche de passer à travers.
+     *
+     * @param direction
+     * @return
+     */
     private boolean checkCollision(Direction direction) {
         int deplacement = personnage.getVitesse();
         var persoNodes = panePerso.getChildren().stream()
@@ -175,15 +190,29 @@ public class PersonnageController {
     public boolean checkCollisionTop()    { return checkCollision(Direction.TOP); }
     public boolean checkCollisionBottom() { return checkCollision(Direction.BOTTOM); }
 
+    /***
+     * Permet de gérer le saut du personnage.
+     */
     public void handleJump() {
         if (checkCollisionBottom() && velocityY == 0) {
             velocityY = JUMP_STRENGHT;
         }
     }
 
+    /***
+     * Permet de retourner la longueur de la map.
+     *
+     * @return
+     */
     private int getMaxX() {
         return (int) tilePane.getWidth() + 1;
     }
+
+    /***
+     * Permet de retourner la hauteur de la map.
+     *
+     * @return
+     */
     private int getMaxY() {
         return (int) tilePane.getHeight();
     }
@@ -193,6 +222,7 @@ public class PersonnageController {
             personnage.deplacer('l', getMaxX(), getMaxY());
         }
     }
+
 
     public void handleDown() {
         if (!checkCollisionBottom()) {

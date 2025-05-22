@@ -34,6 +34,13 @@ public class Personnage {
         this.maxPods =10*stats[1];
     }
 
+    /***
+     * Permet de gérer la direction du déplacement du joueur.
+     *
+     * @param direction
+     * @param maxX
+     * @param maxY
+     */
     public void deplacer(char direction, int maxX, int maxY) {
         int newX = getX();
         int newY = getY();
@@ -57,74 +64,128 @@ public class Personnage {
         setY(newY);
     }
 
+    /***
+     * Permet de retourner l'identifiant du personnage jouable ou des mobs et des NPC.
+     *
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /***
+     * Permet de retourner le nom du personnage jouable ou des mobs et des NPC.
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /***
+     * Permet de retourner le niveau du joueur et des personnages.
+     *
+     * @return
+     */
     public int getLevel() {
         return level;
     }
 
+    /***
+     * Permet de retourner l'ensemble des stats du joueur et des personnages.
+     *
+     * @return
+     */
     public int[] getStats() {
         return stats;
-    }
-
-    public int getStatPoint() {
-        return stat_point;
     }
 
     public IntegerProperty getXProperty() {
         return x;
     }
 
+    /***
+     * Permet d'afficher la position en "x" du joueur et des personnages.
+     *
+     * @return
+     */
     public int getX() {
         return x.getValue();
     }
+
 
     public IntegerProperty getYProperty() {
         return y;
     }
 
+    /***
+     * Permet de retourner la position en "y" du joueur et des personnages.
+     *
+     * @return
+     */
     public int getY() {
         return y.getValue();
     }
 
+    /***
+     * Permet de modifier ma position en "x" du joueur et des personnages.
+     *
+     * @param pos
+     */
     public void setX(int pos) {
         x.setValue(pos);
     }
 
+    /***
+     * Permet de modifier ma position en "y" du joueur et des personnages.
+     *
+     * @param pos
+     */
     public void setY(int pos) {
         y.setValue(pos);
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /***
+     * Permet de modifier le niveau du joueur et des personnages.
+     *
+     * @param level
+     */
     public void setLevel(int level) {
         this.level = level;
     }
 
+    /***
+     * Permet de retourner la vitesse du joueur et des personages.
+     *
+     * @return
+     */
     public int getVitesse() {
         return this.stats[2];
     }
 
+    /***
+     * Permet de modifier les statistiques actuelles du joueur et des personnages.
+     * Cette fonction est appelé lorque le joueur monte de niveau.
+     *
+     * @param stats
+     */
     public void setStats(int[] stats) {
         this.stats = stats;
     }
 
+    /***
+     * Permet de modifier les statistiques stocker qui pourront être attribuer au joueur et aux personnages.
+     *
+     * @param stat_point
+     */
     public void setStatPoint(int stat_point) {
         this.stat_point = stat_point;
     }
 
+
+    /***
+     *  Permet d'afficher l'ensemble des items présents dans l'inventaire du joueur.
+     */
     public void getInventory() {
         System.out.println("------ Inventory ------");
         int i = 0;
@@ -142,6 +203,12 @@ public class Personnage {
         System.out.println("------ End of Inventory ------");
     }
 
+    /***
+     * Permet d'ajouter l'item voulu à l'inventaire s'il y a une place de libre
+     * ou que le poids max de la charge du personnage n'est pas dépassé.
+     *
+     * @param item
+     */
     public void addToInventory(ItemInterface item) {
         System.out.println("------ Add to Inventory ------");
         int i = 0;
@@ -161,6 +228,12 @@ public class Personnage {
         }
     }
 
+
+    /***
+     * Permet d'enlever un item présent dans l'inventaire.
+     *
+     * @param item
+     */
     public void removeFromInventory(ItemInterface item) {
         System.out.println("------ Remove from Inventory ------");
         boolean removed = false;

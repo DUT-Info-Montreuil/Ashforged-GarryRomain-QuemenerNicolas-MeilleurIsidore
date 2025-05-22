@@ -6,6 +6,10 @@ package universite_paris8.iut.rgarry.ashforged.model;
 public class Field {
     private int[][] tiles;
 
+    /***
+     * Permet la création de la map. Chaque chiffre représente une tuile diférente.
+     * Par exemple 1: bloque de ciel, 2: bloque de terre.
+     */
     public Field() {
         this.tiles = new int[][]{
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -36,14 +40,30 @@ public class Field {
 
     }
 
-   public int block(int x,int y){
+    /***
+     * Retourne le nombre de tuile en x et en y contenue dans le tableau de la map
+     *
+      * @param x
+     * @param y
+     * @return
+     */
+    public int block(int x,int y){
         return this.tiles[y][x];
    }
 
+    /***
+     * Retourne la longueur du tableau, c'est-à-dire le nombre de tuile.
+     * @return
+     */
     public int longueur() {
         return this.tiles[0].length;
     }
 
+    /***
+     * Retourne la hauteur du tableau, c'est-à-dire le nombre de tuile.
+     *
+     * @return
+     */
     public int hauteur() {
         return this.tiles.length;
     }
