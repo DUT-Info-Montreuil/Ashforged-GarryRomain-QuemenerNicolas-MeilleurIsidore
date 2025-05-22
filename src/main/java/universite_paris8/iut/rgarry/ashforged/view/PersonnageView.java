@@ -12,6 +12,16 @@ public class PersonnageView {
     private Image persoDroite;
     private Image persoGauche;
     private ImageView perso;
+
+    /***
+     * Permet d'instancier le sprite du personnage sur la map et de mettre à jour sa position
+     * après chaque déplacement.
+     *
+     * @param paneperso
+     * @param personnage
+     * @param personnageController
+     * @param field
+     */
     public PersonnageView(Pane paneperso, Personnage personnage, PersonnageController personnageController, Field field){
         this.paneperso=paneperso;
 
@@ -43,7 +53,6 @@ public class PersonnageView {
      *
      * @param direction
      */
-
     public void changeSprite(char direction){
         if(direction=='r'){
             perso.setImage(persoDroite);

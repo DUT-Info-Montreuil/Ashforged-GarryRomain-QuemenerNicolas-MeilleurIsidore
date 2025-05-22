@@ -61,6 +61,9 @@ public class Controller implements Initializable {
         startTimeline();
     }
 
+    /***
+     * Permet de gérer le déplacement du personnage dans le jeu et donc mettre à jour sa position.
+     */
     private void startTimeline() {
         timeline = new Timeline(new KeyFrame(Duration.millis(10), event -> {
             if (personnageController.isSpacePressed()) {

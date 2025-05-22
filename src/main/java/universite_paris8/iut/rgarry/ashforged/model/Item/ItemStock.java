@@ -2,6 +2,10 @@ package universite_paris8.iut.rgarry.ashforged.model.Item;
 
 public class ItemStock {
 
+    /***
+     * Cette énumération permet de créer en avance les nombreuses armes qui seront utilisé lors de tout le jeu
+     * par les mobs, les PNG et le joueur.
+     */
     public enum Weapon implements ItemInterface{
         //Creation of bow
         // Creation of bow
@@ -63,16 +67,31 @@ public class ItemStock {
             this.id = id;
         }
 
+        /***
+         * Retourne l'identifiant de l'arme sélectionner
+         *
+         * @return
+         */
         @Override
         public String getId() {
             return id;
         }
 
+        /***
+         * Retourne le nom de l'arme sélectionner
+         *
+         * @return
+         */
         @Override
         public String getName() {
             return name;
         }
 
+        /***
+         * Retourne le poids de l'arme sélectionner
+         *
+         * @return
+         */
         @Override
         public int getWeight() {
             return weight;
@@ -81,7 +100,10 @@ public class ItemStock {
 
     }
 
-
+    /***
+     * Cette énumération permet de créer en avance les nombreux objets qui seront utilisé lors de tout le jeu
+     * par les mobs, les PNG et le joueur.
+     */
     public enum Usuable  implements ItemInterface{
         ground("ground", 1, 0, "ground", true, "#25"),
         wood("wood", 2, 0, "wood", true, "#26"),
@@ -115,15 +137,31 @@ public class ItemStock {
             this.id = id;
         }
 
+        /***
+         * Retourne l'identifiant de l'objet sélectionné
+         *
+         * @return
+         */
         @Override
         public String getId() {
             return id;
         }
 
+        /***
+         * Retourne le nom de l'objet sélectionné
+         *
+         * @return
+         */
         @Override
         public String getName() {
             return name;
         }
+
+        /***
+         * Retourne le poids de l'objet sélectionné
+         *
+         * @return
+         */
 
         @Override
         public int getWeight() {
