@@ -2,6 +2,8 @@ package universite_paris8.iut.rgarry.ashforged.Controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -42,8 +44,19 @@ public class Controller implements Initializable {
 
         this.personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
 
+        IntegerBinding conditionalBinding = Bindings.createIntegerBinding(() -> {
+            int y = personnage.getY();
+            if (y > 928) {
+                System.out.println("test1");
+                return -928+(1080/2); // équivalent à 928*(-1) + 0
+            } else {
+                System.out.println("test2");
+                return -y+(1080/2);
+            }
+        },personnage.getYProperty());
+
         camera.translateXProperty().bind(personnage.getXProperty().multiply(-1).add(1920/2));
-        camera.translateYProperty().bind(personnage.getYProperty().multiply(-1).add(1080/2));
+        camera.translateYProperty().bind(conditionalBinding);
         
         startTimeline();
     }
