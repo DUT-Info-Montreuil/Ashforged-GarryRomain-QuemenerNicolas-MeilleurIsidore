@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -15,4 +16,18 @@
          </children>
       </Pane>
    </center>
+   <right>
+      <Pane prefHeight="384.0" prefWidth="412.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="AccesRapide1" layoutX="86.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
+            <Pane fx:id="AccesRapide2" layoutX="127.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
+            <Pane fx:id="AccesRapide3" layoutX="168.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
+            <Pane fx:id="AccesRapide4" layoutX="209.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
+            <Pane fx:id="AccesRapide5" layoutX="250.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
+            <Pane fx:id="AccesRapide6" layoutX="291.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
+            <Pane fx:id="AccesRapide7" layoutX="332.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
+            <Pane fx:id="AccesRapide8" layoutX="373.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
+         </children>
+      </Pane>
+   </right>
 </BorderPane>

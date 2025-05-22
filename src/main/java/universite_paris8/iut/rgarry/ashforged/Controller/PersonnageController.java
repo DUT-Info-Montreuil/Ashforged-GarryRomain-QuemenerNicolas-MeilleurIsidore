@@ -165,19 +165,15 @@ public class PersonnageController {
                     switch (direction) {
                         case LEFT -> {
                             personnage.setX((int) (tileBounds.getMaxX() + 1));
-                            System.out.println("Collision LEFT");
                         }
                         case RIGHT -> {
                             personnage.setX((int) (tileBounds.getMinX() - bounds.getWidth()));
-                            System.out.println("Collision RIGHT");
                         }
                         case TOP -> {
                             personnage.setY((int) tileBounds.getMaxY() + 1);
-                            System.out.println("Collision TOP");
                         }
                         case BOTTOM -> {
                             personnage.setY((int) (tileBounds.getMinY() - bounds.getHeight()));
-                            System.out.println("Collision BOTTOM");
                         }
                     }
                     return true;

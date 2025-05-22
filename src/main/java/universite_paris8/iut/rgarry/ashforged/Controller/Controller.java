@@ -29,6 +29,23 @@ public class Controller implements Initializable {
     @FXML
     private Pane camera;
 
+    @FXML
+    private Pane AccesRapide1;
+    @FXML
+    private Pane AccesRapide2;
+    @FXML
+    private Pane AccesRapide3;
+    @FXML
+    private Pane AccesRapide4;
+    @FXML
+    private Pane AccesRapide5;
+    @FXML
+    private Pane AccesRapide6;
+    @FXML
+    private Pane AccesRapide7;
+    @FXML
+    private Pane AccesRapide8;
+
     private PersonnageView personnageView;
     private PersonnageController personnageController;
     private Personnage personnage;
@@ -57,7 +74,9 @@ public class Controller implements Initializable {
 
         camera.translateXProperty().bind(personnage.getXProperty().multiply(-1).add(1920/2));
         camera.translateYProperty().bind(conditionalBinding);
-        
+
+        initaliseButton();
+
         startTimeline();
     }
 
@@ -89,4 +108,32 @@ public class Controller implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
+
+    public void initaliseButton(){
+        AccesRapide8.setOnMouseClicked(event -> {
+            System.out.println(8);
+        });
+        AccesRapide7.setOnMouseClicked(event -> {
+            System.out.println(7);
+        });
+        AccesRapide6.setOnMouseClicked(event -> {
+            System.out.println(6);
+        });
+        AccesRapide5.setOnMouseClicked(event -> {
+            System.out.println(5);
+        });
+        AccesRapide4.setOnMouseClicked(event -> {
+            System.out.println(4);
+        });
+        AccesRapide3.setOnMouseClicked(event -> {
+            System.out.println(3);
+        });
+        AccesRapide2.setOnMouseClicked(event -> {
+            System.out.println(2);
+        });
+        AccesRapide1.setOnMouseClicked(event -> {
+            System.out.println(1);
+        });
+    }
+
 }
