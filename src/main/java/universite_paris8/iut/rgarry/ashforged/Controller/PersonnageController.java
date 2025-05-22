@@ -123,10 +123,12 @@ public class PersonnageController {
     }
 
     /***
-     * Permet de vérifier si le personnage entre en collision avec un bloque et l'empêche de passer à travers.
+     *Détecte une collision entre le personnage et les tuiles du terrain dans la direction donnée.
+     *Ajuste la position du personnage en cas de collision pour éviter le chevauchement.
      *
-     * @param direction
-     * @return
+     *
+     * @param direction Direction du déplacement à tester (LEFT, RIGHT, TOP, BOTTOM)
+     * @return true si une collision est détectée, false sinon
      */
     private boolean checkCollision(Direction direction) {
         int deplacement = personnage.getVitesse();
