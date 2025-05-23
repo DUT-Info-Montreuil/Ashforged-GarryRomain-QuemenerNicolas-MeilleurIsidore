@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -30,4 +31,18 @@
          </children>
       </Pane>
    </right>
+   <bottom>
+      <Pane fx:id="ContainerInvontory" maxWidth="500.0" prefHeight="200.0" style="-fx-background-color: lightgreen;" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="100.0" left="10.0" right="10.0" />
+         </BorderPane.margin>
+         <children>
+            <TilePane fx:id="Inventory" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="quit" layoutX="458.0" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: red;">
+               <padding>
+                  <Insets right="10.0" />
+               </padding></Pane>
+         </children>
+      </Pane>
+   </bottom>
 </BorderPane>

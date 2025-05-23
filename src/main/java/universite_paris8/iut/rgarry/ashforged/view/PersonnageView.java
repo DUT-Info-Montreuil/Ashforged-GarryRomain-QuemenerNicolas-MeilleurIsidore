@@ -27,8 +27,8 @@ public class PersonnageView {
 
         paneperso.setPrefSize(field.longueur(), field.hauteur());
 
-        this.persoDroite = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/personnage.png").toExternalForm());
-        this.persoGauche = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/personnageDroite.png").toExternalForm());
+        this.persoDroite = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/New Piskel-2.png.png").toExternalForm());
+        this.persoGauche = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/New Piskel-3.png.png").toExternalForm());
         this.perso = new ImageView(persoDroite);
 
         this.perso.setId("perso");

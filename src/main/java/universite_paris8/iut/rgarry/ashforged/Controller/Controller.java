@@ -46,6 +46,16 @@ public class Controller implements Initializable {
     @FXML
     private Pane AccesRapide8;
 
+    @FXML
+    private Pane ContainerInvontory;
+
+    @FXML
+    private TilePane Inventory;
+
+    @FXML
+    private Pane quit;
+
+
     private PersonnageView personnageView;
     private PersonnageController personnageController;
     private Personnage personnage;
@@ -76,6 +86,13 @@ public class Controller implements Initializable {
         camera.translateYProperty().bind(conditionalBinding);
 
         initaliseButton();
+
+        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Ciel.png").toExternalForm());
+        for(int i = 0; i<20;i++) {
+            ImageView imageView = new ImageView(ciel);
+            Inventory.getChildren().add(imageView);
+        }
+
 
         startTimeline();
     }
@@ -133,7 +150,17 @@ public class Controller implements Initializable {
         });
         AccesRapide1.setOnMouseClicked(event -> {
             System.out.println(1);
+            Inventory.setVisible(true);
+            ContainerInvontory.setVisible(true);
+            quit.setVisible(true);
         });
+        quit.setOnMouseClicked(event -> {
+            Inventory.setVisible(false);
+            ContainerInvontory.setVisible(false);
+            quit.setVisible(false);
+        });
+
+        AccesRapide1.setVisible(true);
     }
 
 }
