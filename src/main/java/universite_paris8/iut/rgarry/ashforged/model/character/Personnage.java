@@ -14,6 +14,10 @@ public class Personnage {
     private ItemInterface[] items;
     private int pods;
     private int maxPods;
+    private IntegerProperty health = new SimpleIntegerProperty();
+    private int maxHealth;
+    private IntegerProperty exp = new SimpleIntegerProperty(0);
+    private IntegerProperty expToNextLevel = new SimpleIntegerProperty(5);
 
     // Exemple de statistiques: {hp: 5, str: 5, spd: 5, ...}
 
@@ -32,6 +36,8 @@ public class Personnage {
         this.items = new ItemInterface[30];
         this.pods = pods;
         this.maxPods =10*stats[1];
+        this.maxHealth = 3*stats[0];
+        this.health.set(this.maxHealth);
     }
 
     /***
@@ -180,6 +186,40 @@ public class Personnage {
      */
     public void setStatPoint(int stat_point) {
         this.stat_point = stat_point;
+    }
+
+    public int getHealth() {
+        return health.get();
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public IntegerProperty healthProperty() {
+        return health;
+    }
+
+    public void setHealth(int value) {
+        this.health.set(value);
+    }
+
+    public IntegerProperty expProperty() { return exp; }
+    public IntegerProperty expToNextLevelProperty() { return expToNextLevel; }
+    public int getExp() { return exp.get(); }
+    public int getExpToNextLevel() { return expToNextLevel.get(); }
+
+    public void gainExp(int amount) {
+        exp.set(exp.get() + amount);
+        while (exp.get() >= expToNextLevel.get()) {
+            exp.set(exp.get() - expToNextLevel.get());
+            levelUp();
+        }
+    }
+
+    private void levelUp() {
+        level++;
+        expToNextLevel.set(expToNextLevel.get() + 5);
     }
 
 

@@ -89,6 +89,21 @@ public class PersonnageController {
                 case Q -> qPressed.set(true);
                 case S -> sPressed.set(true);
                 case D -> dPressed.set(true);
+                case P -> {
+                    // Add health (max: maxHealth)
+                    int current = personnage.getHealth();
+                    int max = personnage.getMaxHealth();
+                    if (current < max) {
+                        personnage.setHealth(Math.min(current + 1, max));
+                    }
+                }
+                case O -> {
+                    // Remove health (min: 0)
+                    int current = personnage.getHealth();
+                    if (current > 0) {
+                        personnage.setHealth(Math.max(current - 1, 0));
+                    }
+                }
             }
         });
 

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.shape.Rectangle?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.rgarry.ashforged.Controller.Controller">
    <top>
       <Label alignment="CENTER" text="Ashforged" BorderPane.alignment="CENTER" />
@@ -17,6 +18,16 @@
          </children>
       </Pane>
    </center>
+   <left>
+      <Pane fx:id="healthBarContainer" prefHeight="40.0" prefWidth="300.0" layoutX="10.0" layoutY="10.0" style="-fx-background-color: transparent;" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <Rectangle fx:id="healthBarBackground" width="200.0" height="20.0" arcWidth="10.0" arcHeight="10.0" fill="grey"/>
+            <Rectangle fx:id="healthBar" width="200.0" height="20.0" arcWidth="10.0" arcHeight="10.0" fill="red"/>
+            <Rectangle fx:id="expBarBackground" width="200.0" height="10.0" arcWidth="5.0" arcHeight="5.0" fill="lightgrey" layoutY="25.0"/>
+            <Rectangle fx:id="expBar" width="200.0" height="10.0" arcWidth="5.0" arcHeight="5.0" fill="blue" layoutY="25.0"/>
+         </children>
+      </Pane>
+   </left>
    <right>
       <Pane prefHeight="384.0" prefWidth="412.0" BorderPane.alignment="CENTER">
          <children>

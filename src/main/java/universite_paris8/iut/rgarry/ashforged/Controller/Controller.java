@@ -23,6 +23,17 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
+    private Pane healthBarContainer;
+    @FXML
+    private javafx.scene.shape.Rectangle healthBar;
+    @FXML
+    private javafx.scene.shape.Rectangle healthBarBackground;
+    @FXML
+    private javafx.scene.shape.Rectangle expBar;
+    @FXML
+    private javafx.scene.shape.Rectangle expBarBackground;
+
+    @FXML
     private TilePane tilepane;
     @FXML
     private Pane paneperso;
@@ -67,6 +78,17 @@ public class Controller implements Initializable {
         Field field = new Field();
         personnageController = new PersonnageController(tilepane, paneperso);
         personnage = personnageController.getPersonnage();
+
+        Personnage personnage = PersonnageController.getPersonnage();
+        double maxBarWidth = 200.0;
+        healthBar.widthProperty().bind(
+                personnage.healthProperty().divide((double) personnage.getMaxHealth()).multiply(maxBarWidth)
+        );
+        double maxExpBarWidth = 200.0;
+        expBar.widthProperty().bind(
+                Bindings.divide(personnage.expProperty(), personnage.expToNextLevelProperty()).multiply(maxExpBarWidth)
+        );
+
         FieldView fieldView = new FieldView(tilepane, field);
 
         this.personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
