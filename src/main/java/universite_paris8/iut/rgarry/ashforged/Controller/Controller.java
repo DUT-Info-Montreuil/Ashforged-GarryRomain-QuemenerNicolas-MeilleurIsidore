@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
@@ -103,16 +104,17 @@ public class Controller implements Initializable {
 
         Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/caseInventaire.png").toExternalForm());
         personnage.addToInventory(ItemStock.Usuable.golden_piece);
-        for(int i = 0; i<50;i++) {
+        for(int i = 0; i<48;i++) {
             ImageView imageView = new ImageView(ciel);
             int finalI1 = i;
             imageView.setOnMouseClicked(event -> {
-                ItemInterface outil = personnage.getInventory()[finalI1];
-                if (outil == null){
-                    System.out.println("Rien");
-                }
-                else {
-                    System.out.println(outil.getName());
+                if (event.getButton()== MouseButton.PRIMARY) {
+                    ItemInterface outil = personnage.getInventory()[finalI1];
+                    if (outil == null) {
+                        System.out.println("Rien");
+                    } else {
+                        System.out.println(outil.getName());
+                    }
                 }
             });
             Inventory.getChildren().add(imageView);

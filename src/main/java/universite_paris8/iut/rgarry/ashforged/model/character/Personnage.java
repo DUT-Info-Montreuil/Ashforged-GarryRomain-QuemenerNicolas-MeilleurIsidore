@@ -28,7 +28,7 @@ public class Personnage {
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.stat_point += 5*(level+1);
-        this.items = new ItemInterface[30];
+        this.items = new ItemInterface[48];
         this.pods = pods;
         this.maxPods =10*stats[1];
     }
