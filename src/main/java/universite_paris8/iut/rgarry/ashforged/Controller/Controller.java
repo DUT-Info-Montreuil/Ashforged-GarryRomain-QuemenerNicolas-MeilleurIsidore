@@ -5,11 +5,16 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.HelloApplication;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
@@ -17,6 +22,7 @@ import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
 import universite_paris8.iut.rgarry.ashforged.view.FieldView;
 import universite_paris8.iut.rgarry.ashforged.view.PersonnageView;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -62,7 +68,6 @@ public class Controller implements Initializable {
 
     @FXML
     private TilePane Inventory;
-
     @FXML
     private Pane quit;
 
@@ -79,42 +84,42 @@ public class Controller implements Initializable {
         personnageController = new PersonnageController(tilepane, paneperso);
         personnage = personnageController.getPersonnage();
 
-        Personnage personnage = PersonnageController.getPersonnage();
         double maxBarWidth = 200.0;
         healthBar.widthProperty().bind(
-                personnage.healthProperty().divide((double) personnage.getMaxHealth()).multiply(maxBarWidth)
+                Bindings.createDoubleBinding(
+                        () -> (personnage.getHealth() / (double) personnage.getMaxHealth()) * maxBarWidth,
+                        personnage.healthProperty(), personnage.healthProperty()
+                )
         );
-        double maxExpBarWidth = 200.0;
         expBar.widthProperty().bind(
-                Bindings.divide(personnage.expProperty(), personnage.expToNextLevelProperty()).multiply(maxExpBarWidth)
+                Bindings.createDoubleBinding(
+                        () -> (personnage.getExp() / (double) personnage.getExpToNextLevel()) * maxBarWidth,
+                        personnage.expProperty(), personnage.expToNextLevelProperty()
+                )
         );
 
         FieldView fieldView = new FieldView(tilepane, field);
-
-        this.personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
+        this.personnageView = new PersonnageView(paneperso, personnage, personnageController, field);
 
         IntegerBinding conditionalBinding = Bindings.createIntegerBinding(() -> {
             int y = personnage.getY();
             if (y > 928) {
-                System.out.println("test1");
-                return -928+(1080/2); // équivalent à 928*(-1) + 0
+                return -928 + (1080 / 2);
             } else {
-                System.out.println("test2");
-                return -y+(1080/2);
+                return -y + (1080 / 2);
             }
-        },personnage.getYProperty());
+        }, personnage.getYProperty());
 
-        camera.translateXProperty().bind(personnage.getXProperty().multiply(-1).add(1920/2));
+        camera.translateXProperty().bind(personnage.getXProperty().multiply(-1).add(1920 / 2));
         camera.translateYProperty().bind(conditionalBinding);
 
         initaliseButton();
 
         Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Ciel.png").toExternalForm());
-        for(int i = 0; i<20;i++) {
+        for (int i = 0; i < 20; i++) {
             ImageView imageView = new ImageView(ciel);
             Inventory.getChildren().add(imageView);
         }
-
 
         startTimeline();
     }
