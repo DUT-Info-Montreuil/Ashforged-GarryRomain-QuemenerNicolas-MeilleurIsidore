@@ -13,12 +13,15 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.HelloApplication;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
 import universite_paris8.iut.rgarry.ashforged.view.FieldView;
 import universite_paris8.iut.rgarry.ashforged.view.PersonnageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.locks.Condition;
 
 public class Controller implements Initializable {
 
@@ -71,27 +74,50 @@ public class Controller implements Initializable {
 
         this.personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
 
-        IntegerBinding conditionalBinding = Bindings.createIntegerBinding(() -> {
+        IntegerBinding conditionalBindingY = Bindings.createIntegerBinding(() -> {
             int y = personnage.getY();
             if (y > 928) {
-                System.out.println("test1");
                 return -928+(1080/2); // équivalent à 928*(-1) + 0
             } else {
-                System.out.println("test2");
                 return -y+(1080/2);
             }
         },personnage.getYProperty());
 
-        camera.translateXProperty().bind(personnage.getXProperty().multiply(-1).add(1920/2));
-        camera.translateYProperty().bind(conditionalBinding);
+        IntegerBinding conditionalBindingX = Bindings.createIntegerBinding(() -> {
+            int x = personnage.getX();
+            if (x < 960) {
+                return -960+(1920/2); // équivalent à 928*(-1) + 0
+            }
+            else if(x>(((field.longueur()*32)*2)-38)-864){
+                return -((((field.longueur()*32)*2)-38)-864)+(1920/2);
+            }
+            else {
+                return -x+(1920/2);
+            }
+        },personnage.getXProperty());
+
+        camera.translateXProperty().bind(conditionalBindingX);
+        camera.translateYProperty().bind(conditionalBindingY);
 
         initaliseButton();
 
-        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Ciel.png").toExternalForm());
-        for(int i = 0; i<20;i++) {
+        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/caseInventaire.png").toExternalForm());
+        personnage.addToInventory(ItemStock.Usuable.golden_piece);
+        for(int i = 0; i<50;i++) {
             ImageView imageView = new ImageView(ciel);
+            int finalI1 = i;
+            imageView.setOnMouseClicked(event -> {
+                ItemInterface outil = personnage.getInventory()[finalI1];
+                if (outil == null){
+                    System.out.println("Rien");
+                }
+                else {
+                    System.out.println(outil.getName());
+                }
+            });
             Inventory.getChildren().add(imageView);
         }
+        System.out.println(field.longueur());
 
 
         startTimeline();
@@ -150,14 +176,10 @@ public class Controller implements Initializable {
         });
         AccesRapide1.setOnMouseClicked(event -> {
             System.out.println(1);
-            Inventory.setVisible(true);
             ContainerInvontory.setVisible(true);
-            quit.setVisible(true);
         });
         quit.setOnMouseClicked(event -> {
-            Inventory.setVisible(false);
             ContainerInvontory.setVisible(false);
-            quit.setVisible(false);
         });
 
         AccesRapide1.setVisible(true);

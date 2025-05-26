@@ -3,7 +3,6 @@ package universite_paris8.iut.rgarry.ashforged.model.character;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 
 public class Personnage {
     private int velocity = 1;
@@ -186,7 +185,7 @@ public class Personnage {
     /***
      *  Permet d'afficher l'ensemble des items présents dans l'inventaire du joueur.
      */
-    public void getInventory() {
+    public ItemInterface[] getInventory() {
         System.out.println("------ Inventory ------");
         int i = 0;
         boolean empty = true;
@@ -201,7 +200,9 @@ public class Personnage {
             System.out.println("The inventory is empty\n");
         }
         System.out.println("------ End of Inventory ------");
+        return items;
     }
+
 
     /***
      * Permet d'ajouter l'item voulu à l'inventaire s'il y a une place de libre
