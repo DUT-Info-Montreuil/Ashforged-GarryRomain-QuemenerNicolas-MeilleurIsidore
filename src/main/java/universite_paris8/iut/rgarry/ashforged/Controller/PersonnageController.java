@@ -104,6 +104,16 @@ public class PersonnageController {
                         personnage.setHealth(Math.max(current - 1, 0));
                     }
                 }
+                case L -> {
+                    personnage.gainExp(1);
+                }
+                case K -> {
+                    // Remove experience (min: 0)
+                    int currentExp = personnage.getExp();
+                    if (currentExp > 0) {
+                        personnage.gainExp(-1);
+                    }
+                }
             }
         });
 

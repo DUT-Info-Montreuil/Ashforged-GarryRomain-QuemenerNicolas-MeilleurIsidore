@@ -5,12 +5,17 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
@@ -19,6 +24,7 @@ import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
 import universite_paris8.iut.rgarry.ashforged.view.FieldView;
 import universite_paris8.iut.rgarry.ashforged.view.PersonnageView;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -85,18 +91,21 @@ public class Controller implements Initializable {
         personnageController = new PersonnageController(tilepane, paneperso);
         personnage = personnageController.getPersonnage();
 
-        Personnage personnage = PersonnageController.getPersonnage();
         double maxBarWidth = 200.0;
         healthBar.widthProperty().bind(
-                personnage.healthProperty().divide((double) personnage.getMaxHealth()).multiply(maxBarWidth)
+                Bindings.createDoubleBinding(
+                        () -> (personnage.getHealth() / (double) personnage.getMaxHealth()) * maxBarWidth,
+                        personnage.healthProperty(), personnage.healthProperty()
+                )
         );
-        double maxExpBarWidth = 200.0;
         expBar.widthProperty().bind(
-                Bindings.divide(personnage.expProperty(), personnage.expToNextLevelProperty()).multiply(maxExpBarWidth)
+                Bindings.createDoubleBinding(
+                        () -> (personnage.getExp() / (double) personnage.getExpToNextLevel()) * maxBarWidth,
+                        personnage.expProperty(), personnage.expToNextLevelProperty()
+                )
         );
 
         FieldView fieldView = new FieldView(tilepane, field);
-
         this.personnageView = new PersonnageView(paneperso, personnage, personnageController, field);
 
         IntegerBinding conditionalBindingY = Bindings.createIntegerBinding(() -> {
@@ -158,7 +167,6 @@ public class Controller implements Initializable {
             });
         }
 
-
         startTimeline();
     }
 
@@ -191,7 +199,7 @@ public class Controller implements Initializable {
         timeline.play();
     }
 
-    public void initaliseButton() {
+    public void initaliseButton(){
         AccesRapide8.setOnMouseClicked(event -> {
             System.out.println(8);
         });
