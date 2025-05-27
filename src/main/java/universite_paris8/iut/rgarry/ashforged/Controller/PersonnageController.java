@@ -48,7 +48,7 @@ public class PersonnageController {
     private Mobs[] mobsOnMap = new Mobs[30];
 
     public PersonnageController(TilePane tilePane, Pane panePerso) {
-        this.personnage = new Personnage("Hero", 15, new int[]{1, 1, 10, 1}, 250, 300);
+        this.personnage = new Personnage("Hero", 1, new int[]{1, 1, 10, 1}, 250, 300);
         this.tilePane = tilePane;
         this.panePerso = panePerso;
 

@@ -8,7 +8,7 @@ public class Personnage {
     private int velocity = 1;
     private String id;
     private String name;
-    private int level;
+    private IntegerProperty level;
     private int[] stats;
     private ItemInterface[] items;
     private int pods;
@@ -27,7 +27,7 @@ public class Personnage {
     public Personnage(String name, int level, int[] stats, int x, int y) {
         this.id = "#" + compter++;
         this.name = name;
-        this.level = level;
+        this.level = new SimpleIntegerProperty(level);
         this.stats = stats;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
@@ -93,7 +93,7 @@ public class Personnage {
      * @return
      */
     public int getLevel() {
-        return level;
+        return level.get();
     }
 
     /***
@@ -156,7 +156,11 @@ public class Personnage {
      * @param level
      */
     public void setLevel(int level) {
-        this.level = level;
+        this.level.set(level);
+    }
+
+    public IntegerProperty levelProperty() {
+        return level;
     }
 
     /***
@@ -217,7 +221,7 @@ public class Personnage {
     }
 
     private void levelUp() {
-        level++;
+        setLevel(getLevel() + 1);
         expToNextLevel.set(expToNextLevel.get() + 5);
     }
 

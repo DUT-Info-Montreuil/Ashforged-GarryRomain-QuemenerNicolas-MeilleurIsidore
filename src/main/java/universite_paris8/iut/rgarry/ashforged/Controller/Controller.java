@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -40,7 +41,10 @@ public class Controller implements Initializable {
     private javafx.scene.shape.Rectangle expBar;
     @FXML
     private javafx.scene.shape.Rectangle expBarBackground;
-
+    @FXML
+    private Rectangle lvl;
+    @FXML
+    private Label lvlLabel;
     @FXML
     private TilePane tilepane;
     @FXML
@@ -104,6 +108,10 @@ public class Controller implements Initializable {
                         personnage.expProperty(), personnage.expToNextLevelProperty()
                 )
         );
+        lvlLabel.textProperty().bind(Bindings.createStringBinding(
+                () -> String.valueOf(personnage.getLevel()),
+                personnage.levelProperty()
+        ));
 
         FieldView fieldView = new FieldView(tilepane, field);
         this.personnageView = new PersonnageView(paneperso, personnage, personnageController, field);
