@@ -31,11 +31,6 @@ public class PersonnageView {
         this.persoGauche = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/New Piskel-3.png.png").toExternalForm());
         this.perso = new ImageView(persoDroite);
 
-        this.perso.setId("perso");
-
-        this.perso.translateXProperty().bind(personnage.getXProperty());
-        this.perso.translateYProperty().bind(personnage.getYProperty());
-
         perso.setId("perso");
 
         perso.translateXProperty().bind(personnage.getXProperty());

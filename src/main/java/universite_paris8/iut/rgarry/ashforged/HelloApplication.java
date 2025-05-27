@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Ashforged");
         stage.setScene(scene);
         stage.show();
-        //applyGravity(personnage, GROUND_LEVEL);
+
     }
     public static void main(String[] args) {
         launch();

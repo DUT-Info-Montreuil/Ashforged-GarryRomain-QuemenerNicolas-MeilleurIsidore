@@ -8,17 +8,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.HelloApplication;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
 import universite_paris8.iut.rgarry.ashforged.view.FieldView;
 import universite_paris8.iut.rgarry.ashforged.view.PersonnageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.locks.Condition;
 
 public class Controller implements Initializable {
 
@@ -40,6 +44,8 @@ public class Controller implements Initializable {
     @FXML
     private Pane camera;
 
+    @FXML
+    private Pane AccesRapide;
     @FXML
     private Pane AccesRapide1;
     @FXML
@@ -91,28 +97,65 @@ public class Controller implements Initializable {
 
         FieldView fieldView = new FieldView(tilepane, field);
 
-        this.personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
+        this.personnageView = new PersonnageView(paneperso, personnage, personnageController, field);
 
-        IntegerBinding conditionalBinding = Bindings.createIntegerBinding(() -> {
+        IntegerBinding conditionalBindingY = Bindings.createIntegerBinding(() -> {
             int y = personnage.getY();
             if (y > 928) {
-                System.out.println("test1");
-                return -928+(1080/2); // équivalent à 928*(-1) + 0
+                return -928 + (1080 / 2); // équivalent à 928*(-1) + 0
             } else {
-                System.out.println("test2");
-                return -y+(1080/2);
+                return -y + (1080 / 2);
             }
-        },personnage.getYProperty());
+        }, personnage.getYProperty());
 
-        camera.translateXProperty().bind(personnage.getXProperty().multiply(-1).add(1920/2));
-        camera.translateYProperty().bind(conditionalBinding);
+        IntegerBinding conditionalBindingX = Bindings.createIntegerBinding(() -> {
+            int x = personnage.getX();
+            if (x < 960) {
+                return -960 + (1920 / 2); // équivalent à 928*(-1) + 0
+            } else if (x > (((field.longueur() * 32) * 2) - 38) - 864) {
+                return -((((field.longueur() * 32) * 2) - 38) - 864) + (1920 / 2);
+            } else {
+                return -x + (1920 / 2);
+            }
+        }, personnage.getXProperty());
+
+        camera.translateXProperty().bind(conditionalBindingX);
+        camera.translateYProperty().bind(conditionalBindingY);
 
         initaliseButton();
 
         Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Ciel.png").toExternalForm());
-        for(int i = 0; i<20;i++) {
-            ImageView imageView = new ImageView(ciel);
+        Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/caseInventaire.png").toExternalForm());
+        personnage.addToInventory(ItemStock.Usuable.golden_piece);
+
+        for (int i = 0; i < 48; i++) {
+            ImageView imageView = new ImageView(inventoryCase);
+            int finalI1 = i;
+            imageView.setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    ItemInterface outil = personnage.getInventory()[finalI1];
+                    if (outil == null) {
+                        System.out.println("Rien");
+                    } else {
+                        System.out.println(outil.getName());
+                    }
+                }
+            });
             Inventory.getChildren().add(imageView);
+        }
+        System.out.println(field.longueur());
+        paneperso.setMouseTransparent(true);
+
+        for (int i = 0; i < tilepane.getChildren().size(); i++) {
+            ImageView imageView = (ImageView) tilepane.getChildren().get(i);
+            imageView.setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if (!imageView.getId().equals("ciel")) {
+                        imageView.setImage(ciel);
+                        imageView.setId("ciel");
+                    }
+                }
+            });
         }
 
 
@@ -148,7 +191,7 @@ public class Controller implements Initializable {
         timeline.play();
     }
 
-    public void initaliseButton(){
+    public void initaliseButton() {
         AccesRapide8.setOnMouseClicked(event -> {
             System.out.println(8);
         });
@@ -172,17 +215,12 @@ public class Controller implements Initializable {
         });
         AccesRapide1.setOnMouseClicked(event -> {
             System.out.println(1);
-            Inventory.setVisible(true);
             ContainerInvontory.setVisible(true);
-            quit.setVisible(true);
         });
         quit.setOnMouseClicked(event -> {
-            Inventory.setVisible(false);
             ContainerInvontory.setVisible(false);
-            quit.setVisible(false);
         });
 
-        AccesRapide1.setVisible(true);
     }
 
 }
