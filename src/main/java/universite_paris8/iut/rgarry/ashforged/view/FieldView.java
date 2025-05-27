@@ -2,6 +2,7 @@ package universite_paris8.iut.rgarry.ashforged.view;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 
@@ -45,6 +46,7 @@ public class FieldView {
                 if (field.block(x, y) == 1) {
                     imageView = new ImageView(ciel);
                     imageView.setId("ciel");
+
                 } else if (field.block(x, y) == 2) {
                     imageView = new ImageView(terre);
                     imageView.setId("terre");

@@ -34,6 +34,8 @@ public class Controller implements Initializable {
     private Pane camera;
 
     @FXML
+    private Pane AccesRapide;
+    @FXML
     private Pane AccesRapide1;
     @FXML
     private Pane AccesRapide2;
@@ -73,42 +75,42 @@ public class Controller implements Initializable {
         personnage = personnageController.getPersonnage();
         FieldView fieldView = new FieldView(tilepane, field);
 
-        this.personnageView = new PersonnageView(paneperso,personnage,personnageController, field);
+        this.personnageView = new PersonnageView(paneperso, personnage, personnageController, field);
 
         IntegerBinding conditionalBindingY = Bindings.createIntegerBinding(() -> {
             int y = personnage.getY();
             if (y > 928) {
-                return -928+(1080/2); // équivalent à 928*(-1) + 0
+                return -928 + (1080 / 2); // équivalent à 928*(-1) + 0
             } else {
-                return -y+(1080/2);
+                return -y + (1080 / 2);
             }
-        },personnage.getYProperty());
+        }, personnage.getYProperty());
 
         IntegerBinding conditionalBindingX = Bindings.createIntegerBinding(() -> {
             int x = personnage.getX();
             if (x < 960) {
-                return -960+(1920/2); // équivalent à 928*(-1) + 0
+                return -960 + (1920 / 2); // équivalent à 928*(-1) + 0
+            } else if (x > (((field.longueur() * 32) * 2) - 38) - 864) {
+                return -((((field.longueur() * 32) * 2) - 38) - 864) + (1920 / 2);
+            } else {
+                return -x + (1920 / 2);
             }
-            else if(x>(((field.longueur()*32)*2)-38)-864){
-                return -((((field.longueur()*32)*2)-38)-864)+(1920/2);
-            }
-            else {
-                return -x+(1920/2);
-            }
-        },personnage.getXProperty());
+        }, personnage.getXProperty());
 
         camera.translateXProperty().bind(conditionalBindingX);
         camera.translateYProperty().bind(conditionalBindingY);
 
         initaliseButton();
 
-        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/caseInventaire.png").toExternalForm());
+        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Ciel.png").toExternalForm());
+        Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/caseInventaire.png").toExternalForm());
         personnage.addToInventory(ItemStock.Usuable.golden_piece);
-        for(int i = 0; i<48;i++) {
-            ImageView imageView = new ImageView(ciel);
+
+        for (int i = 0; i < 48; i++) {
+            ImageView imageView = new ImageView(inventoryCase);
             int finalI1 = i;
             imageView.setOnMouseClicked(event -> {
-                if (event.getButton()== MouseButton.PRIMARY) {
+                if (event.getButton() == MouseButton.PRIMARY) {
                     ItemInterface outil = personnage.getInventory()[finalI1];
                     if (outil == null) {
                         System.out.println("Rien");
@@ -120,6 +122,19 @@ public class Controller implements Initializable {
             Inventory.getChildren().add(imageView);
         }
         System.out.println(field.longueur());
+        paneperso.setMouseTransparent(true);
+
+        for (int i = 0; i < tilepane.getChildren().size(); i++) {
+            ImageView imageView = (ImageView) tilepane.getChildren().get(i);
+            imageView.setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if (!imageView.getId().equals("ciel")) {
+                        imageView.setImage(ciel);
+                        imageView.setId("ciel");
+                    }
+                }
+            });
+        }
 
 
         startTimeline();
@@ -154,7 +169,7 @@ public class Controller implements Initializable {
         timeline.play();
     }
 
-    public void initaliseButton(){
+    public void initaliseButton() {
         AccesRapide8.setOnMouseClicked(event -> {
             System.out.println(8);
         });
@@ -184,7 +199,6 @@ public class Controller implements Initializable {
             ContainerInvontory.setVisible(false);
         });
 
-        AccesRapide1.setVisible(true);
     }
 
 }
