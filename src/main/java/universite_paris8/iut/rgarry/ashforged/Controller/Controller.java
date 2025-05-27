@@ -12,7 +12,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.rgarry.ashforged.HelloApplication;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
@@ -22,7 +21,6 @@ import universite_paris8.iut.rgarry.ashforged.view.PersonnageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.locks.Condition;
 
 public class Controller implements Initializable {
 
@@ -72,6 +70,8 @@ public class Controller implements Initializable {
     @FXML
     private Pane quit;
 
+    private final int LimitLeftCam = 960;
+
 
     private PersonnageView personnageView;
     private PersonnageController personnageController;
@@ -110,12 +110,12 @@ public class Controller implements Initializable {
 
         IntegerBinding conditionalBindingX = Bindings.createIntegerBinding(() -> {
             int x = personnage.getX();
-            if (x < 960) {
-                return -960 + (1920 / 2); // équivalent à 928*(-1) + 0
+            if (x < LimitLeftCam) {
+                return -LimitLeftCam + (1920 / 2)-300; // équivalent à 928*(-1) + 0
             } else if (x > (((field.longueur() * 32) * 2) - 38) - 864) {
-                return -((((field.longueur() * 32) * 2) - 38) - 864) + (1920 / 2);
+                return -((((field.longueur() * 32) * 2) - 38) - 864) + (1920 / 2)-300;
             } else {
-                return -x + (1920 / 2);
+                return (-x-300) + (1920 / 2);
             }
         }, personnage.getXProperty());
 
