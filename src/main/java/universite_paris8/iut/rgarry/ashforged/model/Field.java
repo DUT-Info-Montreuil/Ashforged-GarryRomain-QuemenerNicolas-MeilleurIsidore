@@ -51,11 +51,15 @@ public class Field {
         return this.tiles[y][x];
     }
 
+    public void setBlock(int x, int y,int bloc) {
+        this.tiles[y][x]=bloc;
+    }
+
     /***
      * Retourne la longueur du tableau, c'est-à-dire le nombre de tuile.
      * @return
      */
-    public int longueur() {
+    public int getWidth() {
         return this.tiles[0].length;
     }
 
@@ -64,9 +68,15 @@ public class Field {
      *
      * @return
      */
-    public int hauteur() {
+    public int getHeight() {
         return this.tiles.length;
     }
 
+    public int getXView(int x){
+        return x/64;
+    }
+    public int getYView(int y){
+        return y/64;
+    }
 
 }

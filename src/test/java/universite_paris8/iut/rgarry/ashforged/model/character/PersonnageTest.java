@@ -2,10 +2,7 @@ package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonnageTest {
     private Personnage perso;

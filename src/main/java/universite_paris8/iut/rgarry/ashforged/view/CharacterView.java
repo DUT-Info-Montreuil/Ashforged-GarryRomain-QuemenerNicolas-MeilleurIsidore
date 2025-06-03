@@ -3,11 +3,11 @@ package universite_paris8.iut.rgarry.ashforged.view;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.rgarry.ashforged.Controller.PersonnageController;
+import universite_paris8.iut.rgarry.ashforged.Controller.CharacterController;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
-import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
+import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 
-public class PersonnageView {
+public class CharacterView {
     private Pane paneperso;
     private Image persoDroite;
     private Image persoGauche;
@@ -22,10 +22,10 @@ public class PersonnageView {
      * @param personnageController
      * @param field
      */
-    public PersonnageView(Pane paneperso, Personnage personnage, PersonnageController personnageController, Field field){
+    public CharacterView(Pane paneperso, Character personnage, CharacterController personnageController, Field field){
         this.paneperso=paneperso;
 
-        paneperso.setPrefSize(field.longueur(), field.hauteur());
+        paneperso.setPrefSize(field.getWidth(), field.getHeight());
 
         this.persoDroite = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/New Piskel-2.png.png").toExternalForm());
         this.persoGauche = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/New Piskel-3.png.png").toExternalForm());
@@ -52,7 +52,7 @@ public class PersonnageView {
         if(direction=='r'){
             perso.setImage(persoDroite);
         }
-        else{
+        else if(direction=='l'){
             perso.setImage(persoGauche);
         }
     }

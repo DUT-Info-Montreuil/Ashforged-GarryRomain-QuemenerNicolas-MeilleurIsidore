@@ -22,11 +22,11 @@
    <left>
       <Pane fx:id="healthBarContainer" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: transparent;" BorderPane.alignment="TOP_LEFT">
          <children>
-            <Rectangle fx:id="healthBarBackground" arcHeight="10.0" arcWidth="10.0" fill="grey" height="20.0" width="200.0" />
-            <Rectangle fx:id="healthBar" arcHeight="10.0" arcWidth="10.0" fill="red" height="20.0" width="200.0" />
-            <Rectangle fx:id="expBarBackground" arcHeight="5.0" arcWidth="5.0" fill="lightgrey" height="10.0" layoutY="25.0" width="200.0" />
-            <Rectangle fx:id="expBar" arcHeight="5.0" arcWidth="5.0" fill="blue" height="10.0" layoutY="25.0" width="200.0" />
-            <Pane layoutX="210" layoutY="0" prefWidth="36" prefHeight="36">
+            <Rectangle fx:id="healthBarBackground" arcHeight="10.0" arcWidth="10.0" fill="grey" height="20.0" width="200.0" layoutX="10"/>
+            <Rectangle fx:id="healthBar" arcHeight="10.0" arcWidth="10.0" fill="red" height="20.0" width="200.0" layoutX="10" />
+            <Rectangle fx:id="expBarBackground" arcHeight="5.0" arcWidth="5.0" fill="lightgrey" height="10.0" layoutY="25.0" width="200.0" layoutX="10" />
+            <Rectangle fx:id="expBar" arcHeight="5.0" arcWidth="5.0" fill="blue" height="10.0" layoutY="25.0" width="200.0" layoutX="10"/>
+            <Pane layoutX="220" layoutY="0" prefWidth="36" prefHeight="36">
                <Rectangle fx:id="lvl" width="36" height="36" arcWidth="5" arcHeight="5" fill="lightgray"/>
                <Label fx:id="lvlLabel" text="1" alignment="CENTER" layoutX="0" layoutY="0" prefWidth="36" prefHeight="36" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
             </Pane>

@@ -5,10 +5,7 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,17 +13,17 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
+import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
-import universite_paris8.iut.rgarry.ashforged.model.character.Personnage;
+import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.view.FieldView;
-import universite_paris8.iut.rgarry.ashforged.view.PersonnageView;
+import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
 
-import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -34,13 +31,13 @@ public class Controller implements Initializable {
     @FXML
     private Pane healthBarContainer;
     @FXML
-    private javafx.scene.shape.Rectangle healthBar;
+    private Rectangle healthBar;
     @FXML
-    private javafx.scene.shape.Rectangle healthBarBackground;
+    private Rectangle healthBarBackground;
     @FXML
-    private javafx.scene.shape.Rectangle expBar;
+    private Rectangle expBar;
     @FXML
-    private javafx.scene.shape.Rectangle expBarBackground;
+    private Rectangle expBarBackground;
     @FXML
     private Rectangle lvl;
     @FXML
@@ -82,18 +79,25 @@ public class Controller implements Initializable {
 
     private final int LimitLeftCam = 960;
 
-
-    private PersonnageView personnageView;
-    private PersonnageController personnageController;
-    private Personnage personnage;
+    private CharacterView personnageView;
+    private CharacterController characterController;
+    private Character personnage;
 
     private Timeline timeline;
+
+    private Environment environment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Field field = new Field();
-        personnageController = new PersonnageController(tilepane, paneperso);
-        personnage = personnageController.getPersonnage();
+        characterController = new CharacterController(tilepane, paneperso);
+        personnage = characterController.getPersonnage();
+
+        // Initialisation de l'environnement
+        environment = new Environment(field, personnage, List.of(), List.of());
+
+        paneperso.setFocusTraversable(true);
+        paneperso.requestFocus();
 
         double maxBarWidth = 200.0;
         healthBar.widthProperty().bind(
@@ -114,7 +118,7 @@ public class Controller implements Initializable {
         ));
 
         FieldView fieldView = new FieldView(tilepane, field);
-        this.personnageView = new PersonnageView(paneperso, personnage, personnageController, field);
+        this.personnageView = new CharacterView(paneperso, personnage, characterController, field);
 
         IntegerBinding conditionalBindingY = Bindings.createIntegerBinding(() -> {
             int y = personnage.getY();
@@ -128,18 +132,18 @@ public class Controller implements Initializable {
         IntegerBinding conditionalBindingX = Bindings.createIntegerBinding(() -> {
             int x = personnage.getX();
             if (x < LimitLeftCam) {
-                return -LimitLeftCam + (1920 / 2)-300; // équivalent à 928*(-1) + 0
-            } else if (x > (((field.longueur() * 32) * 2) - 38) - 864) {
-                return -((((field.longueur() * 32) * 2) - 38) - 864) + (1920 / 2)-300;
+                return -LimitLeftCam + (1920 / 2) - 300; // équivalent à 928*(-1) + 0
+            } else if (x > (((field.getWidth() * 32) * 2) - 38) - 864) {
+                return -((((field.getWidth() * 32) * 2) - 38) - 864) + (1920 / 2) - 300;
             } else {
-                return (-x-300) + (1920 / 2);
+                return (-x - 300) + (1920 / 2);
             }
         }, personnage.getXProperty());
 
         camera.translateXProperty().bind(conditionalBindingX);
         camera.translateYProperty().bind(conditionalBindingY);
 
-        initaliseButton();
+        initializeButton();
 
         Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Ciel.png").toExternalForm());
         Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/caseInventaire.png").toExternalForm());
@@ -150,31 +154,42 @@ public class Controller implements Initializable {
             int finalI1 = i;
             imageView.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    ItemInterface outil = personnage.getInventory()[finalI1];
-                    if (outil == null) {
-                        System.out.println("Rien");
-                    } else {
-                        System.out.println(outil.getName());
+                    ItemInterface[] inventory = personnage.getInventory();
+                    if (inventory != null) {
+                        ItemInterface outil = inventory[finalI1];
+                        if (outil == null) {
+                            System.out.println("Rien");
+                        } else {
+                            System.out.println(outil.getName());
+                        }
                     }
                 }
             });
             Inventory.getChildren().add(imageView);
         }
-        System.out.println(field.longueur());
+        System.out.println(field.getWidth());
         paneperso.setMouseTransparent(true);
 
-        for (int i = 0; i < tilepane.getChildren().size(); i++) {
-            ImageView imageView = (ImageView) tilepane.getChildren().get(i);
-            imageView.setOnMouseClicked(event -> {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    if (!imageView.getId().equals("ciel")) {
-                        imageView.setImage(ciel);
-                        imageView.setId("ciel");
+        tilepane.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                System.out.println(field.getXView((int) event.getX()));
+                System.out.println(field.getYView((int) event.getY()));
+                if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
+                    if (Math.abs(personnage.getX() - (int) (event.getX()))  < (64*3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64*3)) {
+                        System.out.println(personnage.getX());
+                        System.out.println(personnage.getY());
+                        field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), 1);
+                        ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
+                        test.setImage(ciel);
                     }
                 }
-            });
-        }
-
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) == 1) {
+                    ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
+                    test.setImage(inventoryCase);
+                }
+            }
+        });
         startTimeline();
     }
 
@@ -183,31 +198,32 @@ public class Controller implements Initializable {
      */
     private void startTimeline() {
         timeline = new Timeline(new KeyFrame(Duration.millis(10), event -> {
-            if (personnageController.isSpacePressed()) {
-                personnageController.handleJump();
+            if (characterController.isQPressed()) {
+                characterController.moveCharacter(personnage, environment, 'l'); // Gauche
+                personnageView.changeSprite('l');
             }
-            if (personnageController.isQPressed()) {
-                personnageController.handleLeft();
-                this.personnageView.changeSprite('l');
+            if (characterController.isSPressed()) {
+                characterController.moveCharacter(personnage, environment, 'd'); // Bas
             }
-            if (personnageController.isSPressed()) {
-                personnageController.handleDown();
+            if (characterController.isDPressed()) {
+                characterController.moveCharacter(personnage, environment, 'r'); // Droite
+                personnageView.changeSprite('r');
             }
-            if (personnageController.isDPressed()) {
-                personnageController.handleRight();
-                this.personnageView.changeSprite('r');
+            if (characterController.isSpacePressed()) {
+                characterController.moveCharacter(personnage, environment, 'u'); // Haut
+                // Si nécessaire, ajouter une logique pour le saut ou une autre action
             }
-            personnageController.applyGravity();
-            personnageController.checkCollisionBottom();
-            personnageController.checkCollisionLeft();
-            personnageController.checkCollisionRight();
-            personnageController.checkCollisionTop();
+            characterController.checkCollision(personnage, environment, Environment.Direction.TOP);
+            characterController.checkCollision(personnage, environment, Environment.Direction.BOTTOM);
+            characterController.checkCollision(personnage, environment, Environment.Direction.RIGHT);
+            characterController.checkCollision(personnage, environment, Environment.Direction.LEFT); // Vérifier les collisions
+            characterController.applyGravity(environment); // Appliquer la gravité
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
 
-    public void initaliseButton(){
+    public void initializeButton() {
         AccesRapide8.setOnMouseClicked(event -> {
             System.out.println(8);
         });

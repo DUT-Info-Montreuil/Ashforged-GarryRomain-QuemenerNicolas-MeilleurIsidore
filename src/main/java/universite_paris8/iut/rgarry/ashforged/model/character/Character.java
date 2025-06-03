@@ -4,8 +4,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 
-public class Personnage {
-    private int velocity = 1;
+public class Character implements Entity{
+    private double velocityY;
     private String id;
     private String name;
     private IntegerProperty level;
@@ -24,7 +24,8 @@ public class Personnage {
     private IntegerProperty x, y;
     private static int compter = 0;
 
-    public Personnage(String name, int level, int[] stats, int x, int y) {
+    public Character(String name, int level, int[] stats, int x, int y) {
+        this.velocityY = 0;
         this.id = "#" + compter++;
         this.name = name;
         this.level = new SimpleIntegerProperty(level);
@@ -33,40 +34,17 @@ public class Personnage {
         this.y = new SimpleIntegerProperty(y);
         this.stat_point += 5*(level+1);
         this.items = new ItemInterface[48];
-        this.pods = pods;
+        this.pods = 0;
         this.maxPods =10*stats[1];
         this.maxHealth = 3*stats[0];
         this.health.set(this.maxHealth);
     }
 
-    /***
-     * Permet de gérer la direction du déplacement du joueur.
-     *
-     * @param direction
-     * @param maxX
-     * @param maxY
-     */
-    public void deplacer(char direction, int maxX, int maxY) {
-        int newX = getX();
-        int newY = getY();
-        int vitesse = getVitesse();
-
-        switch (direction) {
-            case 'u':
-                newY = Math.max(0, getY() - vitesse);
-                break;
-            case 'd':
-                newY = Math.min(maxY, getY() + vitesse);
-                break;
-            case 'l':
-                newX = Math.max(0, getX() - vitesse);
-                break;
-            case 'r':
-                newX = Math.min(maxX, getX() + vitesse);
-                break;
-        }
-        setX(newX);
-        setY(newY);
+    public double getVelocityY() {
+        return velocityY;
+    }
+    public void setVelocityY(double velocityY) {
+        this.velocityY = velocityY;
     }
 
     /***
@@ -137,6 +115,7 @@ public class Personnage {
      *
      * @param pos
      */
+    @Override
     public void setX(int pos) {
         x.setValue(pos);
     }
@@ -146,6 +125,7 @@ public class Personnage {
      *
      * @param pos
      */
+    @Override
     public void setY(int pos) {
         y.setValue(pos);
     }

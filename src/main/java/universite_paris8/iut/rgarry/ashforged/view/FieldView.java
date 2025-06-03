@@ -25,8 +25,8 @@ public class FieldView {
      * @param tilepane
      */
     public void createField(TilePane tilepane) {
-        int rows = field.hauteur();
-        int cols = field.longueur();
+        int rows = field.getHeight();
+        int cols = field.getWidth();
 
         tilepane.getChildren().clear(); // Clear previous tiles
         tilepane.setPrefColumns(cols);
