@@ -2,9 +2,10 @@ package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 
-public class Character implements Entity{
+public class Character implements Entity {
     private double velocityY;
     private String id;
     private String name;
@@ -18,13 +19,18 @@ public class Character implements Entity{
     private IntegerProperty exp = new SimpleIntegerProperty(0);
     private IntegerProperty expToNextLevel = new SimpleIntegerProperty(5);
 
+    private Environment env;
+
     // Exemple de statistiques: {hp: 5, str: 5, spd: 5, ...}
 
     private int stat_point;
     private IntegerProperty x, y;
+
+    private char direction;
+
     private static int compter = 0;
 
-    public Character(String name, int level, int[] stats, int x, int y) {
+    public Character(String name, int level, int[] stats, int x, int y, Environment env) {
         this.velocityY = 0;
         this.id = "#" + compter++;
         this.name = name;
@@ -32,17 +38,46 @@ public class Character implements Entity{
         this.stats = stats;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
-        this.stat_point += 5*(level+1);
+        this.env = env;
+        this.stat_point += 5 * (level + 1);
         this.items = new ItemInterface[48];
         this.pods = 0;
-        this.maxPods =10*stats[1];
-        this.maxHealth = 3*stats[0];
+        this.maxPods = 10 * stats[1];
+        this.maxHealth = 3 * stats[0];
         this.health.set(this.maxHealth);
+        this.direction = 'i';
+    }
+
+    public void vaADroite() {
+        this.direction = 'd';
+    }
+
+    public void vaAGauche() {
+        this.direction = 'g';
+    }
+
+    public void seDeplacer() {
+        int newX = getX();
+        if (direction == 'd') {
+            newX += getVitesse();
+            if (!env.checkCollision(newX+31,getY()) && !env.checkCollision(newX+31,getY()+31)) { //TODO vérif collision
+                setX(newX);
+            } else {
+                //TODO : calculer la position qui le colle au bloc
+            }
+        } else if (direction == 'g') {
+            newX -= getVitesse();
+            if (!env.checkCollision(newX,getY()) && !env.checkCollision(newX,getY()+31)) { //TODO vérif collision
+                setX(newX);
+            }
+        }
+
     }
 
     public double getVelocityY() {
         return velocityY;
     }
+
     public void setVelocityY(double velocityY) {
         this.velocityY = velocityY;
     }
@@ -187,10 +222,21 @@ public class Character implements Entity{
         this.health.set(value);
     }
 
-    public IntegerProperty expProperty() { return exp; }
-    public IntegerProperty expToNextLevelProperty() { return expToNextLevel; }
-    public int getExp() { return exp.get(); }
-    public int getExpToNextLevel() { return expToNextLevel.get(); }
+    public IntegerProperty expProperty() {
+        return exp;
+    }
+
+    public IntegerProperty expToNextLevelProperty() {
+        return expToNextLevel;
+    }
+
+    public int getExp() {
+        return exp.get();
+    }
+
+    public int getExpToNextLevel() {
+        return expToNextLevel.get();
+    }
 
     public void gainExp(int amount) {
         exp.set(exp.get() + amount);
@@ -239,7 +285,7 @@ public class Character implements Entity{
         int i = 0;
         boolean add = false;
 
-        if(item.getWeight() + this.pods <= maxPods) {
+        if (item.getWeight() + this.pods <= maxPods) {
             while (i < items.length && !add) {
                 if (items[i] == null) {
                     items[i] = item;
@@ -247,8 +293,7 @@ public class Character implements Entity{
                 }
                 i++;
             }
-        }
-        else {
+        } else {
             System.out.println("The inventory is full or too much pods");
         }
     }

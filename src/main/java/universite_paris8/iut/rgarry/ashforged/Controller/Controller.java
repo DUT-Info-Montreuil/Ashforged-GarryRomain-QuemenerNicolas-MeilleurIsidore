@@ -90,11 +90,16 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Field field = new Field();
-        characterController = new CharacterController(tilepane, paneperso);
-        personnage = characterController.getPersonnage();
+
+
+
 
         // Initialisation de l'environnement
-        environment = new Environment(field, personnage, List.of(), List.of());
+        environment = new Environment(field, List.of(), List.of());
+        personnage = environment.getHero();
+
+        characterController = new CharacterController(tilepane, paneperso, personnage);
+
 
         paneperso.setFocusTraversable(true);
         paneperso.requestFocus();
@@ -197,26 +202,31 @@ public class Controller implements Initializable {
      * Permet de gérer le déplacement du personnage dans le jeu et donc mettre à jour sa position.
      */
     private void startTimeline() {
+
+
+
+
         timeline = new Timeline(new KeyFrame(Duration.millis(10), event -> {
-            if (characterController.isQPressed()) {
-                characterController.moveCharacter(personnage, environment, 'l'); // Gauche
-                personnageView.changeSprite('l');
-            }
+            personnage.seDeplacer();
+//            if (characterController.isQPressed()) {
+//                characterController.moveCharacter(personnage, environment, 'l'); // Gauche
+//                personnageView.changeSprite('l');
+//            }
             if (characterController.isSPressed()) {
                 characterController.moveCharacter(personnage, environment, 'd'); // Bas
             }
-            if (characterController.isDPressed()) {
-                characterController.moveCharacter(personnage, environment, 'r'); // Droite
-                personnageView.changeSprite('r');
-            }
+//            if (characterController.isDPressed()) {
+//                characterController.moveCharacter(personnage, environment, 'r'); // Droite
+//                personnageView.changeSprite('r');
+//            }
             if (characterController.isSpacePressed()) {
                 characterController.moveCharacter(personnage, environment, 'u'); // Haut
                 // Si nécessaire, ajouter une logique pour le saut ou une autre action
             }
             characterController.checkCollision(personnage, environment, Environment.Direction.TOP);
             characterController.checkCollision(personnage, environment, Environment.Direction.BOTTOM);
-            characterController.checkCollision(personnage, environment, Environment.Direction.RIGHT);
-            characterController.checkCollision(personnage, environment, Environment.Direction.LEFT); // Vérifier les collisions
+//            characterController.checkCollision(personnage, environment, Environment.Direction.RIGHT);
+//            characterController.checkCollision(personnage, environment, Environment.Direction.LEFT); // Vérifier les collisions
             characterController.applyGravity(environment); // Appliquer la gravité
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);

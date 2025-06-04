@@ -16,7 +16,7 @@ public class CharacterController {
         TOP, BOTTOM, LEFT, RIGHT
     }
 
-    private static Character personnage;
+    private Character personnage;
 
     private final BooleanProperty spacePressed = new SimpleBooleanProperty();
     private final BooleanProperty qPressed = new SimpleBooleanProperty();
@@ -30,18 +30,19 @@ public class CharacterController {
     private final TilePane tilePane;
     private final Pane panePerso;
 
-    static {
-        personnage = new Character("Hero", 1, new int[]{1, 1, 10, 1}, 250, 300);
-    }
+//    static {
+//        personnage = new Character("Hero", 1, new int[]{1, 1, 5, 1}, 250, 300);
+//    }
 
-    public CharacterController(TilePane tilePane, Pane panePerso) {
+    public CharacterController(TilePane tilePane, Pane panePerso, Character personnage ) {
         this.tilePane = tilePane;
         this.panePerso = panePerso;
+        this.personnage = personnage;
     }
 
-    public static Character getPersonnage() {
-        return personnage;
-    }
+//    public static Character getPersonnage() {
+//        return personnage;
+//    }
 
     public void setupKeyHandlers(Pane pane) {
         pane.setOnKeyPressed(event -> {
@@ -51,6 +52,7 @@ public class CharacterController {
                 case S -> sPressed.set(true);
                 case D -> dPressed.set(true);
             }
+            changerDirectionPersonnage();
         });
 
         pane.setOnKeyReleased(event -> {
@@ -60,7 +62,28 @@ public class CharacterController {
                 case S -> sPressed.set(false);
                 case D -> dPressed.set(false);
             }
+            changerDirectionPersonnage();
         });
+    }
+
+    public void changerDirectionPersonnage() {
+        if (this.isQPressed()) {
+            personnage.vaAGauche();
+//            this.moveCharacter(personnage, environment, 'l'); // Gauche
+//            personnageView.changeSprite('l');
+        }
+        if (this.isSPressed()) {
+ //           characterController.moveCharacter(personnage, environment, 'd'); // Bas
+        }
+        if (this.isDPressed()) {
+            personnage.vaADroite();
+//            characterController.moveCharacter(personnage, environment, 'r'); // Droite
+//            personnageView.changeSprite('r');
+        }
+        if (this.isSpacePressed()) {
+//            characterController.moveCharacter(personnage, environment, 'u'); // Haut
+            // Si nécessaire, ajouter une logique pour le saut ou une autre action
+        }
     }
 
     public boolean checkCollision(Entity entity, Environment environment, Environment.Direction direction) {
@@ -102,6 +125,7 @@ public class CharacterController {
         return false;
     }
 
+    // //TODO A déplacer dans Character
     public void applyGravity(Environment environment) {
         velocityY += GRAVITY;
         int steps = (int) Math.abs(velocityY);

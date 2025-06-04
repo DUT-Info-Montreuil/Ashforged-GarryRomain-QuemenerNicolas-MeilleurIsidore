@@ -20,12 +20,12 @@ public class MobController {
         this.tilePane = tilePane;
         this.mobPane = mobPane;
 
-        this.mongolfière = new Mobs("Mongolfière", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.bomb, 600, 250);
-        this.soldat = new Mobs("Soldat", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.stone_sword, 600, 250);
-        this.zombie = new Mobs("Zombie", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.stick, 600, 250);
-        this.bandit = new Mobs("Bandit", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.firearm, 600, 250);
-        this.boss = new Mobs("Boss", 20, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.steel_sabre, 600, 250);
-        this.kozuki = new Mobs("Kozuki", 30, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.enma, 600, 250);
+//        this.mongolfière = new Mobs("Mongolfière", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.bomb, 600, 250);
+//        this.soldat = new Mobs("Soldat", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.stone_sword, 600, 250);
+//        this.zombie = new Mobs("Zombie", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.stick, 600, 250);
+//        this.bandit = new Mobs("Bandit", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.firearm, 600, 250);
+//        this.boss = new Mobs("Boss", 20, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.steel_sabre, 600, 250);
+//        this.kozuki = new Mobs("Kozuki", 30, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.enma, 600, 250);
     }
 
 }

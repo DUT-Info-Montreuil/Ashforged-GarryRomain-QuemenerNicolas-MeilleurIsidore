@@ -79,4 +79,8 @@ public class Field {
         return y/64;
     }
 
+    public boolean checkCollision(int x, int y) {
+        return block(getXView(x), getYView(y)) != 1;
+    }
+
 }
