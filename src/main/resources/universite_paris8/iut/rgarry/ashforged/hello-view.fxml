@@ -38,7 +38,7 @@
       <Pane fx:id="AccesRapide" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="52.0" prefWidth="412.0">
          <children>
             <Pane fx:id="AccesRapide1" layoutX="86.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
-            <Pane fx:id="AccesRapide2" layoutX="127.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
+            <Pane fx:id="AccesRapide2" layoutX="127.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style= "-fx-background-image: url('/universite_paris8/iut/rgarry/ashforged/Image/stick.png');-fx-background-color: red;" />
             <Pane fx:id="AccesRapide3" layoutX="168.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
             <Pane fx:id="AccesRapide4" layoutX="209.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
             <Pane fx:id="AccesRapide5" layoutX="250.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
@@ -49,7 +49,7 @@
       </Pane>
    </right>
    <bottom>
-      <Pane fx:id="ContainerInvontory" maxHeight="200.0" maxWidth="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+      <Pane fx:id="ContainerInventory" maxHeight="200.0" maxWidth="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
             <TilePane fx:id="Inventory" maxHeight="200.0" maxWidth="400.0" prefHeight="200.0" prefWidth="400.0" />
             <Pane fx:id="quit" layoutX="458.0" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: red;" />

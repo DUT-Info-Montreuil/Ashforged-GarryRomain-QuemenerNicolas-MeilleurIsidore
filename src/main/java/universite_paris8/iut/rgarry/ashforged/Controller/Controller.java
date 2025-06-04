@@ -251,6 +251,7 @@ public class Controller implements Initializable {
 
     public void initializeButton() {
         Image stick = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/stick.png").toExternalForm());
+        Image canne = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/canne.png").toExternalForm());
 
         AccesRapide1.setOnMouseClicked(event -> {
             System.out.println(1);
@@ -271,7 +272,7 @@ public class Controller implements Initializable {
 
         AccesRapide3.setOnMouseClicked(event -> {
             System.out.println(3);
-            ImageView imageView = new ImageView(stick);
+            ImageView imageView = new ImageView(canne);
             imageView.setFitWidth(32);   // taille personnalisée
             imageView.setFitHeight(32);
             imageView.setLayoutX(300);
