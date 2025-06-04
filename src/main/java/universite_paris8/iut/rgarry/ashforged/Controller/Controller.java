@@ -23,6 +23,8 @@ import universite_paris8.iut.rgarry.ashforged.view.FieldView;
 import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -47,6 +49,8 @@ public class Controller implements Initializable {
     @FXML
     private Pane paneperso;
     @FXML
+    private Pane paneItem;
+    @FXML
     private Pane camera;
 
     @FXML
@@ -69,7 +73,7 @@ public class Controller implements Initializable {
     private Pane AccesRapide8;
 
     @FXML
-    private Pane ContainerInvontory;
+    private Pane ContainerInventory;
 
     @FXML
     private TilePane Inventory;
@@ -157,21 +161,33 @@ public class Controller implements Initializable {
         for (int i = 0; i < 48; i++) {
             ImageView imageView = new ImageView(inventoryCase);
             int finalI1 = i;
+
             imageView.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    ItemInterface[] inventory = personnage.getInventory();
-                    if (inventory != null) {
-                        ItemInterface outil = inventory[finalI1];
-                        if (outil == null) {
-                            System.out.println("Rien");
+                    HashMap<ItemInterface, Integer> inventoryMap = personnage.getInventory();
+                    if (inventoryMap != null) {
+                        List<ItemInterface> items = new ArrayList<>(inventoryMap.keySet());
+
+                        if (finalI1 < items.size()) {
+                            ItemInterface outil = items.get(finalI1);
+                            if (outil == null) {
+                                System.out.println("Rien");
+                            } else {
+                                int quantite = inventoryMap.get(outil);
+                                System.out.println(outil.getName() + " x" + quantite);
+                            }
                         } else {
-                            System.out.println(outil.getName());
+                            System.out.println("Index hors limites");
                         }
                     }
                 }
             });
+
             Inventory.getChildren().add(imageView);
         }
+
+
+
         System.out.println(field.getWidth());
         paneperso.setMouseTransparent(true);
 
@@ -234,35 +250,45 @@ public class Controller implements Initializable {
     }
 
     public void initializeButton() {
-        AccesRapide8.setOnMouseClicked(event -> {
-            System.out.println(8);
-        });
-        AccesRapide7.setOnMouseClicked(event -> {
-            System.out.println(7);
-        });
-        AccesRapide6.setOnMouseClicked(event -> {
-            System.out.println(6);
-        });
-        AccesRapide5.setOnMouseClicked(event -> {
-            System.out.println(5);
-        });
-        AccesRapide4.setOnMouseClicked(event -> {
-            System.out.println(4);
-        });
-        AccesRapide3.setOnMouseClicked(event -> {
-            System.out.println(3);
-        });
-        AccesRapide2.setOnMouseClicked(event -> {
-            System.out.println(2);
-        });
+        Image stick = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/stick.png").toExternalForm());
+
         AccesRapide1.setOnMouseClicked(event -> {
             System.out.println(1);
-            ContainerInvontory.setVisible(true);
-        });
-        quit.setOnMouseClicked(event -> {
-            ContainerInvontory.setVisible(false);
+            ContainerInventory.setVisible(true);
         });
 
+        AccesRapide2.setOnMouseClicked(event -> {
+            System.out.println(2);
+            ImageView imageView = new ImageView(stick);
+            imageView.setFitWidth(32);   // taille personnalisée
+            imageView.setFitHeight(32);
+            imageView.setLayoutX(300);
+            imageView.setLayoutY(300);
+
+            paneItem.getChildren().clear(); // efface l'ancien item
+            paneItem.getChildren().add(imageView); // ajoute l'item
+        });
+
+        AccesRapide3.setOnMouseClicked(event -> {
+            System.out.println(3);
+            ImageView imageView = new ImageView(stick);
+            imageView.setFitWidth(32);   // taille personnalisée
+            imageView.setFitHeight(32);
+            imageView.setLayoutX(300);
+            imageView.setLayoutY(300);
+
+            paneItem.getChildren().clear(); // efface l'ancien item
+            paneItem.getChildren().add(imageView); // ajoute l'item
+        });
+        AccesRapide4.setOnMouseClicked(event -> System.out.println(4));
+        AccesRapide5.setOnMouseClicked(event -> System.out.println(5));
+        AccesRapide6.setOnMouseClicked(event -> System.out.println(6));
+        AccesRapide7.setOnMouseClicked(event -> System.out.println(7));
+        AccesRapide8.setOnMouseClicked(event -> System.out.println(8));
+
+        quit.setOnMouseClicked(event -> {
+            ContainerInventory.setVisible(false);
+        });
     }
 
 }

@@ -16,19 +16,20 @@
          <children>
             <TilePane fx:id="tilepane" alignment="CENTER" BorderPane.alignment="CENTER" />
             <Pane fx:id="paneperso" prefHeight="0.0" prefWidth="0.0" />
+            <Pane fx:id="paneItem" layoutX="10.0" layoutY="10.0" prefHeight="0.0" prefWidth="0.0" />
          </children>
       </Pane>
    </center>
    <left>
       <Pane fx:id="healthBarContainer" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: transparent;" BorderPane.alignment="TOP_LEFT">
          <children>
-            <Rectangle fx:id="healthBarBackground" arcHeight="10.0" arcWidth="10.0" fill="grey" height="20.0" width="200.0" layoutX="10"/>
-            <Rectangle fx:id="healthBar" arcHeight="10.0" arcWidth="10.0" fill="red" height="20.0" width="200.0" layoutX="10" />
-            <Rectangle fx:id="expBarBackground" arcHeight="5.0" arcWidth="5.0" fill="lightgrey" height="10.0" layoutY="25.0" width="200.0" layoutX="10" />
-            <Rectangle fx:id="expBar" arcHeight="5.0" arcWidth="5.0" fill="blue" height="10.0" layoutY="25.0" width="200.0" layoutX="10"/>
-            <Pane layoutX="220" layoutY="0" prefWidth="36" prefHeight="36">
-               <Rectangle fx:id="lvl" width="36" height="36" arcWidth="5" arcHeight="5" fill="lightgray"/>
-               <Label fx:id="lvlLabel" text="1" alignment="CENTER" layoutX="0" layoutY="0" prefWidth="36" prefHeight="36" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+            <Rectangle fx:id="healthBarBackground" arcHeight="10.0" arcWidth="10.0" fill="grey" height="20.0" layoutX="10" width="200.0" />
+            <Rectangle fx:id="healthBar" arcHeight="10.0" arcWidth="10.0" fill="red" height="20.0" layoutX="10" width="200.0" />
+            <Rectangle fx:id="expBarBackground" arcHeight="5.0" arcWidth="5.0" fill="lightgrey" height="10.0" layoutX="10" layoutY="25.0" width="200.0" />
+            <Rectangle fx:id="expBar" arcHeight="5.0" arcWidth="5.0" fill="blue" height="10.0" layoutX="10" layoutY="25.0" width="200.0" />
+            <Pane layoutX="220" layoutY="0" prefHeight="36" prefWidth="36">
+               <Rectangle fx:id="lvl" arcHeight="5" arcWidth="5" fill="lightgray" height="36" width="36" />
+               <Label fx:id="lvlLabel" alignment="CENTER" layoutX="0" layoutY="0" prefHeight="36" prefWidth="36" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="1" />
             </Pane>
          </children>
       </Pane>

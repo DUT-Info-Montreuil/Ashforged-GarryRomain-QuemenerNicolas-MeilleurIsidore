@@ -5,13 +5,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
 public class Character implements Entity {
     private double velocityY;
     private String id;
     private String name;
     private IntegerProperty level;
     private int[] stats;
-    private ItemInterface[] items;
+    private LinkedHashMap<ItemInterface, Integer> inventory = new LinkedHashMap<>();
+    //private ItemInterface[] items;
     private int pods;
     private int maxPods;
     private IntegerProperty health = new SimpleIntegerProperty();
@@ -40,7 +44,7 @@ public class Character implements Entity {
         this.y = new SimpleIntegerProperty(y);
         this.env = env;
         this.stat_point += 5 * (level + 1);
-        this.items = new ItemInterface[48];
+        this.inventory = new LinkedHashMap<ItemInterface, Integer>();
         this.pods = 0;
         this.maxPods = 10 * stats[1];
         this.maxHealth = 3 * stats[0];
@@ -255,22 +259,19 @@ public class Character implements Entity {
     /***
      *  Permet d'afficher l'ensemble des items présents dans l'inventaire du joueur.
      */
-    public ItemInterface[] getInventory() {
+    public HashMap<ItemInterface, Integer> getInventory()
+    {
         System.out.println("------ Inventory ------");
         int i = 0;
         boolean empty = true;
-        while (i < items.length) {
-            if (items[i] != null) {
-                System.out.println(items[i].getName());
-                empty = false;
-            }
-            i++;
+
+        for (ItemInterface item : inventory.keySet()) {
+            System.out.println("Clé : " + item);
         }
-        if (empty) {
-            System.out.println("The inventory is empty\n");
-        }
+
         System.out.println("------ End of Inventory ------");
-        return items;
+
+        return inventory;
     }
 
 
@@ -285,17 +286,16 @@ public class Character implements Entity {
         int i = 0;
         boolean add = false;
 
-        if (item.getWeight() + this.pods <= maxPods) {
-            while (i < items.length && !add) {
-                if (items[i] == null) {
-                    items[i] = item;
-                    add = true;
-                }
-                i++;
+        if (!inventory.containsKey(item)) {
+            if (item.getWeight() + this.pods <= maxPods) {
+                inventory.put(item, 0);
+            } else {
+                System.out.println("The inventory is full or too much pods");
             }
-        } else {
-            System.out.println("The inventory is full or too much pods");
         }
+        else inventory.put(item, inventory.get(item) + 1); // Incrémente la valeur associée à "item" de 1
+
+
     }
 
 
@@ -308,10 +308,9 @@ public class Character implements Entity {
         System.out.println("------ Remove from Inventory ------");
         boolean removed = false;
 
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getId().equals(item.getId())) {
-                System.out.println("Item " + items[i].getName() + " removed from inventory\n");
-                items[i] = null;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.containsKey(item)) {
+                System.out.println("Item " + inventory.get(item) + " removed from inventory\n");
                 removed = true;
                 break;
             }
