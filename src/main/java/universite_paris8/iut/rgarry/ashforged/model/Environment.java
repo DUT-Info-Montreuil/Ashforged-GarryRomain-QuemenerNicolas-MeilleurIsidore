@@ -45,7 +45,6 @@ public class Environment {
         // TODO: Implement collision detection logic based on the direction and entity position
         // This method should check if the entity collides with any obstacles or boundaries in the environment
         // For now, we can return false as a placeholder
-
         return this.field.checkCollision(x, y);
 
 
