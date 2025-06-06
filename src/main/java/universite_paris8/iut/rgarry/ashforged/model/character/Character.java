@@ -4,9 +4,9 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 public class Character implements Entity {
     private double velocityY;
@@ -15,7 +15,6 @@ public class Character implements Entity {
     private IntegerProperty level;
     private int[] stats;
     private LinkedHashMap<ItemInterface, Integer> inventory = new LinkedHashMap<>();
-    //private ItemInterface[] items;
     private int pods;
     private int maxPods;
     private IntegerProperty health = new SimpleIntegerProperty();
@@ -259,7 +258,7 @@ public class Character implements Entity {
     /***
      *  Permet d'afficher l'ensemble des items présents dans l'inventaire du joueur.
      */
-    public HashMap<ItemInterface, Integer> getInventory()
+    public LinkedHashMap<ItemInterface, Integer> getInventory()
     {
         System.out.println("------ Inventory ------");
         int i = 0;
@@ -319,5 +318,15 @@ public class Character implements Entity {
         if (!removed) {
             System.out.println("Item not found in inventory\n");
         }
+    }
+
+    public String findKey(LinkedHashMap<ItemInterface, Integer> inventory, int index) {
+        ArrayList<String> inventoryKeys = new ArrayList<>();
+
+        for (ItemInterface key : inventory.keySet()) {
+            inventoryKeys.add(" " + key);
+        }
+
+        return inventoryKeys.get(index);
     }
 }
