@@ -4,4 +4,5 @@ public interface ItemInterface {
     String getId();
     String getName();
     int getWeight();
+     String getImagePath();
 }

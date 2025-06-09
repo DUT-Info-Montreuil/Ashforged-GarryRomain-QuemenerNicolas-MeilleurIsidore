@@ -156,8 +156,8 @@ public class Controller implements Initializable {
 
         initializeButton();
 
-        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Ciel.png").toExternalForm());
-        Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/caseInventaire.png").toExternalForm());
+        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Ciel.png").toExternalForm());
+        Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
         personnage.addToInventory(ItemStock.Usuable.golden_piece);
 
         for (int i = 0; i < 48; i++) {

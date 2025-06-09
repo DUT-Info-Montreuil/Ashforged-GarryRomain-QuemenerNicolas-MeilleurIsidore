@@ -2,7 +2,6 @@ package universite_paris8.iut.rgarry.ashforged.view;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 
@@ -36,9 +35,9 @@ public class FieldView {
         tilepane.setVgap(0);
         tilepane.setAlignment(javafx.geometry.Pos.TOP_LEFT);
 
-        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Ciel.png").toExternalForm());
-        Image terre = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Terre.png").toExternalForm());
-        Image pierre = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Pierre.png").toExternalForm());
+        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Ciel.png").toExternalForm());
+        Image terre = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Terre.png").toExternalForm());
+        Image pierre = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Pierre.png").toExternalForm());
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
