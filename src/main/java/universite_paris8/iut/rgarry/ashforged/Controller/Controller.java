@@ -258,7 +258,7 @@ public class Controller implements Initializable {
     }
 
     public void initializeButton() {
-        Image stick = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/stick.png").toExternalForm());
+        Image stick = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Weapons/stick.png").toExternalForm());
         Image canne = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/canne.png").toExternalForm());
 
         AccesRapide1.setOnMouseClicked(event -> {
