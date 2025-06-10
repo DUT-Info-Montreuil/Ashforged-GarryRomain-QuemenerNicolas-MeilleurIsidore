@@ -218,7 +218,6 @@ public class Controller implements Initializable {
 
     public void initializeInventory() {
         inventory.put(ItemStock.Weapon.stick, new Image(getClass().getResource("/chemin/stick.png").toExternalForm()));
-        inventory.put(ItemStock.Weapon.bomb, new Image(getClass().getResource("/chemin/canne.png").toExternalForm()));
     }
 
 
@@ -259,7 +258,7 @@ public class Controller implements Initializable {
 
     public void initializeButton() {
         Image stick = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Weapons/stick.png").toExternalForm());
-        Image canne = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/canne.png").toExternalForm());
+    
 
         AccesRapide1.setOnMouseClicked(event -> {
             System.out.println(1);
