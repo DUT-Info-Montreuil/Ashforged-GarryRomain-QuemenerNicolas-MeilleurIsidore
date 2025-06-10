@@ -84,6 +84,9 @@ public class CharacterController {
 //            characterController.moveCharacter(personnage, environment, 'u'); // Haut
             // Si nécessaire, ajouter une logique pour le saut ou une autre action
         }
+        if(!this.isQPressed() && !this.isDPressed()){
+            personnage.resteImobile();
+        }
     }
 
     public boolean checkCollision(Entity entity, Environment environment, Environment.Direction direction) {

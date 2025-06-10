@@ -33,6 +33,8 @@ public class Character implements Entity {
 
     private static int compter = 0;
 
+    private boolean test = false;
+
     public Character(String name, int level, int[] stats, int x, int y, Environment env) {
         this.velocityY = 0;
         this.id = "#" + compter++;
@@ -59,19 +61,34 @@ public class Character implements Entity {
         this.direction = 'g';
     }
 
+    public void resteImobile() {
+        this.direction = 'i';
+    }
+
     public void seDeplacer() {
         int newX = getX();
         if (direction == 'd') {
             newX += getVitesse();
-            if (!env.checkCollision(newX+31,getY()) && !env.checkCollision(newX+31,getY()+31)) { //TODO vérif collision
+            if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31)) { //TODO vérif collision
                 setX(newX);
+                test = false;
             } else {
+                if (!test) {
+                    setX((newX / 64) * 64 + 31);
+                    test = true;
+                }
                 //TODO : calculer la position qui le colle au bloc
             }
         } else if (direction == 'g') {
             newX -= getVitesse();
-            if (!env.checkCollision(newX,getY()) && !env.checkCollision(newX,getY()+31)) { //TODO vérif collision
+            if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31)) { //TODO vérif collision
                 setX(newX);
+                test = false;
+            } else {
+                if (!test) {
+                    setX(((newX / 64)+1) * 64+1);
+                    test = true;
+                }
             }
         }
 
