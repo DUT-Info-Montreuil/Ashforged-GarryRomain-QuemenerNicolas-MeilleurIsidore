@@ -116,6 +116,7 @@ public class Controller implements Initializable {
                 AccesRapide2, AccesRapide3, AccesRapide4,
                 AccesRapide5, AccesRapide6, AccesRapide7, AccesRapide8
         );
+        initializeButton();
 
         double maxBarWidth = 200.0;
         healthBar.widthProperty().bind(
@@ -161,7 +162,7 @@ public class Controller implements Initializable {
         camera.translateXProperty().bind(conditionalBindingX);
         camera.translateYProperty().bind(conditionalBindingY);
 
-        initializeButton();
+
 
         Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Ciel.png").toExternalForm());
         Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
@@ -261,7 +262,6 @@ public class Controller implements Initializable {
 
     private void initializeButton() {
         AccesRapide1.setOnMouseClicked(event -> {
-            System.out.println(1);
             ContainerInventory.setVisible(true);
         });
 
@@ -287,8 +287,9 @@ public class Controller implements Initializable {
             }
         }
 
-    }
 
+
+    }
 
     public Image getItemImageAt(int index) {
         ItemInterface item = personnage.findKey(personnage.getInventory(), index);

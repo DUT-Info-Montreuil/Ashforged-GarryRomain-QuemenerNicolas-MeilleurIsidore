@@ -161,6 +161,7 @@ public class CharacterController {
                 break;
             case 'l': // Gauche
                 if (!checkCollision(personnage, environment, Environment.Direction.LEFT)) {
+                    changerDirectionPersonnage();
                     newX -= step;
                 }
                 break;

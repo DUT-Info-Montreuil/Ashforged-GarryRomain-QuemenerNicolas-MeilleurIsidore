@@ -27,8 +27,8 @@ public class CharacterView {
 
         paneperso.setPrefSize(field.getWidth(), field.getHeight());
 
-        this.persoDroite = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/New Piskel-2.png.png").toExternalForm());
-        this.persoGauche = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/New Piskel-3.png.png").toExternalForm());
+        this.persoDroite = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/rightHero.png").toExternalForm());
+        this.persoGauche = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/leftHero.png").toExternalForm());
         this.perso = new ImageView(persoDroite);
 
         perso.setId("perso");

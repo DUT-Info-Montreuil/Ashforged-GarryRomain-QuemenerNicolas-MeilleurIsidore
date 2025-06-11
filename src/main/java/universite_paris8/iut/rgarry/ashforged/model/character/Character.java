@@ -45,7 +45,7 @@ public class Character implements Entity {
         this.stat_point += 5 * (level + 1);
 
         this.inventory = new LinkedHashMap<ItemInterface, Integer>();
-        inventory.put(ItemStock.Usuable.alluminium, 1);
+        inventory.put(ItemStock.Weapon.bomb, 1);
         inventory.put(ItemStock.Usuable.string, 4);
         inventory.put(ItemStock.Weapon.stone_axe, 1);
         inventory.put(ItemStock.Weapon.steel_pickaxe, 1);
@@ -265,20 +265,7 @@ public class Character implements Entity {
     /***
      *  Permet d'afficher l'ensemble des items présents dans l'inventaire du joueur.
      */
-    public LinkedHashMap<ItemInterface, Integer> getInventory()
-    {
-        System.out.println("------ Inventory ------");
-        int i = 0;
-        boolean empty = true;
-
-        for (ItemInterface item : inventory.keySet()) {
-            System.out.println("Clé : " + item);
-        }
-
-        System.out.println("------ End of Inventory ------");
-
-        return inventory;
-    }
+    public LinkedHashMap<ItemInterface, Integer> getInventory() {return inventory;}
 
 
     /***
