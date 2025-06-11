@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 
 public class PersonnageTest {
-    private Personnage perso;
+    private Character perso;
 
     @BeforeEach
     public void setUp() {

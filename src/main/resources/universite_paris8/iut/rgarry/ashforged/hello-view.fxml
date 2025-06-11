@@ -16,7 +16,6 @@
          <children>
             <TilePane fx:id="tilepane" alignment="CENTER" BorderPane.alignment="CENTER" />
             <Pane fx:id="paneperso" prefHeight="0.0" prefWidth="0.0" />
-            <Pane fx:id="paneItem" layoutX="10.0" layoutY="10.0" prefHeight="0.0" prefWidth="0.0" />
          </children>
       </Pane>
    </center>
@@ -37,8 +36,8 @@
    <right>
       <Pane fx:id="AccesRapide" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="52.0" prefWidth="412.0">
          <children>
-            <Pane fx:id="AccesRapide1" layoutX="86.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
-            <Pane fx:id="AccesRapide2" layoutX="127.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style= "-fx-background-image: url('/universite_paris8/iut/rgarry/ashforged/Image/Weapons/stick.png');-fx-background-color: red;" />
+            <Pane fx:id="AccesRapide1" layoutX="86.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;"  />
+            <Pane fx:id="AccesRapide2" layoutX="127.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
             <Pane fx:id="AccesRapide3" layoutX="168.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
             <Pane fx:id="AccesRapide4" layoutX="209.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
             <Pane fx:id="AccesRapide5" layoutX="250.0" layoutY="6.0" prefHeight="39.0" prefWidth="39.0" style="-fx-background-color: red;" />
