@@ -43,7 +43,14 @@ public class Character implements Entity {
         this.y = new SimpleIntegerProperty(y);
         this.env = env;
         this.stat_point += 5 * (level + 1);
+
         this.inventory = new LinkedHashMap<ItemInterface, Integer>();
+        inventory.put(ItemStock.Usuable.alluminium, 1);
+        inventory.put(ItemStock.Usuable.string, 4);
+        inventory.put(ItemStock.Weapon.stone_axe, 1);
+        inventory.put(ItemStock.Weapon.steel_pickaxe, 1);
+        inventory.put(ItemStock.Usuable.golden_piece, 15);
+
         this.pods = 0;
         this.maxPods = 10 * stats[1];
         this.maxHealth = 3 * stats[0];
@@ -320,13 +327,18 @@ public class Character implements Entity {
         }
     }
 
-    public String findKey(LinkedHashMap<ItemInterface, Integer> inventory, int index) {
-        ArrayList<String> inventoryKeys = new ArrayList<>();
-
-        for (ItemInterface key : inventory.keySet()) {
-            inventoryKeys.add(" " + key);
+    public ItemInterface findKey(LinkedHashMap<ItemInterface, Integer> inventory, int index) {
+        if (index < 0 || index >= inventory.size()) {
+            return null;  // index out of range
         }
-
-        return inventoryKeys.get(index);
+        int i = 0;
+        for (ItemInterface key : inventory.keySet()) {
+            if (i == index) {
+                return key;  // found the key at 'index'
+            }
+            i++;
+        }
+        return null;  // if index is invalid (shouldn't happen because of check)
     }
+
 }
