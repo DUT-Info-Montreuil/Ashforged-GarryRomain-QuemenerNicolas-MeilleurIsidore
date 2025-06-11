@@ -33,8 +33,6 @@ public class Character implements Entity {
 
     private static int compter = 0;
 
-    private boolean test = false;
-
     public Character(String name, int level, int[] stats, int x, int y, Environment env) {
         this.velocityY = 0;
         this.id = "#" + compter++;
@@ -45,7 +43,14 @@ public class Character implements Entity {
         this.y = new SimpleIntegerProperty(y);
         this.env = env;
         this.stat_point += 5 * (level + 1);
+
         this.inventory = new LinkedHashMap<ItemInterface, Integer>();
+        inventory.put(ItemStock.Weapon.bomb, 1);
+        inventory.put(ItemStock.Usuable.string, 4);
+        inventory.put(ItemStock.Weapon.stone_axe, 1);
+        inventory.put(ItemStock.Weapon.steel_pickaxe, 1);
+        inventory.put(ItemStock.Usuable.golden_piece, 15);
+
         this.pods = 0;
         this.maxPods = 10 * stats[1];
         this.maxHealth = 3 * stats[0];
@@ -61,34 +66,19 @@ public class Character implements Entity {
         this.direction = 'g';
     }
 
-    public void resteImobile() {
-        this.direction = 'i';
-    }
-
     public void seDeplacer() {
         int newX = getX();
         if (direction == 'd') {
             newX += getVitesse();
-            if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31)) { //TODO vérif collision
+            if (!env.checkCollision(newX+31,getY()) && !env.checkCollision(newX+31,getY()+31)) { //TODO vérif collision
                 setX(newX);
-                test = false;
             } else {
-                if (!test) {
-                    setX((newX / 64) * 64 + 31);
-                    test = true;
-                }
                 //TODO : calculer la position qui le colle au bloc
             }
         } else if (direction == 'g') {
             newX -= getVitesse();
-            if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31)) { //TODO vérif collision
+            if (!env.checkCollision(newX,getY()) && !env.checkCollision(newX,getY()+31)) { //TODO vérif collision
                 setX(newX);
-                test = false;
-            } else {
-                if (!test) {
-                    setX(((newX / 64)+1) * 64+1);
-                    test = true;
-                }
             }
         }
 
@@ -275,20 +265,7 @@ public class Character implements Entity {
     /***
      *  Permet d'afficher l'ensemble des items présents dans l'inventaire du joueur.
      */
-    public LinkedHashMap<ItemInterface, Integer> getInventory()
-    {
-        System.out.println("------ Inventory ------");
-        int i = 0;
-        boolean empty = true;
-
-        for (ItemInterface item : inventory.keySet()) {
-            System.out.println("Clé : " + item);
-        }
-
-        System.out.println("------ End of Inventory ------");
-
-        return inventory;
-    }
+    public LinkedHashMap<ItemInterface, Integer> getInventory() {return inventory;}
 
 
     /***
@@ -337,13 +314,18 @@ public class Character implements Entity {
         }
     }
 
-    public String findKey(LinkedHashMap<ItemInterface, Integer> inventory, int index) {
-        ArrayList<String> inventoryKeys = new ArrayList<>();
-
-        for (ItemInterface key : inventory.keySet()) {
-            inventoryKeys.add(" " + key);
+    public ItemInterface findKey(LinkedHashMap<ItemInterface, Integer> inventory, int index) {
+        if (index < 0 || index >= inventory.size()) {
+            return null;  // index out of range
         }
-
-        return inventoryKeys.get(index);
+        int i = 0;
+        for (ItemInterface key : inventory.keySet()) {
+            if (i == index) {
+                return key;  // found the key at 'index'
+            }
+            i++;
+        }
+        return null;  // if index is invalid (shouldn't happen because of check)
     }
+
 }
