@@ -24,6 +24,8 @@ import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
 
 import java.net.URL;
 import java.util.*;
+import java.util.function.Consumer;
+
 
 public class Controller implements Initializable {
 
@@ -78,6 +80,8 @@ public class Controller implements Initializable {
     @FXML
     private Pane quit;
 
+    private List<Pane> accesRapidePanes;
+
     private final int LimitLeftCam = 960;
 
     private CharacterView personnageView;
@@ -98,8 +102,6 @@ public class Controller implements Initializable {
         Field field = new Field();
 
 
-
-
         // Initialisation de l'environnement
         environment = new Environment(field, List.of(), List.of());
         personnage = environment.getHero();
@@ -110,11 +112,17 @@ public class Controller implements Initializable {
         paneperso.setFocusTraversable(true);
         paneperso.requestFocus();
 
+        accesRapidePanes = List.of(
+                AccesRapide2, AccesRapide3, AccesRapide4,
+                AccesRapide5, AccesRapide6, AccesRapide7, AccesRapide8
+        );
+        initializeButton();
+
         double maxBarWidth = 200.0;
         healthBar.widthProperty().bind(
                 Bindings.createDoubleBinding(
                         () -> (personnage.getHealth() / (double) personnage.getMaxHealth()) * maxBarWidth,
-                        personnage.healthProperty(), personnage.healthProperty()
+                        personnage.healthProperty()
                 )
         );
         expBar.widthProperty().bind(
@@ -154,7 +162,7 @@ public class Controller implements Initializable {
         camera.translateXProperty().bind(conditionalBindingX);
         camera.translateYProperty().bind(conditionalBindingY);
 
-        initializeButton();
+
 
         Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Ciel.png").toExternalForm());
         Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
@@ -216,11 +224,6 @@ public class Controller implements Initializable {
         startTimeline();
     }
 
-    public void initializeInventory() {
-        inventory.put(ItemStock.Weapon.stick, new Image(getClass().getResource("/chemin/stick.png").toExternalForm()));
-    }
-
-
     /***
      * Permet de gérer le déplacement du personnage dans le jeu et donc mettre à jour sa position.
      */
@@ -256,122 +259,43 @@ public class Controller implements Initializable {
         timeline.play();
     }
 
-    public void initializeButton() {
-        Image stick = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/Weapons/stick.png").toExternalForm());
-    
 
+    private void initializeButton() {
         AccesRapide1.setOnMouseClicked(event -> {
-            System.out.println(1);
             ContainerInventory.setVisible(true);
-        });
-
-        AccesRapide2.setOnMouseClicked(event -> {
-            System.out.println(2);
-
-            String item = personnage.findKey(personnage.getInventory(), 2);
-
-            ImageView imageView = new ImageView(item);
-            imageView.setFitWidth(32);   // taille personnalisée
-            imageView.setFitHeight(32);
-            imageView.setLayoutX(300);
-            imageView.setLayoutY(300);
-
-            paneItem.getChildren().clear(); // efface l'ancien item
-            paneItem.getChildren().add(imageView); // ajoute l'item
-        });
-
-        AccesRapide3.setOnMouseClicked(event -> {
-            System.out.println(3);
-
-            String item = personnage.findKey(personnage.getInventory(), 3);
-
-            ImageView imageView = new ImageView(item);
-            imageView.setFitWidth(32);   // taille personnalisée
-            imageView.setFitHeight(32);
-            imageView.setLayoutX(300);
-            imageView.setLayoutY(300);
-
-            paneItem.getChildren().clear(); // efface l'ancien item
-            paneItem.getChildren().add(imageView); // ajoute l'item
-        });
-
-        AccesRapide4.setOnMouseClicked(event -> {
-            System.out.println(4);
-
-            String item = personnage.findKey(personnage.getInventory(), 4);
-
-            ImageView imageView = new ImageView(item);
-            imageView.setFitWidth(32);   // taille personnalisée
-            imageView.setFitHeight(32);
-            imageView.setLayoutX(300);
-            imageView.setLayoutY(300);
-
-            paneItem.getChildren().clear(); // efface l'ancien item
-            paneItem.getChildren().add(imageView); // ajoute l'item
-        });
-
-        AccesRapide5.setOnMouseClicked(event -> {
-            System.out.println(5);
-
-            String item = personnage.findKey(personnage.getInventory(), 5);
-
-            ImageView imageView = new ImageView(item);
-            imageView.setFitWidth(32);   // taille personnalisée
-            imageView.setFitHeight(32);
-            imageView.setLayoutX(300);
-            imageView.setLayoutY(300);
-
-            paneItem.getChildren().clear(); // efface l'ancien item
-            paneItem.getChildren().add(imageView); // ajoute l'item
-        });
-        AccesRapide6.setOnMouseClicked(event -> {
-            System.out.println(6);
-
-            String item = personnage.findKey(personnage.getInventory(), 6);
-
-            ImageView imageView = new ImageView(item);
-            imageView.setFitWidth(32);   // taille personnalisée
-            imageView.setFitHeight(32);
-            imageView.setLayoutX(300);
-            imageView.setLayoutY(300);
-
-            paneItem.getChildren().clear(); // efface l'ancien item
-            paneItem.getChildren().add(imageView); // ajoute l'item
-        });
-
-        AccesRapide7.setOnMouseClicked(event -> {
-            System.out.println(7);
-
-            String item = personnage.findKey(personnage.getInventory(), 7);
-
-            ImageView imageView = new ImageView(item);
-            imageView.setFitWidth(32);   // taille personnalisée
-            imageView.setFitHeight(32);
-            imageView.setLayoutX(300);
-            imageView.setLayoutY(300);
-
-            paneItem.getChildren().clear(); // efface l'ancien item
-            paneItem.getChildren().add(imageView); // ajoute l'item
-        });
-
-        AccesRapide8.setOnMouseClicked(event -> {
-            System.out.println(8);
-
-            String item = personnage.findKey(personnage.getInventory(), 8);
-
-            ImageView imageView = new ImageView(item);
-            imageView.setFitWidth(32);   // taille personnalisée
-            imageView.setFitHeight(32);
-            imageView.setLayoutX(300);
-            imageView.setLayoutY(300);
-
-            paneItem.getChildren().clear(); // efface l'ancien item
-            paneItem.getChildren().add(imageView); // ajoute l'item
         });
 
         quit.setOnMouseClicked(event -> {
             ContainerInventory.setVisible(false);
         });
+
+        for (int i = 0; i < accesRapidePanes.size(); i++) {
+            Pane pane = accesRapidePanes.get(i);
+            pane.getChildren().clear();
+
+            ImageView iv = new ImageView();
+            iv.setFitWidth(32);
+            iv.setFitHeight(32);
+            iv.setPreserveRatio(true);
+
+            Image itemImage = getItemImageAt(i);  // utilise ta méthode qui combine findKey + getImage
+            if (itemImage != null) {
+                iv.setImage(itemImage);
+                pane.getChildren().add(iv);
+                iv.setLayoutX((pane.getPrefWidth() - iv.getFitWidth()) / 2);
+                iv.setLayoutY((pane.getPrefHeight() - iv.getFitHeight()) / 2);
+            }
+        }
+
+
+
     }
 
+    public Image getItemImageAt(int index) {
+        ItemInterface item = personnage.findKey(personnage.getInventory(), index);
+        if (item != null) {
+            return item.getImage();
+        }
+        return null;
+    }
 }
