@@ -5,8 +5,10 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
+import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
+import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +32,18 @@ public class CharacterController {
     private final TilePane tilePane;
     private final Pane panePerso;
 
+    private Field field;
+
+
 //    static {
 //        personnage = new Character("Hero", 1, new int[]{1, 1, 5, 1}, 250, 300);
 //    }
 
-    public CharacterController(TilePane tilePane, Pane panePerso, Character personnage ) {
+    public CharacterController(TilePane tilePane, Pane panePerso, Character personnage, Field field) {
         this.tilePane = tilePane;
         this.panePerso = panePerso;
         this.personnage = personnage;
+        this.field = field;
     }
 
 //    public static Character getPersonnage() {
@@ -67,10 +73,13 @@ public class CharacterController {
     }
 
     public void changerDirectionPersonnage() {
+        CharacterView view = new CharacterView(panePerso, personnage, this, field);
+
+
         if (this.isQPressed()) {
             personnage.vaAGauche();
 //            this.moveCharacter(personnage, environment, 'l'); // Gauche
-//            personnageView.changeSprite('l');
+            view.changeSprite('l');
         }
         if (this.isSPressed()) {
  //           characterController.moveCharacter(personnage, environment, 'd'); // Bas
@@ -78,14 +87,15 @@ public class CharacterController {
         if (this.isDPressed()) {
             personnage.vaADroite();
 //            characterController.moveCharacter(personnage, environment, 'r'); // Droite
-//            personnageView.changeSprite('r');
+            view.changeSprite('r');
         }
         if (this.isSpacePressed()) {
 //            characterController.moveCharacter(personnage, environment, 'u'); // Haut
             // Si nécessaire, ajouter une logique pour le saut ou une autre action
         }
         if(!this.isQPressed() && !this.isDPressed()){
-            personnage.resteImobile();
+            personnage.resteImmobile();
+
         }
     }
 

@@ -66,6 +66,10 @@ public class Character implements Entity {
         this.direction = 'g';
     }
 
+    public void resteImmobile() {
+        this.direction = 'i';
+    }
+
     public void seDeplacer() {
         int newX = getX();
         if (direction == 'd') {

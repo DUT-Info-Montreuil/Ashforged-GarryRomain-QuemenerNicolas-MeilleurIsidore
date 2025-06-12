@@ -106,7 +106,7 @@ public class Controller implements Initializable {
         environment = new Environment(field, List.of(), List.of());
         personnage = environment.getHero();
 
-        characterController = new CharacterController(tilepane, paneperso, personnage);
+        characterController = new CharacterController(tilepane, paneperso, personnage, field);
 
 
         paneperso.setFocusTraversable(true);
@@ -169,8 +169,9 @@ public class Controller implements Initializable {
         personnage.addToInventory(ItemStock.Usuable.golden_piece);
 
         for (int i = 0; i < 48; i++) {
-            ImageView imageView = new ImageView(inventoryCase);
             int finalI1 = i;
+            ImageView imageView = new ImageView(getItemImageAt(i));
+
 
             imageView.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
@@ -179,12 +180,12 @@ public class Controller implements Initializable {
                         List<ItemInterface> items = new ArrayList<>(inventoryMap.keySet());
 
                         if (finalI1 < items.size()) {
-                            ItemInterface outil = items.get(finalI1);
-                            if (outil == null) {
+                            ItemInterface item = items.get(finalI1);
+                            if (item == null) {
                                 System.out.println("Rien");
                             } else {
-                                int quantite = inventoryMap.get(outil);
-                                System.out.println(outil.getName() + " x" + quantite);
+                                int quantite = inventoryMap.get(item);
+                                System.out.println(item.getName() + "x" + quantite);
                             }
                         } else {
                             System.out.println("Index hors limites");
