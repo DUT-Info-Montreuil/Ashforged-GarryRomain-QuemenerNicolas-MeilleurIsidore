@@ -80,6 +80,8 @@ public class Controller implements Initializable {
     @FXML
     private Pane quit;
 
+    @FXML private Pane startScreen;
+
     private List<Pane> accesRapidePanes;
 
     private final int LimitLeftCam = 960;
@@ -95,10 +97,31 @@ public class Controller implements Initializable {
     private LinkedHashMap<ItemInterface, Image> inventory = new LinkedHashMap<>();
 
 
+    @FXML
+    private void startGame() {
+        startScreen.setVisible(false); // cacher l'écran titre
+
+        paneperso.setVisible(true);
+        tilepane.setVisible(true);
+
+        // force le layout pour que tout soit recalculé
+        paneperso.applyCss();
+        paneperso.layout();
+        tilepane.applyCss();
+        tilepane.layout();
+
+        // recentre la caméra après affichage
+        camera.requestLayout();
+
+        // lancer le jeu
+        startTimeline();
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
         Field field = new Field();
 
 

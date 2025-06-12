@@ -11,14 +11,15 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1420, 580);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/title_screen.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
 
         stage.setTitle("Ashforged");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
-
     }
+
     public static void main(String[] args) {
         launch();
     }
