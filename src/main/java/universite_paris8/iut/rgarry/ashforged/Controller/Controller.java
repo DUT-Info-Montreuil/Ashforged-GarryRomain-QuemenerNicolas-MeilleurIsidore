@@ -257,7 +257,7 @@ public class Controller implements Initializable {
 
 
         timeline = new Timeline(new KeyFrame(Duration.millis(10), event -> {
-            personnage.seDeplacer();
+            personnage.seDeplacer(personnageView);
 //            if (characterController.isQPressed()) {
 //                characterController.moveCharacter(personnage, environment, 'l'); // Gauche
 //                personnageView.changeSprite('l');

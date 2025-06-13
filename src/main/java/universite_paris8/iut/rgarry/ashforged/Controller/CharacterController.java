@@ -73,13 +73,11 @@ public class CharacterController {
     }
 
     public void changerDirectionPersonnage() {
-        CharacterView view = new CharacterView(panePerso, personnage, this, field);
 
 
         if (this.isQPressed()) {
             personnage.vaAGauche();
 //            this.moveCharacter(personnage, environment, 'l'); // Gauche
-            view.changeSprite('l');
         }
         if (this.isSPressed()) {
  //           characterController.moveCharacter(personnage, environment, 'd'); // Bas
@@ -87,7 +85,6 @@ public class CharacterController {
         if (this.isDPressed()) {
             personnage.vaADroite();
 //            characterController.moveCharacter(personnage, environment, 'r'); // Droite
-            view.changeSprite('r');
         }
         if (this.isSpacePressed()) {
 //            characterController.moveCharacter(personnage, environment, 'u'); // Haut

@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
 
 import java.util.*;
 
@@ -59,32 +60,38 @@ public class Character implements Entity {
     }
 
     public void vaADroite() {
-        this.direction = 'd';
+        this.direction = 'r';
     }
 
     public void vaAGauche() {
-        this.direction = 'g';
+        this.direction = 'l';
     }
 
     public void resteImmobile() {
         this.direction = 'i';
     }
 
-    public void seDeplacer() {
+    public void seDeplacer(CharacterView characterView) {
         int newX = getX();
-        if (direction == 'd') {
+        if (direction == 'r') {
             newX += getVitesse();
             if (!env.checkCollision(newX+31,getY()) && !env.checkCollision(newX+31,getY()+31)) { //TODO vérif collision
                 setX(newX);
             } else {
-                //TODO : calculer la position qui le colle au bloc
+                // nouvelle position /64 pour trouver le bloc *64 pour aller au debut de celui ci et +31 pour que le personnage soit à la fin de ce bloc
+                setX((newX / 64) * 64 + 31);
             }
-        } else if (direction == 'g') {
+        } else if (direction == 'l') {
             newX -= getVitesse();
             if (!env.checkCollision(newX,getY()) && !env.checkCollision(newX,getY()+31)) { //TODO vérif collision
                 setX(newX);
             }
+            else {
+                setX(((newX / 64)+1) * 64+1);
+
+            }
         }
+        characterView.changeSprite(direction);
 
     }
 
