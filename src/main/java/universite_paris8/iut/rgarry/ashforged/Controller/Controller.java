@@ -19,6 +19,8 @@ import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
+import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
+import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
 import universite_paris8.iut.rgarry.ashforged.view.CraftView;
 import universite_paris8.iut.rgarry.ashforged.view.FieldView;
 import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
@@ -26,6 +28,9 @@ import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
 import java.net.URL;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 
 public class Controller implements Initializable {
@@ -90,8 +95,11 @@ public class Controller implements Initializable {
     private CharacterView personnageView;
     private CharacterController characterController;
     private Character personnage;
+    private List<Npc> npcs = new ArrayList<>();
+    private List<Mobs> mobs = new ArrayList<>();
 
     private Timeline timeline;
+    private Timeline npcMoveTimeline;
 
     private Environment environment;
 
@@ -131,12 +139,45 @@ public class Controller implements Initializable {
 
 
         // Initialisation de l'environnement
-        environment = new Environment(field, List.of(), List.of());
+        environment = new Environment(field);
         personnage = environment.getHero();
+        mobs = environment.getMobs();
+        npcs = environment.getNpcs();
 
+        Image pierreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/caseInventaire.png").toExternalForm());
+        Image terreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/New Piskel-3.png.png").toExternalForm());
+        Image paoloImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/NPC/leftPaolo.png").toExternalForm());
 
-        characterController = new CharacterController(tilepane, paneperso, personnage, field);
+        for (Npc npc : npcs) {
+            ImageView npcView;
+            if(npc.getName().equals("Paolo")) {
+                npcView = new ImageView(paoloImage);
+            } else {
+                npcView = new ImageView(pierreImage);
+                if(npc.getName().equals("Branda")) {
+                    npc.setX(200);
+                    npc.setY(200);
+                } else if(npc.getName().equals("Terry")) {
+                    npc.setX(300);
+                    npc.setY(300);
+                } else if(npc.getName().equals("Salome")) {
+                    npc.setX(400);
+                    npc.setY(400);
+                }
+            }
+            npcView.layoutXProperty().bind(npc.getXProperty().asObject());
+            npcView.layoutYProperty().bind(npc.getYProperty().asObject());
+            paneperso.getChildren().add(npcView);
+        }
 
+        for (Mobs mob : mobs) {
+            ImageView mobView = new ImageView(terreImage);
+            mobView.layoutXProperty().bind(mob.getXProperty().asObject());
+            mobView.layoutYProperty().bind(mob.getYProperty().asObject());
+            paneperso.getChildren().add(mobView);
+        }
+
+        characterController = new CharacterController(tilepane, paneperso, personnage);
 
         paneperso.setFocusTraversable(true);
         paneperso.requestFocus();
@@ -258,35 +299,31 @@ public class Controller implements Initializable {
      * Permet de gérer le déplacement du personnage dans le jeu et donc mettre à jour sa position.
      */
     private void startTimeline() {
-
-
-
-
         timeline = new Timeline(new KeyFrame(Duration.millis(10), event -> {
-            personnage.seDeplacer(personnageView);
-//            if (characterController.isQPressed()) {
-//                characterController.moveCharacter(personnage, environment, 'l'); // Gauche
-//                personnageView.changeSprite('l');
-//            }
-            if (characterController.isSPressed()) {
-                characterController.moveCharacter(personnage, environment, 'd'); // Bas
+            for (Npc npc : npcs) {
+                npc.applyGravity(environment);
+                npc.seDeplacer();
             }
-//            if (characterController.isDPressed()) {
-//                characterController.moveCharacter(personnage, environment, 'r'); // Droite
-//                personnageView.changeSprite('r');
-//            }
-            if (characterController.isSpacePressed()) {
-                characterController.moveCharacter(personnage, environment, 'u'); // Haut
-                // Si nécessaire, ajouter une logique pour le saut ou une autre action
+            for (Mobs mob : mobs) {
+                mob.applyGravity(environment);
+                mob.seDeplacer();
             }
-            characterController.checkCollision(personnage, environment, Environment.Direction.TOP);
-            characterController.checkCollision(personnage, environment, Environment.Direction.BOTTOM);
-//            characterController.checkCollision(personnage, environment, Environment.Direction.RIGHT);
-//            characterController.checkCollision(personnage, environment, Environment.Direction.LEFT); // Vérifier les collisions
-            characterController.applyGravity(environment); // Appliquer la gravité
+            personnage.seDeplacer();
+            personnage.applyGravity(environment);
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
+        npcMoveTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            for (Npc npc : npcs) {
+                npc.choisirDirectionAleatoire();
+            }
+            for (Mobs mob : mobs) {
+                mob.choisirDirectionAleatoire();
+            }
+        }));
+        npcMoveTimeline.setCycleCount(Timeline.INDEFINITE);
+        npcMoveTimeline.play();
     }
 
 
