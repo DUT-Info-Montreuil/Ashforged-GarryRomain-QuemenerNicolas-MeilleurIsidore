@@ -134,6 +134,7 @@ public class Controller implements Initializable {
         environment = new Environment(field, List.of(), List.of());
         personnage = environment.getHero();
 
+
         characterController = new CharacterController(tilepane, paneperso, personnage, field);
 
 
@@ -292,7 +293,8 @@ public class Controller implements Initializable {
     private void initializeButton() {
         AccesRapide1.setOnMouseClicked(event -> {
             ContainerInventory.setVisible(true);
-            this.craftView.openCraft();
+            this.craftView.openCraft(personnage);
+
         });
 
         quit.setOnMouseClicked(event -> {
