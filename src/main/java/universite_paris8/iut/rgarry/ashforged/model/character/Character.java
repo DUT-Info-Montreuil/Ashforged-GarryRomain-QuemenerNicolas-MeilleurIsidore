@@ -49,7 +49,7 @@ public class Character implements Entity {
         inventory.put(ItemStock.Weapon.bomb, 1);
         inventory.put(ItemStock.Usuable.string, 4);
         inventory.put(ItemStock.Weapon.stone_axe, 1);
-        inventory.put(ItemStock.Weapon.steel_pickaxe, 1);
+        inventory.put(ItemStock.Weapon.iron_pickaxe, 1);
         inventory.put(ItemStock.Usuable.golden_piece, 15);
 
         this.pods = 0;

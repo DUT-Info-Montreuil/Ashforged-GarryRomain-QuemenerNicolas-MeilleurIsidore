@@ -1,5 +1,8 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item;
 
+import javafx.scene.image.Image;
+
+import java.net.URL;
 import java.util.HashMap;
 
 public class ItemStock {
@@ -70,6 +73,16 @@ public class ItemStock {
         @Override
         public String getImagePath() {
             return imagePath;
+        }
+
+        @Override
+        public Image getImage() {
+            URL url = getClass().getResource(getImagePath());
+            if (url == null) {
+                System.err.println("Image introuvable : " + getImagePath());
+                return null;
+            }
+            return new Image(url.toExternalForm());
         }
 
         public HashMap<ItemInterface, Integer> getComponents() {
@@ -226,6 +239,16 @@ public class ItemStock {
         @Override
         public String getImagePath() {
             return imagePath;
+        }
+
+        @Override
+        public Image getImage() {
+            URL url = getClass().getResource(getImagePath());
+            if (url == null) {
+                System.err.println("Image introuvable : " + getImagePath());
+                return null;
+            }
+            return new Image(url.toExternalForm());
         }
 
         public HashMap<ItemInterface, Integer> getComponents() {
