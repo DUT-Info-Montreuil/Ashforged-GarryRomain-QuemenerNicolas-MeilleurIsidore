@@ -59,7 +59,7 @@ public class CraftController {
 
             dirtLabel.setText(inventory.getOrDefault(ItemStock.Usuable.ground, 0).toString());
             woodLabel.setText(inventory.getOrDefault(ItemStock.Usuable.wood, 0).toString());
-            ironLabel.setText(inventory.getOrDefault(ItemStock.Usuable.steel, 0).toString());
+            ironLabel.setText(inventory.getOrDefault(ItemStock.Usuable.iron, 0).toString());
             aluminiumLabel.setText(inventory.getOrDefault(ItemStock.Usuable.alluminium, 0).toString());
             poudreACanonLabel.setText(inventory.getOrDefault(ItemStock.Usuable.canon_powder, 0).toString());
             PoudreDePerlimpinpinLabel.setText(inventory.getOrDefault(ItemStock.Usuable.perlimpinpin_powder, 0).toString());
