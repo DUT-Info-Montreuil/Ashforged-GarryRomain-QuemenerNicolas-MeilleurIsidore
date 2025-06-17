@@ -51,6 +51,7 @@ public class Character implements Entity {
         inventory.put(ItemStock.Weapon.stone_axe, 1);
         inventory.put(ItemStock.Weapon.iron_pickaxe, 1);
         inventory.put(ItemStock.Usuable.golden_piece, 15);
+        inventory.put(ItemStock.Usuable.wood,4);
 
         this.pods = 0;
         this.maxPods = 10 * stats[1];
@@ -292,7 +293,7 @@ public class Character implements Entity {
 
         if (!inventory.containsKey(item)) {
             if (item.getWeight() + this.pods <= maxPods) {
-                inventory.put(item, 0);
+                inventory.put(item, 1);
             } else {
                 System.out.println("The inventory is full or too much pods");
             }
@@ -314,7 +315,12 @@ public class Character implements Entity {
 
         for (int i = 0; i < inventory.size(); i++) {
             if (inventory.containsKey(item)) {
-                System.out.println("Item " + inventory.get(item) + " removed from inventory\n");
+                if (inventory.get(item) > 1) {
+                    inventory.put(item, inventory.get(item) - 1);
+                } else {
+                    inventory.remove(item);
+                }
+                System.out.println("Item " + item.getName() + " removed from inventory\n");
                 removed = true;
                 break;
             }

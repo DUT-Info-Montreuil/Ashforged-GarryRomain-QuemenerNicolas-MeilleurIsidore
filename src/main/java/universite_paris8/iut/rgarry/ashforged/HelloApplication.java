@@ -16,7 +16,8 @@ public class HelloApplication extends Application {
 
         stage.setTitle("Ashforged");
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setFullScreen(true);
+        stage.setResizable(true);
         stage.show();
     }
 

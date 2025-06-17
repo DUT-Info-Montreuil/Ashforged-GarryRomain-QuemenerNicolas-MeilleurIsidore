@@ -46,10 +46,44 @@
         <Label fx:id="MineraiEnchanteLabel" text="0" />
     </HBox>
 
-    <VBox spacing="10" alignment="CENTER">
-        <Button text="🗡️ Fabriquer une Épée (1 Bois, 1 Fer)" onAction="#craftSword"/>
-        <Button text="🛡️ Fabriquer un Bouclier (2 Bois, 1 Fer)" onAction="#craftShield"/>
-    </VBox>
+    <ScrollPane fitToWidth="true">
+        <VBox spacing="10" alignment="CENTER">
+            <Button text="🏹 Fabriquer un Arc (2 Bois, 1 Plume)" onAction="#craftBow"/>
+            <Button text="🥖 Fabriquer un Bâton (2 Bois)" onAction="#craftStick"/>
+
+            <Button text="🔪 Fabriquer un Couteau en Bois (4 Bois)" onAction="#craftWoodenKnife"/>
+            <Button text="🔪 Fabriquer un Couteau en Pierre (2 Bois, 2 Pierre)" onAction="#craftStoneKnife"/>
+            <Button text="🔪 Fabriquer un Couteau en Fer (2 Bois, 3 Fer)" onAction="#craftIronKnife"/>
+            <Button text="🔪 Fabriquer un Couteau en Aluminium (2 Bois, 3 Aluminium)" onAction="#craftAluminiumKnife"/>
+
+            <Button text="🗡️ Fabriquer une Épée en Bois (4 Bois)" onAction="#craftWoodenSword"/>
+            <Button text="🗡️ Fabriquer une Épée en Pierre (2 Bois, 2 Pierre)" onAction="#craftStoneSword"/>
+            <Button text="🗡️ Fabriquer une Épée en Fer (2 Bois, 3 Fer)" onAction="#craftIronSword"/>
+            <Button text="🗡️ Fabriquer une Épée en Aluminium (2 Bois, 3 Aluminium)" onAction="#craftAluminiumSword"/>
+
+            <Button text="⚔️ Fabriquer un Sabre en Bois (4 Bois)" onAction="#craftWoodenSabre"/>
+            <Button text="⚔️ Fabriquer un Sabre en Pierre (2 Bois, 2 Pierre)" onAction="#craftStoneSabre"/>
+            <Button text="⚔️ Fabriquer un Sabre en Fer (2 Bois, 3 Fer)" onAction="#craftIronSabre"/>
+            <Button text="⚔️ Fabriquer un Sabre en Aluminium (2 Bois, 3 Aluminium)" onAction="#craftAluminiumSabre"/>
+
+            <Button text="🪓 Fabriquer une Hache en Bois (4 Bois)" onAction="#craftWoodenAxe"/>
+            <Button text="🪓 Fabriquer une Hache en Pierre (2 Bois, 2 Pierre)" onAction="#craftStoneAxe"/>
+            <Button text="🪓 Fabriquer une Hache en Fer (2 Bois, 3 Fer)" onAction="#craftIronAxe"/>
+            <Button text="🪓 Fabriquer une Hache en Aluminium (2 Bois, 3 Aluminium)" onAction="#craftAluminiumAxe"/>
+
+            <Button text="⛏️ Fabriquer une Pioche en Bois (4 Bois)" onAction="#craftWoodenPickaxe"/>
+            <Button text="⛏️ Fabriquer une Pioche en Pierre (2 Bois, 2 Pierre)" onAction="#craftStonePickaxe"/>
+            <Button text="⛏️ Fabriquer une Pioche en Fer (2 Bois, 3 Fer)" onAction="#craftIronPickaxe"/>
+            <Button text="⛏️ Fabriquer une Pioche en Aluminium (2 Bois, 3 Aluminium)" onAction="#craftAluminiumPickaxe"/>
+
+            <Button text="🔫 Fabriquer une Arme à feu (4 Fer, 1 Bois, 2 Poudre à Canon)" onAction="#craftFirearm"/>
+
+            <Button text="💣 Fabriquer une Bombe (3 Poudre à Canon, 1 Fer)" onAction="#craftBomb"/>
+
+            <Button text="⚔️ Fabriquer Enma (5 Minerai enchanté)" onAction="#craftEnma"/>
+        </VBox>
+    </ScrollPane>
 
     <Label fx:id="resultLabel" text="Résultat : " style="-fx-font-weight: bold;" />
+    <Label fx:id="affichageResultatLabel" text=""/>
 </VBox>

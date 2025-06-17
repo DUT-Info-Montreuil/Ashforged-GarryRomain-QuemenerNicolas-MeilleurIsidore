@@ -23,6 +23,8 @@ public class TitleScreenController {
 
             // Remplace la scène actuelle par la nouvelle scène
             stage.setScene(gameScene);
+            stage.centerOnScreen();
+            stage.setFullScreen(true);
             stage.show();
 
         } catch (Exception e) {

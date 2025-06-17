@@ -34,6 +34,7 @@ public class CraftView {
                 craftStage.setOnCloseRequest(e -> {
                     this.windowOpen = false;
                 });
+                craftStage.centerOnScreen();
                 craftStage.show();
 
                 this.windowOpen = true;
