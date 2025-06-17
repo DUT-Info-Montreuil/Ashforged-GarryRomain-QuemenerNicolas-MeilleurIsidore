@@ -19,6 +19,7 @@ import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
+import universite_paris8.iut.rgarry.ashforged.view.CraftView;
 import universite_paris8.iut.rgarry.ashforged.view.FieldView;
 import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
 
@@ -96,6 +97,8 @@ public class Controller implements Initializable {
 
     private LinkedHashMap<ItemInterface, Image> inventory = new LinkedHashMap<>();
 
+    private CraftView craftView;
+
 
     @FXML
     private void startGame() {
@@ -124,10 +127,13 @@ public class Controller implements Initializable {
 
         Field field = new Field();
 
+        this.craftView=new CraftView();
+
 
         // Initialisation de l'environnement
         environment = new Environment(field, List.of(), List.of());
         personnage = environment.getHero();
+
 
         characterController = new CharacterController(tilepane, paneperso, personnage, field);
 
@@ -287,6 +293,8 @@ public class Controller implements Initializable {
     private void initializeButton() {
         AccesRapide1.setOnMouseClicked(event -> {
             ContainerInventory.setVisible(true);
+            this.craftView.openCraft(personnage);
+
         });
 
         quit.setOnMouseClicked(event -> {
