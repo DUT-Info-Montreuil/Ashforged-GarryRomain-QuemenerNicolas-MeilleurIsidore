@@ -254,6 +254,7 @@ public class Controller implements Initializable {
                             if (item == null) {
                                 System.out.println("Rien");
                             } else {
+                                personnage.setHoldingItem(item);
                                 int quantite = inventoryMap.get(item);
                                 System.out.println(item.getName() + "x" + quantite);
                             }

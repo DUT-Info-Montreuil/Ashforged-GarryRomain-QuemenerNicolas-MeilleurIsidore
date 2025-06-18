@@ -16,6 +16,11 @@ public class Character extends Entity {
         return holdingItem;
     }
 
+    public void setHoldingItem(ItemInterface holdingItem) {
+        this.holdingItem = holdingItem;
+        System.out.println(holdingItem);
+    }
+
     public void seDeplacer() {
         int newX = getX();
         if (direction == 'd') {
