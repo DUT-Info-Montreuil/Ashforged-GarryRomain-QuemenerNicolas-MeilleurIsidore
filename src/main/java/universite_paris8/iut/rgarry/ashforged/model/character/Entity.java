@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 
+import java.util.LinkedHashMap;
+
 public abstract class Entity {
     private static final double GRAVITY = 0.5;
     protected double velocityY;
@@ -12,7 +14,7 @@ public abstract class Entity {
     protected String name;
     protected IntegerProperty level;
     protected int[] stats;
-    protected ItemInterface[] items;
+    protected LinkedHashMap<ItemInterface, Integer> inventory;
     protected int pods;
     protected int maxPods;
     protected IntegerProperty health = new SimpleIntegerProperty();
@@ -36,7 +38,7 @@ public abstract class Entity {
         this.y = new SimpleIntegerProperty(y);
         this.env = env;
         this.stat_point += 5 * (level + 1);
-        this.items = new ItemInterface[48];
+        this.inventory = new LinkedHashMap<>();
         this.pods = 0;
         this.maxPods = 10 * stats[1];
         this.maxHealth = 3 * stats[0];
@@ -114,52 +116,63 @@ public abstract class Entity {
         setLevel(getLevel() + 1);
         expToNextLevel.set(expToNextLevel.get() + 5);
     }
-    public ItemInterface[] getInventory() {
-        System.out.println("------ Inventory ------");
-        int i = 0;
-        boolean empty = true;
-        while (i < items.length) {
-            if (items[i] != null) {
-                System.out.println(items[i].getName());
-                empty = false;
-            }
-            i++;
-        }
-        if (empty) {
-            System.out.println("The inventory is empty\n");
-        }
-        System.out.println("------ End of Inventory ------");
-        return items;
-    }
+    public LinkedHashMap<ItemInterface, Integer> getInventory() {return inventory;}
+
     public void addToInventory(ItemInterface item) {
         System.out.println("------ Add to Inventory ------");
         int i = 0;
         boolean add = false;
-        if (item.getWeight() + this.pods <= maxPods) {
-            while (i < items.length && !add) {
-                if (items[i] == null) {
-                    items[i] = item;
-                    add = true;
-                }
-                i++;
+
+        if (!inventory.containsKey(item)) {
+            if (item.getWeight() + this.pods <= maxPods) {
+                inventory.put(item, 1);
+            } else {
+                System.out.println("The inventory is full or too much pods");
             }
-        } else {
-            System.out.println("The inventory is full or too much pods");
         }
+        else inventory.put(item, inventory.get(item) + 1); // Incrémente la valeur associée à "item" de 1
+
+
     }
+
+    /***
+     * Permet d'enlever un item présent dans l'inventaire.
+     *
+     * @param item
+     */
     public void removeFromInventory(ItemInterface item) {
         System.out.println("------ Remove from Inventory ------");
         boolean removed = false;
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getId().equals(item.getId())) {
-                System.out.println("Item " + items[i].getName() + " removed from inventory\n");
-                items[i] = null;
+
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.containsKey(item)) {
+                if (inventory.get(item) > 1) {
+                    inventory.put(item, inventory.get(item) - 1);
+                } else {
+                    inventory.remove(item);
+                }
+                System.out.println("Item " + item.getName() + " removed from inventory\n");
                 removed = true;
                 break;
             }
         }
+
         if (!removed) {
             System.out.println("Item not found in inventory\n");
         }
+    }
+
+    public ItemInterface findKey(LinkedHashMap<ItemInterface, Integer> inventory, int index) {
+        if (index < 0 || index >= inventory.size()) {
+            return null;  // index out of range
+        }
+        int i = 0;
+        for (ItemInterface key : inventory.keySet()) {
+            if (i == index) {
+                return key;  // found the key at 'index'
+            }
+            i++;
+        }
+        return null;  // if index is invalid (shouldn't happen because of check)
     }
 }

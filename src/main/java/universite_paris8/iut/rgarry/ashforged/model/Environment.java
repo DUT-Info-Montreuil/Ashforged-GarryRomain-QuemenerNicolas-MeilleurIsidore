@@ -30,7 +30,7 @@ public class Environment {
         mobs.add(new Mobs("Soldat", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.stone_sword, 600, 250, this));
         mobs.add(new Mobs("Zombie", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.stick, 600, 250, this));
         mobs.add(new Mobs("Bandit", 15, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.firearm, 600, 250,  this));
-        mobs.add(new Mobs("Boss", 20, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.steel_sabre, 600, 250,  this));
+        mobs.add(new Mobs("Boss", 20, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.iron_sabre, 600, 250,  this));
         mobs.add(new Mobs("Kozuki", 30, new int[]{1, 1, 10, 1}, 5, ItemStock.Weapon.enma, 600, 250,  this));
 
         npcs.add(new Npc("Paolo", 15,  new int[]{1, 1, 10, 1}, 2500,400, this));
