@@ -1,10 +1,18 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 
 public class Character extends Entity {
+    private ItemStock holdingItem = new ItemStock();
+
     public Character(String name, int level, int[] stats, int x, int y, Environment env) {
         super(name, level, stats, x, y, env);
+        holdingItem = null;
+    }
+
+    public ItemStock getHoldingItem() {
+        return holdingItem;
     }
 
     public void seDeplacer() {
