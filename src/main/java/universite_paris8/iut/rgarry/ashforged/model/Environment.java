@@ -16,6 +16,13 @@ public class Environment {
     private List<Mobs> mobs;          // Liste des mobs
     private List<Npc> npcs;          // Liste des NPCs
 
+    public Entity[] getEntities() {
+        List<Entity> entities = new ArrayList<>();
+        entities.addAll(mobs);
+        entities.addAll(npcs);
+        return entities.toArray(new Entity[0]);
+    }
+
     public enum Direction {
         LEFT, RIGHT, TOP, BOTTOM
     }
@@ -24,9 +31,9 @@ public class Environment {
         this.field = field;
         this.mobs = new ArrayList<>();
         this.npcs = new ArrayList<>();
-        this.hero = new Character("Hero", 1, new int[]{1, 1, 5, 1}, 250, 300, this);
+        this.hero = new Character("Hero", 1, new int[]{10, 1, 5, 1}, 250, 300, this);
 
-        this.mobs.add(new Mobs("Mongolfière", 15, new int[]{1, 1, 3, 1}, 5, ItemStock.Usuable.golden_piece, 1664, 300, this));
+        this.mobs.add(new Mobs("Mongolfière", 15, new int[]{1, 1, 3, 1}, 5, ItemStock.Weapon.iron_sabre, 1664, 300, this));
 //        mobs.add(new Mobs("Soldat", 15, new int[]{1, 1, 3, 1}, 5, ItemStock.Weapon.stone_sword, 600, 250, this));
 //        mobs.add(new Mobs("Zombie", 15, new int[]{1, 1, 3, 1}, 5, ItemStock.Weapon.stick, 600, 250, this));
 //        mobs.add(new Mobs("Bandit", 15, new int[]{1, 1, 3, 1}, 5, ItemStock.Weapon.firearm, 600, 250,  this));

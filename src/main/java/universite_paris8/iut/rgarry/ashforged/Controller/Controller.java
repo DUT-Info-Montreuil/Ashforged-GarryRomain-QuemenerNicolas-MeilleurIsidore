@@ -90,6 +90,8 @@ public class Controller implements Initializable {
 
     private List<Pane> accesRapidePanes;
 
+    private int compteur = 0;
+
     private final int LimitLeftCam = 960;
 
     private CharacterView personnageView;
@@ -99,7 +101,6 @@ public class Controller implements Initializable {
     private List<Mobs> mobs = new ArrayList<>();
 
     private Timeline timeline;
-    private Timeline npcMoveTimeline;
 
     private Environment environment;
 
@@ -131,8 +132,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
         Field field = new Field();
 
         this.craftView=new CraftView();
@@ -294,6 +293,7 @@ public class Controller implements Initializable {
                 }
             }
         });
+
         startTimeline();
     }
 
@@ -302,30 +302,46 @@ public class Controller implements Initializable {
      */
     private void startTimeline() {
         timeline = new Timeline(new KeyFrame(Duration.millis(10), event -> {
+            if (compteur == 300) compteur = 0;
+
+            if (compteur % 100 == 0) {
+                for (Npc npc : npcs) {
+                    npc.choisirDirectionAleatoire();
+                }
+                for (Mobs mob : mobs) {
+                    mob.choisirDirectionAleatoire();
+                }
+            }
+
             for (Npc npc : npcs) {
                 npc.applyGravity(environment);
                 npc.seDeplacer();
             }
             for (Mobs mob : mobs) {
-                mob.applyGravity(environment);
-                mob.seDeplacer();
+                mob.action();
             }
+
+            if (compteur % 150 == 0) {
+                for (Mobs mob : mobs) {
+                    mob.attack();
+                }
+            }
+
+            if (compteur % 300 == 0) {
+                if(personnage.getHealth() + (personnage.getMaxHealth()/10) <= personnage.getMaxHealth()) {
+                    personnage.setHealth(personnage.getHealth() + (personnage.getMaxHealth()/10));
+                } else {
+                    personnage.setHealth(personnage.getMaxHealth());
+                }
+            }
+
             personnage.seDeplacer();
             personnage.applyGravity(environment);
+
+            compteur +=1;
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
-        npcMoveTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            for (Npc npc : npcs) {
-                npc.choisirDirectionAleatoire();
-            }
-            for (Mobs mob : mobs) {
-                mob.choisirDirectionAleatoire();
-            }
-        }));
-        npcMoveTimeline.setCycleCount(Timeline.INDEFINITE);
-        npcMoveTimeline.play();
     }
 
 

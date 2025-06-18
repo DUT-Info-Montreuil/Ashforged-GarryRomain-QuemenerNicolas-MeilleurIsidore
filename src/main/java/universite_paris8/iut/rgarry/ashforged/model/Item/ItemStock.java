@@ -85,6 +85,11 @@ public class ItemStock {
             return new Image(url.toExternalForm());
         }
 
+        @Override
+        public int getDamage() {
+            return 0;
+        }
+
         public HashMap<ItemInterface, Integer> getComponents() {
             return components;
         }
@@ -219,6 +224,10 @@ public class ItemStock {
             this.id = id;
             this.imagePath = imagePath;
             this.components = new HashMap<>();
+        }
+        
+        public int getDamage() {
+            return power;
         }
 
         @Override

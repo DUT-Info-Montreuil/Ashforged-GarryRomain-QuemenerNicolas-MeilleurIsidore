@@ -1,6 +1,8 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+
 import java.util.Random;
 
 public class Npc extends Entity {
@@ -64,6 +66,28 @@ public class Npc extends Entity {
             vaAGauche();
         } else if (directionCourante == 'd') {
             vaADroite();
+        }
+    }
+
+    public void attack() {
+        if (getHoldingItem() != null && this.getHoldingItem() instanceof ItemStock.Weapon) {
+            for (Entity entity : env.getEntities()) {
+                if (entity instanceof Mobs) {
+                    int entityX = entity.getX() / 64;
+                    int entityY = entity.getY() / 64;
+                    int mobX = getX() / 64;
+                    int mobY = getY() / 64;
+
+                    if (Math.abs(entityX - mobX) < 2 && Math.abs(entityY - mobY) < 2) {
+                        int damage;
+                        if (stats[1] > 1)
+                            damage = (int) (stats[1] * 0.5 + ((double) getHoldingItem().getDamage() / 2));
+                        else
+                            damage = getHoldingItem().getDamage() / 2;
+                        entity.setHealth(entity.getHealth() - damage);
+                    }
+                }
+            }
         }
     }
 }

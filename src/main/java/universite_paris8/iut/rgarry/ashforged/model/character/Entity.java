@@ -8,12 +8,14 @@ import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import java.util.LinkedHashMap;
 
 public abstract class Entity {
+    private ItemInterface holdingItem;
     private static final double GRAVITY = 0.5;
     protected double velocityY;
     protected String id;
     protected String name;
     protected IntegerProperty level;
     protected int[] stats;
+    // stats[0] = vie, stats[1] = force, stats[2] = vitesse, stats[3] = force.
     protected LinkedHashMap<ItemInterface, Integer> inventory;
     protected int pods;
     protected int maxPods;
@@ -105,6 +107,11 @@ public abstract class Entity {
     public int getExp() { return exp.get(); }
     public int getExpToNextLevel() { return expToNextLevel.get(); }
     public Environment getEnv() { return env; }
+
+    public ItemInterface getHoldingItem() { return holdingItem; }
+
+    public void setHoldingItem(ItemInterface holdingItem) { this.holdingItem = holdingItem; }
+
     public void gainExp(int amount) {
         exp.set(exp.get() + amount);
         while (exp.get() >= expToNextLevel.get()) {

@@ -4,6 +4,7 @@ import universite_paris8.iut.rgarry.ashforged.Controller.BFS;
 import universite_paris8.iut.rgarry.ashforged.Controller.Position;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 
 import java.util.List;
 import java.util.Random;
@@ -33,6 +34,7 @@ public class Mobs extends Character {
         this.stats_multiplier = stats_multiplier;
         this.item = item;
         this.initialX = x;
+        this.setHoldingItem(item);
     }
 
     public void choisirDirectionAleatoire() {
@@ -110,12 +112,10 @@ public class Mobs extends Character {
 
         if (Math.abs(heroX - mobX) <= 5) {
             aVuJoueur = true;
-            System.out.println("joueur vu");
         }
 
         // Si un chemin existe et qu'il y a un prochain mouvement
         if (aVuJoueur) {
-            System.out.println("Mobs se déplace vers le joueur");
             if (path.size() > 1) {
                 Position next = path.get(1);
 
@@ -133,8 +133,35 @@ public class Mobs extends Character {
                 }
             }
         } if(!aVuJoueur) {
-            System.out.println("Mobs se déplace aléatoirement");
             seDeplacerRandom();
         }
+    }
+
+    @Override
+    public void attack() {
+        if (getHoldingItem() != null && this.getHoldingItem() instanceof ItemStock.Weapon) {
+            for (Entity entity : env.getEntities()) {
+                if (!(entity instanceof Mobs)) {
+                    int entityX = entity.getX() / 64;
+                    int entityY = entity.getY() / 64;
+                    int mobX = getX() / 64;
+                    int mobY = getY() / 64;
+
+                    if (Math.abs(entityX - mobX) < 2 && Math.abs(entityY - mobY) < 2) {
+                        int damage;
+                        if (stats[1] > 1)
+                            damage = (int) (stats[1] * 0.5 + ((double) getHoldingItem().getDamage() / 2));
+                        else
+                            damage = getHoldingItem().getDamage() / 2;
+                        entity.setHealth(entity.getHealth() - damage);
+                    }
+                }
+            }
+        }
+    }
+
+    public void action() {
+        this.applyGravity(env);
+        this.seDeplacer();
     }
 }
