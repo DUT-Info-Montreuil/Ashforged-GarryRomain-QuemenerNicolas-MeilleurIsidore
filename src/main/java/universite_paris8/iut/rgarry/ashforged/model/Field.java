@@ -48,6 +48,9 @@ public class Field {
      * @return
      */
     public int block(int x, int y) {
+        if (y < 0 || y >= tiles.length || x < 0 || x >= tiles[0].length) {
+            return -1; // ou une valeur spéciale pour indiquer "hors limites"
+        }
         return this.tiles[y][x];
     }
 

@@ -1,8 +1,11 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
+import universite_paris8.iut.rgarry.ashforged.Controller.BFS;
+import universite_paris8.iut.rgarry.ashforged.Controller.Position;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 
+import java.util.List;
 import java.util.Random;
 
 public class Mobs extends Character {
@@ -10,22 +13,27 @@ public class Mobs extends Character {
     private ItemInterface item;
     private final int initialX;
     private final Random random = new Random();
-    int minX; // Position minimale pour l'axe
-    int newX;
-    int maxX;
+    private final int JUMP_STRENGHT = -12;
+    private boolean aVuJoueur = false;
+
+    // Ajout des bornes de déplacement en tuiles
+    private int minX;
+    private int maxX;
+
+    private char directionCourante = 'i';
+
+    private List<Position> currentPath = null;
+    private int pathIndex = 1;
+
+    private int lastJoueurCaseX = -1;
+    private int lastJoueurCaseY = -1;
 
     public Mobs(String name, int level, int[] stats, int stats_multiplier, ItemInterface item, int x, int y, Environment env) {
         super(name, level, stats, x, y, env);
         this.stats_multiplier = stats_multiplier;
         this.item = item;
         this.initialX = x;
-        minX = initialX - 640;
-        maxX = initialX + 640;
     }
-
-    private boolean aVuJoueur = false;
-
-    private char directionCourante = 'i'; // 'g' = gauche, 'd' = droite, 'i' = immobile
 
     public void choisirDirectionAleatoire() {
         int r = random.nextInt(3);
@@ -34,68 +42,98 @@ public class Mobs extends Character {
         else directionCourante = 'i';
     }
 
+    public void seDeplacerRandom() {
+        if (directionCourante == 'g') {
+            vaAGaucheR();
+        } else if (directionCourante == 'd') {
+            vaADroiteR();
+        }
+    }
+
     @Override
     public void vaAGauche() {
-        newX = getX() - getVitesse();
-        if (!aVuJoueur) {
-            if (newX < minX) newX = minX;
-        }
-
-        boolean collision = env.checkCollision(newX, getY()) || env.checkCollision(newX, getY() + 31);
-
-        if (!collision) {
+        int newX = getX() - getVitesse();
+        if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31)) {
             setX(newX);
-        } else {
-            if (env != null
-                    && env.checkCollision(getX(), getY() + 32)
-                    && env.checkCollision(getX() + 31, getY() + 32)) {
-                setVelocityY(-12);
-            }
         }
     }
 
     @Override
     public void vaADroite() {
-        newX = getX() + getVitesse();
-        if (!aVuJoueur) {
-            if (newX > maxX) newX = maxX;
+        int newX = getX() + getVitesse();
+        if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31)) {
+            setX(newX);
         }
-        boolean collision = env.checkCollision(newX + 31, getY()) || env.checkCollision(newX + 31, getY() + 31);
-        if (!collision) {
+    }
+
+    public void vaADroiteR() {
+        int newX = getX() + getVitesse();
+        // Vérifie la collision à droite
+        if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31)) {
             setX(newX);
         } else {
-            if (env != null
-                    && env.checkCollision(getX(), getY() + 32)
-                    && env.checkCollision(getX() + 31, getY() + 32)) {
-                setVelocityY(-12);
+            // Collision détectée, saute
+            if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
+                setVelocityY(-12); // Valeur à ajuster selon la hauteur de saut désirée
             }
         }
     }
 
-    public void seDeplacerRandom() {
-        if (directionCourante == 'g') {
-            vaAGauche();
-        } else if (directionCourante == 'd') {
-            vaADroite();
-        }
-    }
-
-    public void seDeplacer() {
-        Character joueur = env.getHero();
-        // Vérifie si le joueur est dans la zone de détection
-        if (!aVuJoueur && Math.abs(getX() - joueur.getX()) < 256) {
-            aVuJoueur = true;
-        }
-
-        if (aVuJoueur) {
-            // Suit le joueur
-            if (joueur.getX() < getX()) {
-                vaAGauche();
-            } else if (joueur.getX() > getX()) {
-                vaADroite();
-            }
+    public void vaAGaucheR() {
+        int newX = getX() - getVitesse();
+        // Vérifie la collision à gauche
+        if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31)) {
+            setX(newX);
         } else {
-            // Déplacement normal
+            // Collision détectée, saute
+            if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
+                setVelocityY(-12); // Même valeur que pour droite
+            }
+        }
+    }
+
+    @Override
+    public void seDeplacer() {
+        // Récupère la position du joueur
+        Character hero = env.getHero();
+        int mobX = getX() / 64;
+        int mobY = getY() / 64;
+        int heroX = hero.getX() / 64;
+        int heroY = hero.getY() / 64;
+
+        // Utilise BFS pour trouver le chemin
+        BFS bfs = new BFS(env.getField());
+        Position start = new Position(mobX, mobY);
+        Position goal = new Position(heroX, heroY);
+
+        List<Position> path = bfs.findPath(start, goal);
+
+        if (Math.abs(heroX - mobX) <= 5) {
+            aVuJoueur = true;
+            System.out.println("joueur vu");
+        }
+
+        // Si un chemin existe et qu'il y a un prochain mouvement
+        if (aVuJoueur) {
+            System.out.println("Mobs se déplace vers le joueur");
+            if (path.size() > 1) {
+                Position next = path.get(1);
+
+                if (next.x < mobX) {
+                    vaAGauche();
+                } else if (next.x > mobX) {
+                    vaADroite();
+                }
+
+                // Sauter si la prochaine case est au-dessus
+                if (next.y < mobY) {
+                    if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
+                        setVelocityY(JUMP_STRENGHT);
+                    }
+                }
+            }
+        } if(!aVuJoueur) {
+            System.out.println("Mobs se déplace aléatoirement");
             seDeplacerRandom();
         }
     }
