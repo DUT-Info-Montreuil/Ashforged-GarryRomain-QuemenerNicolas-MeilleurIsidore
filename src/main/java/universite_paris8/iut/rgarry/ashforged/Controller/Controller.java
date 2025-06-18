@@ -237,6 +237,7 @@ public class Controller implements Initializable {
         Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Ciel.png").toExternalForm());
         Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
         personnage.addToInventory(ItemStock.Usuable.golden_piece);
+        personnage.addToInventory(ItemStock.Weapon.stone_pickaxe);
 
         for (int i = 0; i < 48; i++) {
             int finalI1 = i;
@@ -279,11 +280,11 @@ public class Controller implements Initializable {
                 System.out.println(field.getYView((int) event.getY()));
                 if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
                     if (Math.abs(personnage.getX() - (int) (event.getX()))  < (64*3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64*3)) {
-                        System.out.println(personnage.getX());
-                        System.out.println(personnage.getY());
-                        field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), 1);
-                        ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
-                        test.setImage(ciel);
+                        if(personnage.getHoldingItem().getName().contains("pickaxe")){
+                            field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), 1);
+                            ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
+                            test.setImage(ciel);
+                        }
                     }
                 }
             } else if (event.getButton() == MouseButton.SECONDARY) {
