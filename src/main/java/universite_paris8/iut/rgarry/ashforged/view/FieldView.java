@@ -36,111 +36,87 @@ public class FieldView {
         tilepane.setAlignment(javafx.geometry.Pos.TOP_LEFT);
 
         // Chargement des images
-        Image sky = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/sky.png");
-        Image grass = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/grass.png");
-        Image leftGrass = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftGrass.png");
-        Image rightGrass = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightGrass.png");
-        Image rightSideGrass = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightSideGrass.png");
-        Image leftSideGrass = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftSideGrass.png");
-        Image stone = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png");
-        Image ground = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/ground.png");
-        Image bat = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/bat.png");
-        Image glass = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/glass.png");
-        Image coal = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/coal.png");
-        Image enchantedMineral = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/enchanted_mineral.png");
-        Image gold = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/gold.png");
-        Image iron = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/iron.png");
-        Image leaf = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/leaf.png");
-        Image wood = loadImage("/universite_paris8/iut/rgarry/ashforged/Image/tiles/wood.png");
+        Image sky = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/sky.png").toExternalForm());
+        Image grass = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/grass.png").toExternalForm());
+        Image leftGrass = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftGrass.png").toExternalForm());
+        Image rightGrass = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightGrass.png").toExternalForm());
+        Image rightSideGrass = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightSideGrass.png").toExternalForm());
+        Image leftSideGrass = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftSideGrass.png").toExternalForm());
+        Image stone = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png").toExternalForm());
+        Image ground = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/ground.png").toExternalForm());
+        Image bat = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/bat.png").toExternalForm());
+        Image glass = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/glass.png").toExternalForm());
+        Image coal = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/coal.png").toExternalForm());
+        Image enchantedMineral = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/enchanted_mineral.png").toExternalForm());
+        Image gold = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/gold.png").toExternalForm());
+        Image iron = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/iron.png").toExternalForm());
+        Image leaf = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/leaf.png").toExternalForm());
+        Image wood = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/wood.png").toExternalForm());
 
-        for (int y = 0; y < rows; y++) {
-            for (int x = 0; x < cols; x++) {
+
+        for (int y = 0; y < cols; y++) {
+            for (int x = 0; x < rows; x++) {
                 ImageView imageView;
                 int blockType = field.block(x, y);
 
-                switch (blockType) {
-                    case 0:
-                        imageView = new ImageView(iron);
-                        imageView.setId("fer");
-                        break;
-                    case 8:
-                        imageView = new ImageView(grass);
-                        imageView.setId("herbe");
-                        break;
-                    case 2:
-                        imageView = new ImageView(ground);
-                        imageView.setId("sol");
-                        break;
-                    case 3:
-                        imageView = new ImageView(rightGrass);
-                        imageView.setId("herbeDroite");
-                        break;
-                    case 4:
-                        imageView = new ImageView(leftGrass);
-                        imageView.setId("herbeGauche");
-                        break;
-                    case 5:
-                        imageView = new ImageView(rightSideGrass);
-                        imageView.setId("coteDroitHerbe");
-                        break;
-                    case 6:
-                        imageView = new ImageView(leftSideGrass);
-                        imageView.setId("coteGaucheHerbe");
-                        break;
-                    case 7:
-                        imageView = new ImageView(stone);
-                        imageView.setId("pierre");
-                        break;
-                    case 1:
-                        imageView = new ImageView(sky);
-                        imageView.setId("ciel");
-                        break;
-                    case 9:
-                        imageView = new ImageView(wood);
-                        imageView.setId("bois");
-                        break;
-                    case 10:
-                        imageView = new ImageView(leaf);
-                        imageView.setId("feuille");
-                        break;
-                    case 11:
-                        imageView = new ImageView(gold);
-                        imageView.setId("or");
-                        break;
-                    case 12:
-                        imageView = new ImageView(enchantedMineral);
-                        imageView.setId("mineraiEnchante");
-                        break;
-                    case 13:
-                        imageView = new ImageView(coal);
-                        imageView.setId("charbon");
-                        break;
-                    case 15:
-                        imageView = new ImageView(bat);
-                        imageView.setId("chauve-souris");
-                        break;
-                    case 16:
-                        imageView = new ImageView(glass);
-                        imageView.setId("verre");
-                        break;
-                    default:
-                        imageView = new ImageView(leaf); // fallback
-                        imageView.setId("inconnu");
-                        break;
+                if (blockType == 0) {
+                    imageView = new ImageView(iron);
+                    imageView.setId("fer");
+                } else if (blockType == 8) {
+                    imageView = new ImageView(grass);
+                    imageView.setId("herbe");
+                } else if (blockType == 2) {
+                    imageView = new ImageView(ground);
+                    imageView.setId("sol");
+                } else if (blockType == 3) {
+                    imageView = new ImageView(rightGrass);
+                    imageView.setId("herbeDroite");
+                } else if (blockType == 4) {
+                    imageView = new ImageView(leftGrass);
+                    imageView.setId("herbeGauche");
+                } else if (blockType == 5) {
+                    imageView = new ImageView(rightSideGrass);
+                    imageView.setId("coteDroitHerbe");
+                } else if (blockType == 6) {
+                    imageView = new ImageView(leftSideGrass);
+                    imageView.setId("coteGaucheHerbe");
+                } else if (blockType == 7) {
+                    imageView = new ImageView(stone);
+                    imageView.setId("pierre");
+                } else if (blockType == 1) {
+                    imageView = new ImageView(sky);
+                    imageView.setId("ciel");
+                } else if (blockType == 9) {
+                    imageView = new ImageView(wood);
+                    imageView.setId("bois");
+                } else if (blockType == 10) {
+                    imageView = new ImageView(leaf);
+                    imageView.setId("feuille");
+                } else if (blockType == 11) {
+                    imageView = new ImageView(gold);
+                    imageView.setId("or");
+                } else if (blockType == 12) {
+                    imageView = new ImageView(enchantedMineral);
+                    imageView.setId("mineraiEnchante");
+                } else if (blockType == 13) {
+                    imageView = new ImageView(coal);
+                    imageView.setId("charbon");
+                } else if (blockType == 15) {
+                    imageView = new ImageView(bat);
+                    imageView.setId("chauve-souris");
+                } else if (blockType == 16) {
+                    imageView = new ImageView(glass);
+                    imageView.setId("verre");
+                } else {
+                    imageView = new ImageView(sky); // fallback
+                    imageView.setId("inconnu");
                 }
+
 
                 imageView.setFitWidth(TILE_SIZE);
                 imageView.setFitHeight(TILE_SIZE);
                 tilepane.getChildren().add(imageView);
             }
         }
-    }
-
-    private Image loadImage(String path) {
-        var url = getClass().getResource(path);
-        if (url == null) {
-            throw new IllegalArgumentException("Image non trouvée: " + path);
-        }
-        return new Image(url.toExternalForm());
     }
 }
