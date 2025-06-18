@@ -147,6 +147,8 @@ public class Controller implements Initializable {
         Image pierreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
         Image terreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png").toExternalForm());
         Image paoloImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/ground.png").toExternalForm());
+        Image salomeImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/leftSalome.png").toExternalForm());
+
 
         for (Npc npc : npcs) {
             ImageView npcView;
@@ -155,14 +157,12 @@ public class Controller implements Initializable {
             } else {
                 npcView = new ImageView(pierreImage);
                 if(npc.getName().equals("Branda")) {
-                    npc.setX(200);
-                    npc.setY(200);
+                    npcView = new ImageView();
                 } else if(npc.getName().equals("Terry")) {
                     npc.setX(300);
                     npc.setY(300);
                 } else if(npc.getName().equals("Salome")) {
-                    npc.setX(400);
-                    npc.setY(400);
+                    npcView = new ImageView(salomeImage);
                 }
             }
             npcView.layoutXProperty().bind(npc.getXProperty().asObject());
