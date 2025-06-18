@@ -24,10 +24,15 @@ public class FieldView {
      * @param tilepane
      */
     public void createField(TilePane tilepane) {
-        int rows = field.getHeight();
-        int cols = field.getWidth();
+        int rows = field.getHeight(); // Nombre de lignes (hauteur)
+        int cols = field.getWidth();  // Nombre de colonnes (largeur)
 
-        tilepane.getChildren().clear(); // Clear previous tiles
+        if (rows <= 0 || cols <= 0) {
+            System.err.println("Dimensions de la carte invalides : rows=" + rows + ", cols=" + cols);
+            return;
+        }
+
+        tilepane.getChildren().clear();
         tilepane.setPrefColumns(cols);
         tilepane.setPrefRows(rows);
         tilepane.setPrefSize(cols * TILE_SIZE, rows * TILE_SIZE);
@@ -53,65 +58,64 @@ public class FieldView {
         Image leaf = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/leaf.png").toExternalForm());
         Image wood = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/wood.png").toExternalForm());
 
-
-        for (int y = 0; y < cols; y++) {
-            for (int x = 0; x < rows; x++) {
+        // Parcourir les lignes (hauteur) et les colonnes (largeur)
+        for (int y = 0; y < rows; y++) { // Parcourir la hauteur
+            for (int x = 0; x < cols; x++) { // Parcourir la largeur
                 ImageView imageView;
                 int blockType = field.block(x, y);
 
-                if (blockType == 0) {
-                    imageView = new ImageView(iron);
-                    imageView.setId("fer");
-                } else if (blockType == 8) {
-                    imageView = new ImageView(grass);
-                    imageView.setId("herbe");
-                } else if (blockType == 2) {
-                    imageView = new ImageView(ground);
-                    imageView.setId("sol");
-                } else if (blockType == 3) {
-                    imageView = new ImageView(rightGrass);
-                    imageView.setId("herbeDroite");
-                } else if (blockType == 4) {
-                    imageView = new ImageView(leftGrass);
-                    imageView.setId("herbeGauche");
-                } else if (blockType == 5) {
-                    imageView = new ImageView(rightSideGrass);
-                    imageView.setId("coteDroitHerbe");
-                } else if (blockType == 6) {
-                    imageView = new ImageView(leftSideGrass);
-                    imageView.setId("coteGaucheHerbe");
-                } else if (blockType == 7) {
-                    imageView = new ImageView(stone);
-                    imageView.setId("pierre");
-                } else if (blockType == 1) {
-                    imageView = new ImageView(sky);
-                    imageView.setId("ciel");
-                } else if (blockType == 9) {
-                    imageView = new ImageView(wood);
-                    imageView.setId("bois");
-                } else if (blockType == 10) {
-                    imageView = new ImageView(leaf);
-                    imageView.setId("feuille");
-                } else if (blockType == 11) {
-                    imageView = new ImageView(gold);
-                    imageView.setId("or");
-                } else if (blockType == 12) {
-                    imageView = new ImageView(enchantedMineral);
-                    imageView.setId("mineraiEnchante");
-                } else if (blockType == 13) {
-                    imageView = new ImageView(coal);
-                    imageView.setId("charbon");
-                } else if (blockType == 15) {
-                    imageView = new ImageView(bat);
-                    imageView.setId("chauve-souris");
-                } else if (blockType == 16) {
-                    imageView = new ImageView(glass);
-                    imageView.setId("verre");
-                } else {
-                    imageView = new ImageView(sky); // fallback
-                    imageView.setId("inconnu");
-                }
-
+                    if (blockType == 0) {
+                        imageView = new ImageView(iron);
+                        imageView.setId("fer");
+                    } else if (blockType == 8) {
+                        imageView = new ImageView(grass);
+                        imageView.setId("herbe");
+                    } else if (blockType == 2) {
+                        imageView = new ImageView(ground);
+                        imageView.setId("sol");
+                    } else if (blockType == 3) {
+                        imageView = new ImageView(rightGrass);
+                        imageView.setId("herbeDroite");
+                    } else if (blockType == 4) {
+                        imageView = new ImageView(leftGrass);
+                        imageView.setId("herbeGauche");
+                    } else if (blockType == 5) {
+                        imageView = new ImageView(rightSideGrass);
+                        imageView.setId("coteDroitHerbe");
+                    } else if (blockType == 6) {
+                        imageView = new ImageView(leftSideGrass);
+                        imageView.setId("coteGaucheHerbe");
+                    } else if (blockType == 7) {
+                        imageView = new ImageView(stone);
+                        imageView.setId("pierre");
+                    } else if (blockType == 1) {
+                        imageView = new ImageView(sky);
+                        imageView.setId("ciel");
+                    } else if (blockType == 9) {
+                        imageView = new ImageView(wood);
+                        imageView.setId("bois");
+                    } else if (blockType == 10) {
+                        imageView = new ImageView(leaf);
+                        imageView.setId("feuille");
+                    } else if (blockType == 11) {
+                        imageView = new ImageView(gold);
+                        imageView.setId("or");
+                    } else if (blockType == 12) {
+                        imageView = new ImageView(enchantedMineral);
+                        imageView.setId("mineraiEnchante");
+                    } else if (blockType == 13) {
+                        imageView = new ImageView(coal);
+                        imageView.setId("charbon");
+                    } else if (blockType == 15) {
+                        imageView = new ImageView(bat);
+                        imageView.setId("chauve-souris");
+                    } else if (blockType == 16) {
+                        imageView = new ImageView(glass);
+                        imageView.setId("verre");
+                    } else {
+                        imageView = new ImageView(sky); // Valeur par défaut
+                        imageView.setId("inconnu");
+                    }
 
                 imageView.setFitWidth(TILE_SIZE);
                 imageView.setFitHeight(TILE_SIZE);
