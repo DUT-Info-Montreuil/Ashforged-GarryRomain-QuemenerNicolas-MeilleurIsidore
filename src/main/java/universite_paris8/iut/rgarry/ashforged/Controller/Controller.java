@@ -229,7 +229,7 @@ public class Controller implements Initializable {
             //supprime flèche si fleche desactiver
             arrows.removeIf(arrow -> !arrow.isActive());
             for (Arrow arrow : arrows) {
-                arrow.update(environment);
+                arrow.update();
             }
 
 

@@ -30,7 +30,7 @@ public class Environment {
         this.field = field;
         this.mobs = new ArrayList<>();
         this.npcs = new ArrayList<>();
-        this.hero = new Character("Hero", 1, new int[]{10, 1, 5, 1}, 250, 300, this);
+        this.hero = new Character("Hero", 1, new int[]{999, 999999999, 5, 1}, 250, 300, this);
 
         this.mobs.add(new Mobs("Mongolfière", 15, new int[]{10, 1, 3, 1}, 5, ItemStock.Weapon.wooden_sabre, 1664, 300, this));
        mobs.add(new Mobs("Kozuki", 30, new int[]{1, 1, 3, 1}, 5, ItemStock.Weapon.enma, 600, 250,  this));

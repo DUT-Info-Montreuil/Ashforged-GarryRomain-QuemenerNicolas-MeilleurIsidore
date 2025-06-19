@@ -38,15 +38,15 @@ public class Arrow {
     }
 
     // Mise à jour par frame
-    public void update(Environment environment) {
+    public void update() {
         if (!isActive) return;
 
-        moveHorizontal(environment);
-        applyGravity(environment);
+        moveHorizontal();
+        applyGravity();
         attackFleche();
     }
 
-    private void moveHorizontal(Environment environment) {
+    private void moveHorizontal() {
         double newX = x.get() + velocityX;
 
         if (!environment.getField().checkCollision((int) newX, y.get())) {
@@ -57,7 +57,7 @@ public class Arrow {
         }
     }
 
-    private void applyGravity(Environment environment) {
+    private void applyGravity() {
         velocityY += GRAVITY;
 
         int steps = (int) Math.abs(velocityY);
@@ -77,27 +77,25 @@ public class Arrow {
 
 
     public void attackFleche() {
-        if (touchee) {
-            for (Entity entity : environment.getEntities()) {
-                if(entity instanceof Mobs) {
-                    int dx = Math.abs(entity.getX() / 64 - this.getX() / 64);
-                    int dy = Math.abs(entity.getY() / 64 - this.getY() / 64);
-                    if (dx == 2 && dy == 2) {
-                        System.out.println("touche !");
-                        int damage;
-                        if (environment.getHero().getStats()[1] > 1) damage = (int) (environment.getHero().getStats()[1] * 0.5 + ((double) damageFleche / 2));
-                        else damage = damageFleche / 2;
-                        if(entity.getHealth() - damage <= 0) {
-                            entity.setHealth(0);
-                            System.out.println("Vous avez tué " + entity.getName() + " avec une fleche !");
-                            System.out.println(entity.getLevel());
-                            environment.getHero().gainExp(entity.getLevel());
-                        } else {
-                            entity.setHealth(entity.getHealth() - damage);
-                            System.out.println("Vous avez infligé " + damage + " points de dégâts à " + entity.getName() + " !");
-                        }
-                        touchee = true;
+        for (Entity entity : environment.getEntities()) {
+            if(entity instanceof Mobs) {
+                int dx = Math.abs(entity.getX() / 64 - this.getX() / 64);
+                int dy = Math.abs(entity.getY() / 64 - this.getY() / 64);
+                if (dx == 0 && dy == 0) {
+                    System.out.println("touche !");
+                    int damage;
+                    if (environment.getHero().getStats()[1] > 1) damage = (int) (environment.getHero().getStats()[1] * 0.5 + ((double) damageFleche / 2));
+                    else damage = damageFleche / 2;
+                    if(entity.getHealth() - damage <= 0) {
+                        entity.setHealth(0);
+                        System.out.println("Vous avez tué " + entity.getName() + " avec une fleche !");
+                        System.out.println(entity.getLevel());
+                        environment.getHero().gainExp(entity.getLevel());
+                    } else {
+                        entity.setHealth(entity.getHealth() - damage);
+                        System.out.println("Vous avez infligé " + damage + " points de dégâts à " + entity.getName() + " !");
                     }
+                    isActive = false;
                 }
             }
         }
