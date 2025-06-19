@@ -102,27 +102,27 @@ public class ItemStock {
         wooden_knife("Wooden knife", 2, 5, 32, 3, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Knife/woodenKnife.png"),
         stone_knife("Stone knife", 3, 10, 64, 4, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Knife/stoneKnife.png"),
         iron_knife("Iron knife", 4, 15, 128, 5, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Knife/ironKnife.png"),
-        aluminium_knife("Aluminium knife", 3, 20, 256, 6, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Knife/alluminiumKnife.png"),
+
 
         wooden_sword("Wooden sword", 2, 5, 32, 7, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Sword/woodenSword.png"),
         stone_sword("Stone sword", 3, 10, 64, 8, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Sword/stoneSword.png"),
         iron_sword("Iron sword", 4, 15, 128, 9, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Sword/ironSword.png"),
-        aluminium_sword("Aluminium sword", 3, 20, 256, 10, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Sword/alluminiumSword.png"),
+
 
         wooden_sabre("Wooden sabre", 2, 5, 32, 11, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Sabre/woodenSabre.png"),
         stone_sabre("Stone sabre", 3, 10, 64, 12, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Sabre/stoneSabre.png"),
         iron_sabre("Iron sabre", 4, 15, 128, 13, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Sabre/ironSabre.png"),
-        aluminium_sabre("Aluminium sabre", 3, 20, 256, 14, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Sabre/alluminiumSabre.png"),
+
 
         wooden_axe("Wooden axe", 2, 5, 32, 15, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Axe/woodenAxe.png"),
         stone_axe("Stone axe", 3, 10, 64, 16, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Axe/stoneAxe.png"),
         iron_axe("Iron axe", 4, 15, 128, 17, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Axe/ironAxe.png"),
-        aluminium_axe("Aluminium axe", 3, 20, 256, 18, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Axe/alluminiumAxe.png"),
+
 
         wooden_pickaxe("Wooden pickaxe", 2, 5, 32, 19, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Pickaxe/woodenPickaxe.png"),
         stone_pickaxe("Stone pickaxe", 3, 10, 64, 20, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Pickaxe/stonePickaxe.png"),
         iron_pickaxe("Iron pickaxe", 4, 15, 128, 21, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Pickaxe/ironPickaxe.png"),
-        aluminium_pickaxe("Aluminium pickaxe", 3, 20, 256, 22, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/Pickaxe/alluminiumPickaxe.png"),
+
 
         firearm("Shotgun", 5, 25, 256, 23, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/firearm.png"),
 
@@ -147,8 +147,6 @@ public class ItemStock {
             iron_knife.getComponents().put(Usuable.wood, 2);
             iron_knife.getComponents().put(Usuable.iron, 3);
 
-            aluminium_knife.getComponents().put(Usuable.wood, 2);
-            aluminium_knife.getComponents().put(Usuable.alluminium, 3);
 
             // Épées
             wooden_sword.getComponents().put(Usuable.wood, 4);
@@ -159,8 +157,6 @@ public class ItemStock {
             iron_sword.getComponents().put(Usuable.wood, 2);
             iron_sword.getComponents().put(Usuable.iron, 3);
 
-            aluminium_sword.getComponents().put(Usuable.wood, 2);
-            aluminium_sword.getComponents().put(Usuable.alluminium, 3);
 
             // Sabres
             wooden_sabre.getComponents().put(Usuable.wood, 4);
@@ -171,8 +167,6 @@ public class ItemStock {
             iron_sabre.getComponents().put(Usuable.wood, 2);
             iron_sabre.getComponents().put(Usuable.iron, 3);
 
-            aluminium_sabre.getComponents().put(Usuable.wood, 2);
-            aluminium_sabre.getComponents().put(Usuable.alluminium, 3);
 
             // Haches
             wooden_axe.getComponents().put(Usuable.wood, 4);
@@ -183,8 +177,6 @@ public class ItemStock {
             iron_axe.getComponents().put(Usuable.wood, 2);
             iron_axe.getComponents().put(Usuable.iron, 3);
 
-            aluminium_axe.getComponents().put(Usuable.wood, 2);
-            aluminium_axe.getComponents().put(Usuable.alluminium, 3);
 
             // Pioches
             wooden_pickaxe.getComponents().put(Usuable.wood, 4);
@@ -194,9 +186,6 @@ public class ItemStock {
 
             iron_pickaxe.getComponents().put(Usuable.wood, 2);
             iron_pickaxe.getComponents().put(Usuable.iron, 3);
-
-            aluminium_pickaxe.getComponents().put(Usuable.wood, 2);
-            aluminium_pickaxe.getComponents().put(Usuable.alluminium, 3);
 
             // Arme à feu
             firearm.getComponents().put(Usuable.iron, 4);
