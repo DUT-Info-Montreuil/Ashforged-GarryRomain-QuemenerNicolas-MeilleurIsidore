@@ -187,6 +187,7 @@ public class Mobs extends Character {
      */
     @Override
     public void attack() {
+        System.out.println(this.getName() + " Health:" + this.getHealth());
         if (getHoldingItem() != null && this.getHoldingItem() instanceof ItemStock.Weapon) {
             for (Entity entity : env.getEntities()) {
                 if (!(entity instanceof Mobs)) {
