@@ -17,7 +17,7 @@ public class MobView {
     private List<Mobs> mobs = new ArrayList<>();
     private Environment environment;
 
-    public Image terreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png").toExternalForm());
+    public Image mobImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/PNJ/mob.png").toExternalForm());
 
 
     public MobView(Environment environment,Pane paneperso){
@@ -27,9 +27,10 @@ public class MobView {
         mobs = environment.getMobs();
         npcs = environment.getNpcs();
 
-        Image pierreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
-        Image paoloImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/ground.png").toExternalForm());
-        Image salomeImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/leftSalome.png").toExternalForm());
+        Image inventoryImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
+
+        Image paoloImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/PNJ/leftPaolo.png").toExternalForm());
+        Image salomeImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/PNJ/leftSalome.png").toExternalForm());
         Image terryImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/PNJ/leftTerry.png").toExternalForm());
         Image brandaImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/PNJ/leftTerry.png").toExternalForm());
         for (Npc npc : npcs) {
@@ -37,7 +38,7 @@ public class MobView {
             if (npc.getName().equals("Paolo")) {
                 npcView = new ImageView(paoloImage);
             } else {
-                npcView = new ImageView(pierreImage);
+                npcView = new ImageView(inventoryImage);
                 if (npc.getName().equals("Branda")) {
                     npcView = new ImageView(brandaImage);
                     npc.setX(200);
@@ -63,7 +64,7 @@ public class MobView {
         mobs = environment.getMobs();
         for (Mobs m : mobs) {
             if (m.getNode() == null) {
-                ImageView mobView = new ImageView(terreImage);
+                ImageView mobView = new ImageView(mobImage);
                 mobView.layoutXProperty().bind(m.getXProperty().asObject());
                 mobView.layoutYProperty().bind(m.getYProperty().asObject());
                 paneperso.getChildren().add(mobView);
