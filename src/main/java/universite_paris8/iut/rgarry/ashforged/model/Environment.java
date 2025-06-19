@@ -128,6 +128,7 @@ public class Environment {
      * Mob stats are influenced by the hero’s stats and level.
      */
     public void generateRandomMob() {
+        System.out.println("Generating random mobs...");
         Random rand = new Random();
         String[] mobNames = {"Mongolfière", "Soldat", "Zombie", "Bandit", "Boss", "Kozuki"};
         ItemStock.Weapon[] mobWeapons = {
@@ -161,7 +162,7 @@ public class Environment {
             int x, y;
             do {
                 x = rand.nextInt(this.field.getWidth() * 64);
-                y = rand.nextInt(this.field.getHeight() * 64);
+                y = 300;
                 System.out.println("Attempt failed for mob: " + mobNames[idx] + " at (" + x + ", " + y + ")");
             } while (checkCollision(x, y));
 

@@ -189,6 +189,9 @@ public class Controller implements Initializable {
 
             // Remove dead entities from scene and environment
             for (Entity entity : entitiesToDie) {
+                if (entity instanceof Mobs) {
+                    ((Mobs) entity).onDeath();
+                }
                 paneperso.getChildren().remove(entity.getNode());
                 environment.removeEntity(entity);
             }
@@ -196,7 +199,8 @@ public class Controller implements Initializable {
 
             // Spawn new mobs if fewer than 5 exist every 50 cycles
             if (compteur % 50 == 0) {
-                if (environment.getMobs().size() < 5) System.out.println("Generate new mobs");
+                boolean hasEnoughMobs = environment.getMobs().size() >= 5;
+                if (!hasEnoughMobs) System.out.println("Generate new ...");
                 environment.generateRandomMob();
                 mobView.setMobsView();
             }

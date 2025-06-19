@@ -6,6 +6,7 @@ import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -130,6 +131,36 @@ public class Mobs extends Character {
             }
         } else {
             seDeplacerRandom();
+        }
+    }
+
+    public void onDeath() {
+        Random rand = new Random();
+
+        // 5% chance to drop weapon
+        if (getHoldingItem() != null && rand.nextInt(100) < 5) {
+            env.getHero().addToInventory(getHoldingItem());
+        }
+
+        // List of possible resources
+        List<ItemInterface> resources = Arrays.asList(
+                ItemStock.Usuable.iron,
+                ItemStock.Usuable.canon_powder,
+                ItemStock.Usuable.perlimpinpin_powder,
+                ItemStock.Usuable.feather,
+                ItemStock.Usuable.ball,
+                ItemStock.Usuable.string,
+                ItemStock.Usuable.coal,
+                ItemStock.Usuable.enchanted_mineral,
+                ItemStock.Usuable.golden_piece
+        );
+
+        // Randomly decide how many resources to drop (at least 1)
+        int numDrops = 1 + rand.nextInt(resources.size());
+
+        for (int i = 0; i < numDrops; i++) {
+            ItemInterface resource = resources.get(rand.nextInt(resources.size()));
+            env.getHero().addToInventory(resource);
         }
     }
 
