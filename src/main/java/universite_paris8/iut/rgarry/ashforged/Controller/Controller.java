@@ -4,6 +4,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +24,7 @@ import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+import universite_paris8.iut.rgarry.ashforged.model.Projectile.Arrow;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
 import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
@@ -114,6 +118,8 @@ public class Controller implements Initializable {
 
     private MobView mobView;
 
+    private ObservableList<Arrow> arrows;
+
 
     @FXML
     private void startGame() {
@@ -145,6 +151,8 @@ public class Controller implements Initializable {
         // Initialisation de l'environnement
         environment = new Environment(field);
         personnage = environment.getHero();
+        arrows = FXCollections.observableArrayList();
+        arrowListener();
 
         deathMenu();
 
@@ -170,6 +178,7 @@ public class Controller implements Initializable {
 
         personnage.addToInventory(ItemStock.Usuable.golden_piece);
         personnage.addToInventory(ItemStock.Weapon.stone_pickaxe);
+        personnage.addToInventory(ItemStock.Weapon.bow);
 
 
         paneperso.setMouseTransparent(true);
@@ -218,6 +227,12 @@ public class Controller implements Initializable {
                     personnage.setHealth(personnage.getMaxHealth());
                 }
             }
+            //supprime flèche si fleche desactiver
+            arrows.removeIf(arrow -> !arrow.isActive());
+            for (Arrow arrow : arrows) {
+                arrow.update(environment);
+            }
+
 
             personnage.seDeplacer();
             personnage.applyGravity(environment);
@@ -285,6 +300,10 @@ public class Controller implements Initializable {
                         }
                     }
                 }
+                if (personnage.getHoldingItem().getName().contains("Bow")){
+                    Arrow arrow = new Arrow(personnage.getX(),personnage.getY()-32);
+                    arrows.add(arrow);
+                }
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) == 1) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
@@ -293,10 +312,12 @@ public class Controller implements Initializable {
                     }
                 }
             }
+            updateInventory();
         });
     }
 
     public void updateInventory() {
+        Inventory.getChildren().clear();
         for (int i = 0; i < 48; i++) {
             int finalI1 = i;
             ImageView imageView = new ImageView(getItemImageAt(i));
@@ -399,5 +420,28 @@ public class Controller implements Initializable {
                 }
             }
         });
+
+    }
+
+    public void arrowListener() {
+        arrows.addListener((ListChangeListener<Arrow>) change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    for (Arrow arrow : change.getAddedSubList()) {
+                        ImageView fleche =  new ImageView(new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/arrow.png").toExternalForm()));
+                        fleche.translateXProperty().bind(arrow.xProperty());
+                        fleche.translateYProperty().bind(arrow.yProperty());
+                        arrow.setArrowImage(fleche);
+                        paneperso.getChildren().add(fleche);
+                    }
+                }
+                if (change.wasRemoved()) {
+                    for (Arrow arrow : change.getRemoved()) {
+                        paneperso.getChildren().remove(arrow.getArrowImage());
+                    }
+                }
+            }
+        });
+
     }
 }
