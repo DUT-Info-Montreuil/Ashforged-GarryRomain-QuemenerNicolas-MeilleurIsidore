@@ -5,7 +5,9 @@ import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +15,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
@@ -25,6 +28,7 @@ import universite_paris8.iut.rgarry.ashforged.view.CraftView;
 import universite_paris8.iut.rgarry.ashforged.view.FieldView;
 import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.function.Consumer;
@@ -142,6 +146,32 @@ public class Controller implements Initializable {
         personnage = environment.getHero();
         mobs = environment.getMobs();
         npcs = environment.getNpcs();
+
+        personnage.healthProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.intValue() <= 0) {
+                System.out.println("The character is dead!");
+
+                try {
+                    // Arrêter le timeline du jeu
+                    if (timeline != null) {
+                        timeline.stop();
+                    }
+
+                    // Changer directement vers la page Game Over
+                    Stage stage = (Stage) paneperso.getScene().getWindow();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/dieAndRespawn.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
+
+                    stage.setTitle("Ashforged - Game Over");
+                    stage.setScene(scene);
+                    stage.setFullScreen(true);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.err.println("Erreur lors de l'affichage de l'écran Game Over");
+                }
+            }
+        });
 
         Image pierreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
         Image terreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png").toExternalForm());
