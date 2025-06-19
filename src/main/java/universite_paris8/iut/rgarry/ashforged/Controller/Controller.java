@@ -257,7 +257,7 @@ public class Controller implements Initializable {
     }
 
     public void initializeClick(Field field) {
-        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Ciel.png").toExternalForm());
+        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/sky.png").toExternalForm());
         Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
         tilepane.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -266,6 +266,7 @@ public class Controller implements Initializable {
                 if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
                         if (personnage.getHoldingItem().getName().contains("pickaxe")) {
+                            personnage.addToInventory(ItemStock.Tile.fromId(field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY()))));
                             field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), 1);
                             ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
                             test.setImage(ciel);
@@ -275,15 +276,20 @@ public class Controller implements Initializable {
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) == 1) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
-                        ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
-                        test.setImage(inventoryCase);
+                        if (personnage.getHoldingItem() instanceof ItemStock.Tile) {
+                            field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()),personnage.getHoldingItem().getId());
+                            ImageView blockPoser = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
+                            blockPoser.setImage(personnage.getHoldingItem().getImage());
+                        }
                     }
                 }
             }
+            updateInventory();
         });
     }
 
     public void updateInventory() {
+        Inventory.getChildren().clear();
         for (int i = 0; i < 48; i++) {
             int finalI1 = i;
             ImageView imageView = new ImageView(getItemImageAt(i));
