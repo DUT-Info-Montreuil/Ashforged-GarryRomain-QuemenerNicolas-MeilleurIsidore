@@ -128,7 +128,9 @@ public class ItemStock {
 
         bomb("Bomb", 4, 10, 1, "#24", "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/bomb.png"),
 
-        enma("Enma", 10, 30, 300, "#2202", "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/enma.png");
+        enma("Enma", 10, 30, 300, "#2202", "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/enma.png"),
+
+        canne("Canne", 0, 1000000, 999999, "#2203", "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/stick.png");
 
         static {
             // Bâton

@@ -48,7 +48,6 @@ public class Field {
      */
     public int block(int x, int y) {
         if (y < 0 || y >= tiles.length || x < 0 || x >= tiles[0].length) {
-            System.err.println("Accès invalide au bloc : x=" + x + ", y=" + y);
             return 1; // Valeur par défaut (ciel ou autre valeur sûre)
         }
         return this.tiles[y][x];
@@ -82,7 +81,6 @@ public class Field {
     public int getXView(int x) {
         int index = x / 64;
         if (index < 0 || index >= getWidth()) {
-            System.err.println("getXView hors limites : x=" + x + ", index=" + index);
             return 0; // Ou une valeur par défaut
         }
         return index;
@@ -91,7 +89,6 @@ public class Field {
     public int getYView(int y) {
         int index = y / 64;
         if (index < 0 || index >= getHeight()) {
-            System.err.println("getYView hors limites : y=" + y + ", index=" + index);
             return 0; // Ou une valeur par défaut
         }
         return index;

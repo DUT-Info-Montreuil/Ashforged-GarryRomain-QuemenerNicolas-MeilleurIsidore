@@ -1,5 +1,6 @@
 package universite_paris8.iut.rgarry.ashforged.view;
 
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;

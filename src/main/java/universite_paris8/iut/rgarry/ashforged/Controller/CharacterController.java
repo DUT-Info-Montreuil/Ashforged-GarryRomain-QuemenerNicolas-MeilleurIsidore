@@ -4,14 +4,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import universite_paris8.iut.rgarry.ashforged.model.Environment;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
+import universite_paris8.iut.rgarry.ashforged.model.KeyMapping;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
-import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
-import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CharacterController {
 
@@ -39,22 +33,18 @@ public class CharacterController {
 
     public void setupKeyHandlers(Pane pane) {
         pane.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case SPACE -> spacePressed.set(true);
-                case Q -> qPressed.set(true);
-                case S -> sPressed.set(true);
-                case D -> dPressed.set(true);
-            }
+            if (event.getCode() == KeyMapping.getKey("jump")) spacePressed.set(true);
+            if (event.getCode() == KeyMapping.getKey("moveLeft")) qPressed.set(true);
+            if (event.getCode() == KeyMapping.getKey("moveRight")) dPressed.set(true);
+            if (event.getCode() == KeyMapping.getKey("down")) sPressed.set(true);
             changerDirectionPersonnage();
         });
 
         pane.setOnKeyReleased(event -> {
-            switch (event.getCode()) {
-                case SPACE -> spacePressed.set(false);
-                case Q -> qPressed.set(false);
-                case S -> sPressed.set(false);
-                case D -> dPressed.set(false);
-            }
+            if (event.getCode() == KeyMapping.getKey("jump")) spacePressed.set(false);
+            if (event.getCode() == KeyMapping.getKey("moveLeft")) qPressed.set(false);
+            if (event.getCode() == KeyMapping.getKey("moveRight")) dPressed.set(false);
+            if (event.getCode() == KeyMapping.getKey("down")) sPressed.set(false);
             changerDirectionPersonnage();
         });
     }

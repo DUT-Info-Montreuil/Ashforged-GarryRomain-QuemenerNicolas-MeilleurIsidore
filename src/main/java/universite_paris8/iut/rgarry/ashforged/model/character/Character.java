@@ -1,7 +1,6 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 
 public class Character extends Entity {
@@ -38,15 +37,28 @@ public class Character extends Entity {
         }
     }
 
+    @Override
     public void attack() {
-        for (Entity entity : env.getEntities()) {
-            int dx = Math.abs(entity.getX() / 64 - this.getX() / 64);
-            int dy = Math.abs(entity.getY() / 64 - this.getY() / 64);
-            if (dx < 2 && dy < 2) {
-                int damage;
-                if (stats[1] > 1) damage = (int) (stats[1] * 0.5 + ((double) getHoldingItem().getDamage() /2));
-                else damage = getHoldingItem().getDamage()/2;
-                entity.setHealth(entity.getHealth() - damage);
+        if (getHoldingItem() instanceof ItemStock.Weapon) {
+            for (Entity entity : env.getEntities()) {
+                if(entity instanceof Mobs) {
+                    int dx = Math.abs(entity.getX() / 64 - this.getX() / 64);
+                    int dy = Math.abs(entity.getY() / 64 - this.getY() / 64);
+                    if (dx < 2 && dy < 2) {
+                        int damage;
+                        if (stats[1] > 1) damage = (int) (stats[1] * 0.5 + ((double) getHoldingItem().getDamage() / 2));
+                        else damage = getHoldingItem().getDamage() / 2;
+                        if(entity.getHealth() - damage <= 0) {
+                            entity.setHealth(0);
+                            System.out.println("Vous avez tué " + entity.getName() + " !");
+                            System.out.println(entity.getLevel());
+                            this.gainExp(entity.getLevel());
+                        } else {
+                            entity.setHealth(entity.getHealth() - damage);
+                            System.out.println("Vous avez infligé " + damage + " points de dégâts à " + entity.getName() + " !");
+                        }
+                    }
+                }
             }
         }
     }

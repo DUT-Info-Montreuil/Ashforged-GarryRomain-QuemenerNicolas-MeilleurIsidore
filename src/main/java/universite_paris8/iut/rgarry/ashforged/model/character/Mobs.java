@@ -141,7 +141,7 @@ public class Mobs extends Character {
     public void attack() {
         if (getHoldingItem() != null && this.getHoldingItem() instanceof ItemStock.Weapon) {
             for (Entity entity : env.getEntities()) {
-                if (entity instanceof Character || entity instanceof Npc) {
+                if (!(entity instanceof Mobs)) {
                     int entityX = entity.getX() / 64;
                     int entityY = entity.getY() / 64;
                     int mobX = getX() / 64;

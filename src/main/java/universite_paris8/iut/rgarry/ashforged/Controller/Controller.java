@@ -22,12 +22,10 @@ import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
+import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
 import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
-import universite_paris8.iut.rgarry.ashforged.view.CraftView;
-import universite_paris8.iut.rgarry.ashforged.view.FieldView;
-import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
-import universite_paris8.iut.rgarry.ashforged.view.MobView;
+import universite_paris8.iut.rgarry.ashforged.view.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -101,6 +99,8 @@ public class Controller implements Initializable {
 
     private MobView mobView;
 
+    private List<Entity> entitiesToDie = new ArrayList<>();
+
 
     @FXML
     private void startGame() {
@@ -161,12 +161,32 @@ public class Controller implements Initializable {
         startTimeline();
     }
 
+    private void openStatAllocationWindow() {
+        StatAllocationView.show(personnage);
+    }
+
     /***
      * Permet de gérer le déplacement du personnage dans le jeu et donc mettre à jour sa position.
      */
     private void startTimeline() {
         timeline = new Timeline(new KeyFrame(Duration.millis(10), event -> {
             if (compteur == 300) compteur = 0;
+
+            for (Entity entity : environment.getEntities()) {
+                if (entity.getHealth() <= 0) entitiesToDie.add(entity);
+            }
+            for (Entity entity : entitiesToDie) {
+                paneperso.getChildren().remove(entity.getNode());
+                environment.removeEntity(entity);
+            }
+            entitiesToDie.clear();
+
+            if (compteur % 50 == 0) {
+                if (environment.getMobs().size() < 5) System.out.println("Generer nouveaux mobs");
+
+                environment.generateRandomMob();
+                mobView.setMobsView();
+            }
 
             if (compteur % 100 == 0) {
                 for (Npc npc : mobView.getNpcs()) {
@@ -186,17 +206,14 @@ public class Controller implements Initializable {
             }
 
             if (compteur % 150 == 0) {
-                for (Mobs mob : mobView.getMobs()) {
-                    System.out.println("mob attaque");
-                    mob.attack();
+                for (Entity e : environment.getEntities()) {
+                    e.attack();
                 }
             }
 
             if (compteur % 300 == 0) {
-                if (personnage.getHealth() + (personnage.getMaxHealth() / 10) <= personnage.getMaxHealth()) {
-                    personnage.setHealth(personnage.getHealth() + (personnage.getMaxHealth() / 10));
-                } else {
-                    personnage.setHealth(personnage.getMaxHealth());
+                if (personnage.getHealth() > 0) {
+                    personnage.setHealth(Math.min(personnage.getHealth() + (personnage.getMaxHealth() / 10), personnage.getMaxHealth()));
                 }
             }
 
@@ -224,7 +241,9 @@ public class Controller implements Initializable {
 
         });
 
-
+        lvlLabel.setOnMouseClicked(event -> {
+            openStatAllocationWindow();
+        });
 
 
     }

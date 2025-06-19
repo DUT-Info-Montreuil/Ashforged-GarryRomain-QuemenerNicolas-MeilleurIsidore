@@ -14,5 +14,7 @@
 
     <Button onAction="#startGame" text="Start" />
     <Button onAction="#quitGame" text="Quit" />
+    <Button onAction="#openKeyMapping" text="Key Mapping" />
+
     <Pane prefHeight="200.0" prefWidth="200.0" />
 </VBox>

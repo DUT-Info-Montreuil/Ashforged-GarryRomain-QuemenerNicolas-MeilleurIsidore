@@ -2,12 +2,14 @@ package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.Node;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 
 import java.util.LinkedHashMap;
 
 public abstract class Entity {
+    private Node node;
     private ItemInterface holdingItem;
     private static final double GRAVITY = 0.5;
     protected double velocityY;
@@ -54,17 +56,17 @@ public abstract class Entity {
         int direction = velocityY > 0 ? 1 : -1;
 
         for (int i = 0; i < steps; i++) {
-            if (direction > 0) { // Vers le bas
-                if (!environment.getField().checkCollision(getX(), getY() + 1) &&
-                        !environment.getField().checkCollision(getX() + 31, getY() + 1) &&
-                        !environment.getField().checkCollision(getX(), getY() + 32) &&
+            if (direction > 0) { // Moving down
+                // Check bottom-left and bottom-right corners
+                if (!environment.getField().checkCollision(getX(), getY() + 32) &&
                         !environment.getField().checkCollision(getX() + 31, getY() + 32)) {
                     setY(getY() + 1);
                 } else {
                     velocityY = 0;
                     break;
                 }
-            } else if (direction < 0) { // Vers le haut
+            } else if (direction < 0) { // Moving up
+                // Check top-left and top-right corners
                 if (!environment.getField().checkCollision(getX(), getY() - 1) &&
                         !environment.getField().checkCollision(getX() + 31, getY() - 1)) {
                     setY(getY() - 1);
@@ -76,10 +78,15 @@ public abstract class Entity {
         }
     }
     public abstract void seDeplacer();
+    public abstract void attack();
+    public int getStatPoint() { return stat_point; }
 
     public void vaADroite() { this.direction = 'd'; }
     public void vaAGauche() { this.direction = 'g'; }
     public void resteImobile() { this.direction = 'i'; }
+
+    public Node getNode() { return node; }
+    public void setNode(Node node) { this.node = node; }
 
     public double getVelocityY() { return velocityY; }
     public void setVelocityY(double velocityY) { this.velocityY = velocityY; }
@@ -107,6 +114,7 @@ public abstract class Entity {
     public int getExp() { return exp.get(); }
     public int getExpToNextLevel() { return expToNextLevel.get(); }
     public Environment getEnv() { return env; }
+    public void setMaxHealth(int statHealth) {this.maxHealth = statHealth*3; }
 
     public ItemInterface getHoldingItem() { return holdingItem; }
 
@@ -122,6 +130,7 @@ public abstract class Entity {
     private void levelUp() {
         setLevel(getLevel() + 1);
         expToNextLevel.set(expToNextLevel.get() + 5);
+        stat_point += 5;
     }
     public LinkedHashMap<ItemInterface, Integer> getInventory() {return inventory;}
 
@@ -138,8 +147,6 @@ public abstract class Entity {
             }
         }
         else inventory.put(item, inventory.get(item) + 1); // Incrémente la valeur associée à "item" de 1
-
-
     }
 
     /***

@@ -3,10 +3,7 @@ package universite_paris8.iut.rgarry.ashforged.view;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.rgarry.ashforged.Controller.CharacterController;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
-import universite_paris8.iut.rgarry.ashforged.model.Field;
-import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
 import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
 
@@ -18,16 +15,19 @@ public class MobView {
     private ImageView mob;
     private List<Npc> npcs = new ArrayList<>();
     private List<Mobs> mobs = new ArrayList<>();
+    private Environment environment;
+
+    public Image terreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png").toExternalForm());
 
 
     public MobView(Environment environment,Pane paneperso){
+        this.environment = environment;
         this.paneperso=paneperso;
 
         mobs = environment.getMobs();
         npcs = environment.getNpcs();
 
         Image pierreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
-        Image terreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png").toExternalForm());
         Image paoloImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/ground.png").toExternalForm());
         Image salomeImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/leftSalome.png").toExternalForm());
         Image terryImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/PNJ/leftTerry.png").toExternalForm());
@@ -57,13 +57,20 @@ public class MobView {
             npcView.layoutYProperty().bind(npc.getYProperty().asObject());
             paneperso.getChildren().add(npcView);
         }
+    }
 
-        for (Mobs mob : mobs) {
-            ImageView mobView = new ImageView(terreImage);
-            mobView.layoutXProperty().bind(mob.getXProperty().asObject());
-            mobView.layoutYProperty().bind(mob.getYProperty().asObject());
-            paneperso.getChildren().add(mobView);
+    public void setMobsView() {
+        mobs = environment.getMobs();
+        for (Mobs m : mobs) {
+            if (m.getNode() == null) {
+                ImageView mobView = new ImageView(terreImage);
+                mobView.layoutXProperty().bind(m.getXProperty().asObject());
+                mobView.layoutYProperty().bind(m.getYProperty().asObject());
+                paneperso.getChildren().add(mobView);
+                m.setNode(mobView);
+            }
         }
+
     }
 
     public List<Npc> getNpcs(){

@@ -1,8 +1,11 @@
 package universite_paris8.iut.rgarry.ashforged.view;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import universite_paris8.iut.rgarry.ashforged.Controller.CharacterController;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
