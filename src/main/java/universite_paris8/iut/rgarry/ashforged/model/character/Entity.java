@@ -56,8 +56,13 @@ public abstract class Entity {
         int direction = velocityY > 0 ? 1 : -1;
 
         for (int i = 0; i < steps; i++) {
+            int nextY = getY() + direction;
+            // Check if the next position is within the map
+            if (!isWithinMap(getX(), nextY)) {
+                velocityY = 0;
+                break;
+            }
             if (direction > 0) { // Moving down
-                // Check bottom-left and bottom-right corners
                 if (!environment.getField().checkCollision(getX(), getY() + 32) &&
                         !environment.getField().checkCollision(getX() + 31, getY() + 32)) {
                     setY(getY() + 1);
@@ -66,7 +71,6 @@ public abstract class Entity {
                     break;
                 }
             } else if (direction < 0) { // Moving up
-                // Check top-left and top-right corners
                 if (!environment.getField().checkCollision(getX(), getY() - 1) &&
                         !environment.getField().checkCollision(getX() + 31, getY() - 1)) {
                     setY(getY() - 1);
@@ -77,6 +81,13 @@ public abstract class Entity {
             }
         }
     }
+
+    protected boolean isWithinMap(int x, int y) {
+        int width = env.getField().getWidth() * 64;
+        int height = env.getField().getHeight() * 64;
+        return x >= 0 && x + 31 < width && y >= 0 && y + 31 < height;
+    }
+
     public abstract void seDeplacer();
     public abstract void attack();
     public int getStatPoint() { return stat_point; }

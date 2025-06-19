@@ -55,7 +55,7 @@ public class Mobs extends Character {
     @Override
     public void vaAGauche() {
         int newX = getX() - getVitesse();
-        if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31)) {
+        if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31) && isWithinMap(newX, getY())) {
             setX(newX);
         }
     }
@@ -63,33 +63,29 @@ public class Mobs extends Character {
     @Override
     public void vaADroite() {
         int newX = getX() + getVitesse();
-        if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31)) {
+        if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31) && isWithinMap(newX, getY())) {
             setX(newX);
         }
     }
 
     public void vaADroiteR() {
         int newX = getX() + getVitesse();
-        // Vérifie la collision à droite
-        if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31)) {
+        if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31) && isWithinMap(newX, getY())) {
             setX(newX);
         } else {
-            // Collision détectée, saute
             if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
-                setVelocityY(-12); // Valeur à ajuster selon la hauteur de saut désirée
+                setVelocityY(-12);
             }
         }
     }
 
     public void vaAGaucheR() {
         int newX = getX() - getVitesse();
-        // Vérifie la collision à gauche
-        if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31)) {
+        if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31) && isWithinMap(newX, getY())) {
             setX(newX);
         } else {
-            // Collision détectée, saute
             if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
-                setVelocityY(-12); // Même valeur que pour droite
+                setVelocityY(-12);
             }
         }
     }

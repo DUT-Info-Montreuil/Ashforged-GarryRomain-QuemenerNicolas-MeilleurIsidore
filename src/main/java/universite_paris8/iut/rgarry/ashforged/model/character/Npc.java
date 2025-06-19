@@ -34,7 +34,7 @@ public class Npc extends Entity {
         newX = getX() - getVitesse();
         if (newX < minX) newX = minX;
         boolean collision = env.checkCollision(newX, getY()) || env.checkCollision(newX, getY() + 31);
-        if (!collision) {
+        if (!collision && isWithinMap(newX, getY())) {
             setX(newX);
         } else {
             if (env != null
@@ -50,7 +50,7 @@ public class Npc extends Entity {
         newX = getX() + getVitesse();
         if (newX > maxX) newX = maxX;
         boolean collision = env.checkCollision(newX + 31, getY()) || env.checkCollision(newX + 31, getY() + 31);
-        if (!collision) {
+        if (!collision && isWithinMap(newX, getY())) {
             setX(newX);
         } else {
             if (env != null

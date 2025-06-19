@@ -60,7 +60,12 @@ public class CharacterController {
             personnage.resteImobile();
         }
         // Vérifie la collision en bas à gauche ET en bas à droite avant d'autoriser le saut
-        if (this.isSpacePressed() && personnage.getEnv().checkCollision(personnage.getX(), personnage.getY() + 32) && personnage.getEnv().checkCollision(personnage.getX() + 31, personnage.getY() + 32)) {
+        int bottomY = personnage.getEnv().getField().getHeight() * 64 - 32;
+        boolean onGround = (personnage.getEnv().checkCollision(personnage.getX(), personnage.getY() + 32) &&
+                personnage.getEnv().checkCollision(personnage.getX() + 31, personnage.getY() + 32)) ||
+                (personnage.getY() == bottomY);
+
+        if (this.isSpacePressed() && onGround) {
             personnage.setVelocityY(JUMP_STRENGHT);
         }
     }

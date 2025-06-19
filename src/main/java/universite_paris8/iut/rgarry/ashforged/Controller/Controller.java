@@ -150,6 +150,7 @@ public class Controller implements Initializable {
 
         personnage.addToInventory(ItemStock.Usuable.golden_piece);
         personnage.addToInventory(ItemStock.Weapon.stone_pickaxe);
+        personnage.addToInventory(ItemStock.Weapon.stone_sword);
 
 
         paneperso.setMouseTransparent(true);
@@ -261,11 +262,11 @@ public class Controller implements Initializable {
         Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
         tilepane.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
-                System.out.println(field.getXView((int) event.getX()));
-                System.out.println(field.getYView((int) event.getY()));
-                if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
+                if (personnage.getHoldingItem() instanceof ItemStock.Weapon && !personnage.getHoldingItem().getName().contains("pickaxe")) {
+                    personnage.attack();
+                } else if (personnage.getHoldingItem().getName().contains("pickaxe")) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
-                        if (personnage.getHoldingItem().getName().contains("pickaxe")) {
+                        if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
                             personnage.addToInventory(ItemStock.Tile.fromId(field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY()))));
                             field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), 1);
                             ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
@@ -273,6 +274,7 @@ public class Controller implements Initializable {
                         }
                     }
                 }
+
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) == 1) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
@@ -295,7 +297,6 @@ public class Controller implements Initializable {
             int finalI1 = i;
             ImageView imageView = new ImageView(getItemImageAt(i));
 
-
             imageView.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     HashMap<ItemInterface, Integer> inventoryMap = personnage.getInventory();
@@ -304,15 +305,11 @@ public class Controller implements Initializable {
 
                         if (finalI1 < items.size()) {
                             ItemInterface item = items.get(finalI1);
-                            if (item == null) {
-                                System.out.println("Rien");
-                            } else {
+                            if (!(item == null)) {
                                 personnage.setHoldingItem(item);
                                 int quantite = inventoryMap.get(item);
                                 System.out.println(item.getName() + "x" + quantite);
                             }
-                        } else {
-                            System.out.println("Index hors limites");
                         }
                     }
                 }
@@ -370,7 +367,6 @@ public class Controller implements Initializable {
     public void deathMenu() {
         personnage.healthProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.intValue() <= 0) {
-                System.out.println("The character is dead!");
 
                 try {
                     // Arrêter le timeline du jeu
@@ -389,7 +385,6 @@ public class Controller implements Initializable {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    System.err.println("Erreur lors de l'affichage de l'écran Game Over");
                 }
             }
         });
