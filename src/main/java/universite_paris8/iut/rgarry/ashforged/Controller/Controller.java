@@ -27,6 +27,7 @@ import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
 import universite_paris8.iut.rgarry.ashforged.view.CraftView;
 import universite_paris8.iut.rgarry.ashforged.view.FieldView;
 import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
+import universite_paris8.iut.rgarry.ashforged.view.MobView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -90,7 +91,8 @@ public class Controller implements Initializable {
     @FXML
     private Pane quit;
 
-    @FXML private Pane startScreen;
+    @FXML
+    private Pane startScreen;
 
     private List<Pane> accesRapidePanes;
 
@@ -101,8 +103,6 @@ public class Controller implements Initializable {
     private CharacterView personnageView;
     private CharacterController characterController;
     private Character personnage;
-    private List<Npc> npcs = new ArrayList<>();
-    private List<Mobs> mobs = new ArrayList<>();
 
     private Timeline timeline;
 
@@ -111,6 +111,8 @@ public class Controller implements Initializable {
     private LinkedHashMap<ItemInterface, Image> inventory = new LinkedHashMap<>();
 
     private CraftView craftView;
+
+    private MobView mobView;
 
 
     @FXML
@@ -138,74 +140,15 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Field field = new Field();
 
-        this.craftView=new CraftView();
-
+        this.craftView = new CraftView();
 
         // Initialisation de l'environnement
         environment = new Environment(field);
         personnage = environment.getHero();
-        mobs = environment.getMobs();
-        npcs = environment.getNpcs();
 
-        personnage.healthProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal.intValue() <= 0) {
-                System.out.println("The character is dead!");
+        deathMenu();
 
-                try {
-                    // Arrêter le timeline du jeu
-                    if (timeline != null) {
-                        timeline.stop();
-                    }
-
-                    // Changer directement vers la page Game Over
-                    Stage stage = (Stage) paneperso.getScene().getWindow();
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/dieAndRespawn.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
-
-                    stage.setTitle("Ashforged - Game Over");
-                    stage.setScene(scene);
-                    stage.setFullScreen(true);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.err.println("Erreur lors de l'affichage de l'écran Game Over");
-                }
-            }
-        });
-
-        Image pierreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
-        Image terreImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png").toExternalForm());
-        Image paoloImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/ground.png").toExternalForm());
-        Image salomeImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/leftSalome.png").toExternalForm());
-        Image terryImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/leftTerry.png").toExternalForm());
-        Image brandaImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/leftTerry.png").toExternalForm());
-
-
-        for (Npc npc : npcs) {
-            ImageView npcView;
-            if(npc.getName().equals("Paolo")) {
-                npcView = new ImageView(paoloImage);
-            } else {
-                npcView = new ImageView(pierreImage);
-                if(npc.getName().equals("Branda")) {
-                    npcView = new ImageView(brandaImage);
-                } else if(npc.getName().equals("Terry")) {
-                    npcView = new ImageView(terryImage);
-                } else if(npc.getName().equals("Salome")) {
-                    npcView = new ImageView(salomeImage);
-                }
-            }
-            npcView.layoutXProperty().bind(npc.getXProperty().asObject());
-            npcView.layoutYProperty().bind(npc.getYProperty().asObject());
-            paneperso.getChildren().add(npcView);
-        }
-
-        for (Mobs mob : mobs) {
-            ImageView mobView = new ImageView(terreImage);
-            mobView.layoutXProperty().bind(mob.getXProperty().asObject());
-            mobView.layoutYProperty().bind(mob.getYProperty().asObject());
-            paneperso.getChildren().add(mobView);
-        }
+        this.mobView = new MobView(environment, paneperso);
 
         characterController = new CharacterController(tilepane, paneperso, personnage);
 
@@ -218,112 +161,21 @@ public class Controller implements Initializable {
         );
         initializeButton();
 
-        double maxBarWidth = 200.0;
-        healthBar.widthProperty().bind(
-                Bindings.createDoubleBinding(
-                        () -> (personnage.getHealth() / (double) personnage.getMaxHealth()) * maxBarWidth,
-                        personnage.healthProperty()
-                )
-        );
-        expBar.widthProperty().bind(
-                Bindings.createDoubleBinding(
-                        () -> (personnage.getExp() / (double) personnage.getExpToNextLevel()) * maxBarWidth,
-                        personnage.expProperty(), personnage.expToNextLevelProperty()
-                )
-        );
-        lvlLabel.textProperty().bind(Bindings.createStringBinding(
-                () -> String.valueOf(personnage.getLevel()),
-                personnage.levelProperty()
-        ));
 
         FieldView fieldView = new FieldView(tilepane, field);
         this.personnageView = new CharacterView(paneperso, personnage, characterController, field);
 
-        IntegerBinding conditionalBindingY = Bindings.createIntegerBinding(() -> {
-            int y = personnage.getY();
-            if (y > 928) {
-                return -928 + (1080 / 2); // équivalent à 928*(-1) + 0
-            } else {
-                return -y + (1080 / 2);
-            }
-        }, personnage.getYProperty());
+        initialiseHealthBar();
+        initialiseCamera(field);
 
-        IntegerBinding conditionalBindingX = Bindings.createIntegerBinding(() -> {
-            int x = personnage.getX();
-            if (x < LimitLeftCam) {
-                return -LimitLeftCam + (1920 / 2) - 300; // équivalent à 928*(-1) + 0
-            } else if (x > (((field.getWidth() * 32) * 2) - 38) - 864) {
-                return -((((field.getWidth() * 32) * 2) - 38) - 864) + (1920 / 2) - 300;
-            } else {
-                return (-x - 300) + (1920 / 2);
-            }
-        }, personnage.getXProperty());
-
-        camera.translateXProperty().bind(conditionalBindingX);
-        camera.translateYProperty().bind(conditionalBindingY);
-
-
-
-        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Ciel.png").toExternalForm());
-        Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
         personnage.addToInventory(ItemStock.Usuable.golden_piece);
         personnage.addToInventory(ItemStock.Weapon.stone_pickaxe);
 
-        for (int i = 0; i < 48; i++) {
-            int finalI1 = i;
-            ImageView imageView = new ImageView(getItemImageAt(i));
 
-
-            imageView.setOnMouseClicked(event -> {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    HashMap<ItemInterface, Integer> inventoryMap = personnage.getInventory();
-                    if (inventoryMap != null) {
-                        List<ItemInterface> items = new ArrayList<>(inventoryMap.keySet());
-
-                        if (finalI1 < items.size()) {
-                            ItemInterface item = items.get(finalI1);
-                            if (item == null) {
-                                System.out.println("Rien");
-                            } else {
-                                personnage.setHoldingItem(item);
-                                int quantite = inventoryMap.get(item);
-                                System.out.println(item.getName() + "x" + quantite);
-                            }
-                        } else {
-                            System.out.println("Index hors limites");
-                        }
-                    }
-                }
-            });
-
-            Inventory.getChildren().add(imageView);
-        }
-
-
-
-        System.out.println(field.getWidth());
         paneperso.setMouseTransparent(true);
+        updateInventory();
 
-        tilepane.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY) {
-                System.out.println(field.getXView((int) event.getX()));
-                System.out.println(field.getYView((int) event.getY()));
-                if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
-                    if (Math.abs(personnage.getX() - (int) (event.getX()))  < (64*3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64*3)) {
-                        if(personnage.getHoldingItem().getName().contains("pickaxe")){
-                            field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), 1);
-                            ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
-                            test.setImage(ciel);
-                        }
-                    }
-                }
-            } else if (event.getButton() == MouseButton.SECONDARY) {
-                if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) == 1) {
-                    ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
-                    test.setImage(inventoryCase);
-                }
-            }
-        });
+        initialiseClick(field);
 
         startTimeline();
     }
@@ -336,32 +188,32 @@ public class Controller implements Initializable {
             if (compteur == 300) compteur = 0;
 
             if (compteur % 100 == 0) {
-                for (Npc npc : npcs) {
+                for (Npc npc : mobView.getNpcs()) {
                     npc.choisirDirectionAleatoire();
                 }
-                for (Mobs mob : mobs) {
+                for (Mobs mob : mobView.getMobs()) {
                     mob.choisirDirectionAleatoire();
                 }
             }
 
-            for (Npc npc : npcs) {
+            for (Npc npc : mobView.getNpcs()) {
                 npc.applyGravity(environment);
                 npc.seDeplacer();
             }
-            for (Mobs mob : mobs) {
+            for (Mobs mob : mobView.getMobs()) {
                 mob.action();
             }
 
             if (compteur % 150 == 0) {
-                for (Mobs mob : mobs) {
+                for (Mobs mob : mobView.getMobs()) {
                     System.out.println("mob attaque");
                     mob.attack();
                 }
             }
 
             if (compteur % 300 == 0) {
-                if(personnage.getHealth() + (personnage.getMaxHealth()/10) <= personnage.getMaxHealth()) {
-                    personnage.setHealth(personnage.getHealth() + (personnage.getMaxHealth()/10));
+                if (personnage.getHealth() + (personnage.getMaxHealth() / 10) <= personnage.getMaxHealth()) {
+                    personnage.setHealth(personnage.getHealth() + (personnage.getMaxHealth() / 10));
                 } else {
                     personnage.setHealth(personnage.getMaxHealth());
                 }
@@ -370,7 +222,7 @@ public class Controller implements Initializable {
             personnage.seDeplacer();
             personnage.applyGravity(environment);
 
-            compteur +=1;
+            compteur += 1;
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
@@ -407,7 +259,6 @@ public class Controller implements Initializable {
         }
 
 
-
     }
 
     public Image getItemImageAt(int index) {
@@ -416,5 +267,137 @@ public class Controller implements Initializable {
             return item.getImage();
         }
         return null;
+    }
+
+    public void initialiseClick(Field field) {
+        Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Ciel.png").toExternalForm());
+        Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
+        tilepane.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                System.out.println(field.getXView((int) event.getX()));
+                System.out.println(field.getYView((int) event.getY()));
+                if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
+                    if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
+                        if (personnage.getHoldingItem().getName().contains("pickaxe")) {
+                            field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), 1);
+                            ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
+                            test.setImage(ciel);
+                        }
+                    }
+                }
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) == 1) {
+                    if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
+                        ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
+                        test.setImage(inventoryCase);
+                    }
+                }
+            }
+        });
+    }
+
+    public void updateInventory() {
+        for (int i = 0; i < 48; i++) {
+            int finalI1 = i;
+            ImageView imageView = new ImageView(getItemImageAt(i));
+
+
+            imageView.setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    HashMap<ItemInterface, Integer> inventoryMap = personnage.getInventory();
+                    if (inventoryMap != null) {
+                        List<ItemInterface> items = new ArrayList<>(inventoryMap.keySet());
+
+                        if (finalI1 < items.size()) {
+                            ItemInterface item = items.get(finalI1);
+                            if (item == null) {
+                                System.out.println("Rien");
+                            } else {
+                                personnage.setHoldingItem(item);
+                                int quantite = inventoryMap.get(item);
+                                System.out.println(item.getName() + "x" + quantite);
+                            }
+                        } else {
+                            System.out.println("Index hors limites");
+                        }
+                    }
+                }
+            });
+
+            Inventory.getChildren().add(imageView);
+        }
+    }
+
+    public void initialiseCamera(Field field) {
+        IntegerBinding conditionalBindingX = Bindings.createIntegerBinding(() -> {
+            int x = personnage.getX();
+            if (x < LimitLeftCam) {
+                return -LimitLeftCam + (1920 / 2) - 300; // équivalent à 928*(-1) + 0
+            } else if (x > (((field.getWidth() * 32) * 2) - 38) - 864) {
+                return -((((field.getWidth() * 32) * 2) - 38) - 864) + (1920 / 2) - 300;
+            } else {
+                return (-x - 300) + (1920 / 2);
+            }
+        }, personnage.getXProperty());
+
+        IntegerBinding conditionalBindingY = Bindings.createIntegerBinding(() -> {
+            int y = personnage.getY();
+            if (y > 928) {
+                return -928 + (1080 / 2); // équivalent à 928*(-1) + 0
+            } else {
+                return -y + (1080 / 2);
+            }
+        }, personnage.getYProperty());
+
+        camera.translateXProperty().bind(conditionalBindingX);
+        camera.translateYProperty().bind(conditionalBindingY);
+    }
+
+    public void initialiseHealthBar() {
+        double maxBarWidth = 200.0;
+        healthBar.widthProperty().bind(
+                Bindings.createDoubleBinding(
+                        () -> (personnage.getHealth() / (double) personnage.getMaxHealth()) * maxBarWidth,
+                        personnage.healthProperty()
+                )
+        );
+        expBar.widthProperty().bind(
+                Bindings.createDoubleBinding(
+                        () -> (personnage.getExp() / (double) personnage.getExpToNextLevel()) * maxBarWidth,
+                        personnage.expProperty(), personnage.expToNextLevelProperty()
+                )
+        );
+        lvlLabel.textProperty().bind(Bindings.createStringBinding(
+                () -> String.valueOf(personnage.getLevel()),
+                personnage.levelProperty()
+        ));
+    }
+
+    public void deathMenu() {
+        personnage.healthProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.intValue() <= 0) {
+                System.out.println("The character is dead!");
+
+                try {
+                    // Arrêter le timeline du jeu
+                    if (timeline != null) {
+                        timeline.stop();
+                    }
+
+                    // Changer directement vers la page Game Over
+                    Stage stage = (Stage) paneperso.getScene().getWindow();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/dieAndRespawn.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
+
+                    stage.setTitle("Ashforged - Game Over");
+                    stage.setScene(scene);
+                    stage.setFullScreen(true);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.err.println("Erreur lors de l'affichage de l'écran Game Over");
+                }
+            }
+        });
     }
 }
