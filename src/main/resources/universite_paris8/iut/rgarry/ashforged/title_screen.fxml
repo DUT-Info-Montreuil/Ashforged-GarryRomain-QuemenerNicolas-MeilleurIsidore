@@ -5,7 +5,7 @@
 
 <VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="universite_paris8.iut.rgarry.ashforged.Controller.TitleScreenController">
 
-<Button text="Jouer" onAction="#startGame"/>
+    <Button text="Jouer" onAction="#startGame"/>
     <Button text="Quitter" onAction="#quitGame"/>
 </VBox>
 

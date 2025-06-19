@@ -7,8 +7,14 @@ import javafx.scene.layout.TilePane;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
+import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
+import universite_paris8.iut.rgarry.ashforged.view.CharacterView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CharacterController {
+
     enum Direction {
         TOP, BOTTOM, LEFT, RIGHT
     }
