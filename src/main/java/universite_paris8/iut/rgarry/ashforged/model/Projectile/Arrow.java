@@ -2,32 +2,48 @@ package universite_paris8.iut.rgarry.ashforged.model.Projectile;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
 
+/**
+ * Représente une flèche dans le jeu.
+ * Cette classe gère le mouvement, les collisions et les interactions de la flèche avec l'environnement et les entités.
+ */
 public class Arrow {
     // Constantes
-    private static final double GRAVITY = 0.1;
-    private Environment environment;
-    private int damageFleche = 10;
+    private static final double GRAVITY = 0.1; // Accélération due à la gravité
+
+    private Environment environment; // Référence à l'environnement du jeu
+    private int damageFleche = 10; // Dégâts infligés par la flèche
 
     // Position
-    private IntegerProperty x;
-    private IntegerProperty y;
+    private IntegerProperty x; // Position horizontale de la flèche (propriété observable)
+    private IntegerProperty y; // Position verticale de la flèche (propriété observable)
 
     // Vitesse
-    private double velocityX;
-    private double velocityY;
+    private double velocityX; // Vitesse horizontale de la flèche
+    private double velocityY; // Vitesse verticale de la flèche
 
     // État
-    private boolean isActive;
+    private boolean isActive; // Indique si la flèche est active et doit être mise à jour
     private boolean touchee = false;
 
-    private ImageView arrowImage;
+    private ImageView arrowImage = new ImageView(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/arrow.png").toExternalForm()); // L'image de la flèche pour l'affichage
 
-    // Constructeur
+
+
+
+
+    /**
+     * Constructeur de la classe Arrow.
+     *
+     * @param startX      La position X initiale de la flèche.
+     * @param startY      La position Y initiale de la flèche.
+     * @param environment L'environnement du jeu.
+     */
     public Arrow(double startX, double startY, Environment environment) {
         this.x = new SimpleIntegerProperty((int) startX);
         this.y = new SimpleIntegerProperty((int) startY);
@@ -37,45 +53,60 @@ public class Arrow {
         this.environment = environment;
     }
 
-    // Mise à jour par frame
+    /**
+     * Met à jour l'état de la flèche à chaque frame.
+     * Gère le mouvement, l'application de la gravité et les collisions.
+     */
     public void update() {
-        if (!isActive) return;
+        if (!isActive) return; // Si la flèche n'est pas active, ne rien faire
 
-        moveHorizontal();
-        applyGravity();
-        attackFleche();
+        moveHorizontal(); // Déplace la flèche horizontalement
+        applyGravity(); // Applique la gravité à la flèche
+        attackFleche(); // Vérifie si la flèche touche une entité et lui inflige des dégâts
     }
 
+    /**
+     * Déplace la flèche horizontalement.
+     * Gère les collisions avec les éléments de l'environnement.
+     */
     private void moveHorizontal() {
-        double newX = x.get() + velocityX;
+        double newX = x.get() + velocityX; // Calcule la nouvelle position X
 
         if (!environment.getField().checkCollision((int) newX, y.get())) {
-            x.set((int) newX);
+            x.set((int) newX); // Si pas de collision, met à jour la position X
         } else {
-            velocityX = 0;
-            isActive = false;
+            velocityX = 0; // Si collision, arrête la flèche horizontalement
+            isActive = false; // Désactive la flèche
         }
     }
 
+    /**
+     * Applique la gravité à la flèche.
+     * Gère les collisions avec le sol.
+     */
     private void applyGravity() {
-        velocityY += GRAVITY;
+        velocityY += GRAVITY; // Augmente la vitesse verticale (gravité)
 
-        int steps = (int) Math.abs(velocityY);
-        int direction = velocityY > 0 ? 1 : -1;
+        int steps = (int) Math.abs(velocityY); // Nombre d'étapes pour le déplacement vertical
+        int direction = velocityY > 0 ? 1 : -1; // Direction du déplacement vertical (vers le bas ou vers le haut)
 
         for (int i = 0; i < steps; i++) {
-            int nextY = y.get() + direction;
+            int nextY = y.get() + direction; // Calcule la prochaine position Y
+
             if (!environment.getField().checkCollision(x.get(), nextY)) {
-                y.set(nextY);
+                y.set(nextY); // Si pas de collision, met à jour la position Y
             } else {
-                velocityY = 0;
-                isActive = false;
-                break;
+                velocityY = 0; // Si collision, arrête la flèche verticalement
+                isActive = false; // Désactive la flèche
+                break; // Sort de la boucle
             }
         }
     }
 
-
+    /**
+     * Gère l'attaque de la flèche.
+     * Vérifie si la flèche touche une entité et lui inflige des dégâts.
+     */
     public void attackFleche() {
         for (Entity entity : environment.getEntities()) {
             if(entity instanceof Mobs) {

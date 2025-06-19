@@ -23,7 +23,7 @@ public class CharacterController {
         setupKeyHandlers(pane);
     }
 
-    private void setupKeyHandlers(Pane pane) {
+    public void setupKeyHandlers(Pane pane) {
         pane.setOnKeyPressed(event -> {
             KeyCode code = event.getCode();
             if (code == KeyMapping.getKey("jump")) spacePressed.set(true);

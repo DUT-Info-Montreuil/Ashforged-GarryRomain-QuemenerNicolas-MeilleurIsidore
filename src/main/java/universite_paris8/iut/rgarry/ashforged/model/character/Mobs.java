@@ -162,14 +162,14 @@ public class Mobs extends Character {
             if (path.size() > 1) {
                 Position next = path.get(1);
 
-                if (next.x < mobX) {
+                if (next.getX() < mobX) {
                     moveLeft();
-                } else if (next.x > mobX) {
+                } else if (next.getX() > mobX) {
                     moveRight();
                 }
 
                 // Jump if the next position is above
-                if (next.y < mobY) {
+                if (next.getY() < mobY) {
                     if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
                         setVelocityY(JUMP_STRENGTH);
                     }
@@ -187,7 +187,6 @@ public class Mobs extends Character {
      */
     @Override
     public void attack() {
-        System.out.println(this.getName() + " Health:" + this.getHealth());
         if (getHoldingItem() != null && this.getHoldingItem() instanceof ItemStock.Weapon) {
             for (Entity entity : env.getEntities()) {
                 if (!(entity instanceof Mobs)) {
@@ -213,7 +212,7 @@ public class Mobs extends Character {
      * Executes the mob's main actions: applying gravity and moving.
      * This method is called to update the mob's state in each game cycle.
      */
-    public void performAction() {
+    public void action() {
         this.applyGravity(env);
         this.move();
     }
