@@ -12,7 +12,7 @@ public class ItemStock {
      */
     public enum Usuable implements ItemInterface {
         ground("ground", 1, 0, "ground", true, 25, "/universite_paris8/iut/rgarry/ashforged/Image/tiles/ground.png"),
-        wood("wood", 2, 0, "wood", true, 26, "/universite_paris8/iut/rgarry/ashforged/Image/wooden"),
+        wood("wood", 2, 0, "wood", true, 26, "/universite_paris8/iut/rgarry/ashforged/Image/Usuable/wooden.png"),
         stone("stone", 3, 0, "stone", true, 27, "/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png"),
         iron("iron", 5, 0, "iron", true, 28, "/universite_paris8/iut/rgarry/ashforged/Image/tiles/iron.png"),
         alluminium("alluminium", 4, 0, "iron", true, 29, "/universite_paris8/iut/rgarry/ashforged/Image/tiles/alluminium.png"),

@@ -7,37 +7,48 @@ import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
 
+/**
+ * Represents an arrow projectile in the game.
+ * Handles movement, gravity, collision detection and damage application.
+ */
 public class Arrow {
-    // Constantes
-    private static final double GRAVITY = 0.1;
+    private static final double GRAVITY = 0.1; // Gravity applied to the arrow's vertical speed
     private Environment environment;
-    private int damageFleche = 10;
+    private int damageFleche = 10; // Base damage of the arrow
 
-    // Position
+    // Position properties (for JavaFX binding)
     private IntegerProperty x;
     private IntegerProperty y;
 
-    // Vitesse
+    // Velocity components
     private double velocityX;
     private double velocityY;
 
-    // État
+    // State flags
     private boolean isActive;
-    private boolean touchee = false;
+    private boolean touchee = false; // Unused? Can be removed if unnecessary
 
     private ImageView arrowImage;
 
-    // Constructeur
+    /**
+     * Constructs an arrow at the specified start coordinates within the given environment.
+     *
+     * @param startX starting X coordinate
+     * @param startY starting Y coordinate
+     * @param environment the game environment
+     */
     public Arrow(double startX, double startY, Environment environment) {
         this.x = new SimpleIntegerProperty((int) startX);
         this.y = new SimpleIntegerProperty((int) startY);
-        this.velocityX = 3;
-        this.velocityY = -5;
+        this.velocityX = 3;    // Initial horizontal speed
+        this.velocityY = -5;   // Initial vertical speed (upwards)
         this.isActive = true;
         this.environment = environment;
     }
 
-    // Mise à jour par frame
+    /**
+     * Updates the arrow state per frame: moves horizontally, applies gravity, and checks for attacks.
+     */
     public void update() {
         if (!isActive) return;
 
@@ -46,6 +57,9 @@ public class Arrow {
         attackFleche();
     }
 
+    /**
+     * Moves the arrow horizontally if no collision.
+     */
     private void moveHorizontal() {
         double newX = x.get() + velocityX;
 
@@ -53,10 +67,14 @@ public class Arrow {
             x.set((int) newX);
         } else {
             velocityX = 0;
-            isActive = false;
+            isActive = false; // Arrow stops moving on collision
         }
     }
 
+    /**
+     * Applies gravity to the arrow's vertical velocity and updates its vertical position accordingly.
+     * Stops the arrow if it hits an obstacle.
+     */
     private void applyGravity() {
         velocityY += GRAVITY;
 
@@ -75,33 +93,39 @@ public class Arrow {
         }
     }
 
-
+    /**
+     * Checks if the arrow hits any mobs, applies damage, and deactivates the arrow on hit.
+     */
     public void attackFleche() {
         for (Entity entity : environment.getEntities()) {
             if(entity instanceof Mobs) {
                 int dx = Math.abs(entity.getX() / 64 - this.getX() / 64);
                 int dy = Math.abs(entity.getY() / 64 - this.getY() / 64);
                 if (dx == 0 && dy == 0) {
-                    System.out.println("touche !");
+                    System.out.println("Hit!");
                     int damage;
-                    if (environment.getHero().getStats()[1] > 1) damage = (int) (environment.getHero().getStats()[1] * 0.5 + ((double) damageFleche / 2));
-                    else damage = damageFleche / 2;
+                    if (environment.getHero().getStats()[1] > 1)
+                        damage = (int) (environment.getHero().getStats()[1] * 0.5 + ((double) damageFleche / 2));
+                    else
+                        damage = damageFleche / 2;
+
                     if(entity.getHealth() - damage <= 0) {
                         entity.setHealth(0);
-                        System.out.println("Vous avez tué " + entity.getName() + " avec une fleche !");
-                        System.out.println(entity.getLevel());
+                        System.out.println("You killed " + entity.getName() + " with an arrow!");
                         environment.getHero().gainExp(entity.getLevel());
                     } else {
                         entity.setHealth(entity.getHealth() - damage);
-                        System.out.println("Vous avez infligé " + damage + " points de dégâts à " + entity.getName() + " !");
+                        System.out.println("You dealt " + damage + " damage to " + entity.getName() + "!");
                     }
                     isActive = false;
+                    break; // Arrow hits only one target
                 }
             }
         }
     }
 
-    // Getters
+    // Getters and setters for position and active state
+
     public int getX() {
         return x.get();
     }
@@ -122,7 +146,6 @@ public class Arrow {
         return y;
     }
 
-    // Setters
     public void setX(int x) {
         this.x.set(x);
     }
@@ -136,7 +159,7 @@ public class Arrow {
     }
 
     public void setArrowImage(ImageView arrowImage) {
-        this.arrowImage=arrowImage;
+        this.arrowImage = arrowImage;
     }
 
     public ImageView getArrowImage() {

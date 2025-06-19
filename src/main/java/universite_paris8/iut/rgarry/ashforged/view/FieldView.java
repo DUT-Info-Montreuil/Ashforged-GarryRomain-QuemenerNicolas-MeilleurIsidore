@@ -1,4 +1,3 @@
-
 package universite_paris8.iut.rgarry.ashforged.view;
 
 import javafx.scene.image.Image;
@@ -6,33 +5,46 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 
+/**
+ * FieldView is responsible for rendering the game field (tiles) visually
+ * using JavaFX's TilePane. It maps the logical field structure (from the model)
+ * to graphical components based on block types.
+ */
 public class FieldView {
 
-    private Field field;
-    private TilePane tilepane;
-    private static final double TILE_SIZE = 64; // Taille fixe d'une tuile
+    private Field field; // Logical field representation from the model
+    private TilePane tilepane; // JavaFX TilePane to visually display tiles
+    private static final double TILE_SIZE = 64; // Fixed size for each tile in pixels
 
+    /**
+     * Constructor initializes the field view and immediately builds the tile map.
+     *
+     * @param tilepane the JavaFX TilePane where tiles are rendered
+     * @param field    the logical field model containing tile types
+     */
     public FieldView(TilePane tilepane, Field field) {
         this.field = field;
         this.tilepane = tilepane;
         this.createField(tilepane);
     }
 
-    /***
-     * Permet de créer le terrain en fonction du tableau regroupant les tuiles à poser
-     * présent dans la classe FieldView en plaçant les bons tuiles au bon endroit.
+    /**
+     * Builds and populates the TilePane based on the field's 2D block matrix.
+     * Each block type is translated into a specific image tile.
      *
-     * @param tilepane
+     * @param tilepane the pane to populate with tile images
      */
     public void createField(TilePane tilepane) {
-        int rows = field.getHeight(); // Nombre de lignes (hauteur)
-        int cols = field.getWidth();  // Nombre de colonnes (largeur)
+        int rows = field.getHeight(); // Number of rows (vertical tiles)
+        int cols = field.getWidth();  // Number of columns (horizontal tiles)
 
+        // Basic validation of field dimensions
         if (rows <= 0 || cols <= 0) {
-            System.err.println("Dimensions de la carte invalides : rows=" + rows + ", cols=" + cols);
+            System.err.println("Invalid map dimensions: rows=" + rows + ", cols=" + cols);
             return;
         }
 
+        // Prepare TilePane layout and size
         tilepane.getChildren().clear();
         tilepane.setPrefColumns(cols);
         tilepane.setPrefRows(rows);
@@ -41,7 +53,7 @@ public class FieldView {
         tilepane.setVgap(0);
         tilepane.setAlignment(javafx.geometry.Pos.TOP_LEFT);
 
-        // Chargement des images
+        // Load all required tile images
         Image sky = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/sky.png").toExternalForm());
         Image grass = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/grass.png").toExternalForm());
         Image leftGrass = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftGrass.png").toExternalForm());
@@ -59,65 +71,67 @@ public class FieldView {
         Image leaf = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/leaf.png").toExternalForm());
         Image wood = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/wood.png").toExternalForm());
 
-        // Parcourir les lignes (hauteur) et les colonnes (largeur)
-        for (int y = 0; y < rows; y++) { // Parcourir la hauteur
-            for (int x = 0; x < cols; x++) { // Parcourir la largeur
+        // Populate the field using nested loops over coordinates
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
                 ImageView imageView;
-                int blockType = field.block(x, y);
+                int blockType = field.block(x, y); // Retrieve block type for current tile
 
+                // Assign image and ID based on block type
                 if (blockType == 0) {
                     imageView = new ImageView(iron);
-                    imageView.setId("fer");
+                    imageView.setId("iron");
                 } else if (blockType == 8) {
                     imageView = new ImageView(grass);
-                    imageView.setId("herbe");
+                    imageView.setId("grass");
                 } else if (blockType == 2) {
                     imageView = new ImageView(ground);
-                    imageView.setId("sol");
+                    imageView.setId("ground");
                 } else if (blockType == 3) {
                     imageView = new ImageView(rightGrass);
-                    imageView.setId("herbeDroite");
+                    imageView.setId("rightGrass");
                 } else if (blockType == 4) {
                     imageView = new ImageView(leftGrass);
-                    imageView.setId("herbeGauche");
+                    imageView.setId("leftGrass");
                 } else if (blockType == 5) {
                     imageView = new ImageView(rightSideGrass);
-                    imageView.setId("coteDroitHerbe");
+                    imageView.setId("rightSideGrass");
                 } else if (blockType == 6) {
                     imageView = new ImageView(leftSideGrass);
-                    imageView.setId("coteGaucheHerbe");
+                    imageView.setId("leftSideGrass");
                 } else if (blockType == 7) {
                     imageView = new ImageView(stone);
-                    imageView.setId("pierre");
+                    imageView.setId("stone");
                 } else if (blockType == 1) {
                     imageView = new ImageView(sky);
-                    imageView.setId("ciel");
+                    imageView.setId("sky");
                 } else if (blockType == 9) {
                     imageView = new ImageView(wood);
-                    imageView.setId("bois");
+                    imageView.setId("wood");
                 } else if (blockType == 10) {
                     imageView = new ImageView(leaf);
-                    imageView.setId("feuille");
+                    imageView.setId("leaf");
                 } else if (blockType == 11) {
                     imageView = new ImageView(gold);
-                    imageView.setId("or");
+                    imageView.setId("gold");
                 } else if (blockType == 12) {
                     imageView = new ImageView(enchantedMineral);
-                    imageView.setId("mineraiEnchante");
+                    imageView.setId("enchantedMineral");
                 } else if (blockType == 13) {
                     imageView = new ImageView(coal);
-                    imageView.setId("charbon");
+                    imageView.setId("coal");
                 } else if (blockType == 15) {
                     imageView = new ImageView(building);
                     imageView.setId("building");
                 } else if (blockType == 16) {
                     imageView = new ImageView(glass);
-                    imageView.setId("verre");
+                    imageView.setId("glass");
                 } else {
-                    imageView = new ImageView(sky); // Valeur par défaut
-                    imageView.setId("inconnu");
+                    imageView = new ImageView(sky); // Default case: sky
+                    imageView.setId("unknown");
                 }
 
+                // Set tile size and add to TilePane
                 imageView.setFitWidth(TILE_SIZE);
                 imageView.setFitHeight(TILE_SIZE);
                 tilepane.getChildren().add(imageView);

@@ -1,14 +1,15 @@
 package universite_paris8.iut.rgarry.ashforged.model;
 
-/*
-    Cette classe définit la structure du terrain, c'est-à-dire quel type de tuile est où.
+/**
+ * Represents the game field or tilemap, where each tile is represented by an integer value.
+ * Example: 1 = sky block, 2 = earth block, etc.
  */
 public class Field {
     private int[][] tiles;
 
-    /***
-     * Permet la création de la map. Chaque chiffre représente une tuile diférente.
-     * Par exemple 1: bloque de ciel, 2: bloque de terre.
+    /**
+     * Initializes the tilemap.
+     * Each row represents a horizontal slice of the field, and each number corresponds to a specific tile type.
      */
     public Field() {
         this.tiles = new int[][] {
@@ -33,80 +34,101 @@ public class Field {
                 {7,7,11,11,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,11,11,7,7,7,7,7,7,7,7,7,13,13,7,7,7,7},
                 {7,7,7,7,7,7,7,12,12,7,7,7,7,7,7,7,7,7,7,7,7,12,7,7,11,11,11,7,7,12,7,7,7,7,7,7,7,7,7,7,7,7}
 
-        };
-
-
+                };
     }
 
-    /***
-     * Retourne le nombre de tuile en x et en y contenue dans le tableau de la map
+    /**
+     * Gets the tile value at a given (x, y) position in the tilemap.
+     * Returns 1 (sky) if the position is out of bounds.
      *
-     * @param x
-     * @param y
-     * @return
+     * @param x X coordinate (column index)
+     * @param y Y coordinate (row index)
+     * @return the tile value at the specified location
      */
     public int block(int x, int y) {
         if (y < 0 || y >= tiles.length || x < 0 || x >= tiles[0].length) {
-
-            return 1; // Valeur par défaut (ciel ou autre valeur sûre)
+            return 1; // Default to sky or safe value
         }
         return this.tiles[y][x];
     }
 
-
-
-    public void setBlock(int x, int y,int bloc) {
-        this.tiles[y][x]=bloc;
+    /**
+     * Sets the tile value at a specific (x, y) location in the tilemap.
+     *
+     * @param x     X coordinate
+     * @param y     Y coordinate
+     * @param bloc  the new tile value
+     */
+    public void setBlock(int x, int y, int bloc) {
+        this.tiles[y][x] = bloc;
     }
 
-
-
-    /***
-     * Retourne la longueur du tableau, c'est-à-dire le nombre de tuile.
-     * @return
+    /**
+     * Gets the number of tiles horizontally (width of the map).
+     *
+     * @return the number of columns in the tilemap
      */
     public int getWidth() {
         return this.tiles[0].length;
     }
 
-    /***
-     * Retourne la hauteur du tableau, c'est-à-dire le nombre de tuile.
+    /**
+     * Gets the number of tiles vertically (height of the map).
      *
-     * @return
+     * @return the number of rows in the tilemap
      */
     public int getHeight() {
         return this.tiles.length;
     }
 
+    /**
+     * Converts an absolute X coordinate (in pixels) to a tile index.
+     *
+     * @param x pixel-based X coordinate
+     * @return corresponding column index
+     */
     public int getXView(int x) {
         int index = x / 64;
         if (index < 0 || index >= getWidth()) {
-
-            return 0; // Ou une valeur par défaut
+            return 0;
         }
         return index;
     }
 
+    /**
+     * Converts an absolute Y coordinate (in pixels) to a tile index.
+     *
+     * @param y pixel-based Y coordinate
+     * @return corresponding row index
+     */
     public int getYView(int y) {
         int index = y / 64;
         if (index < 0 || index >= getHeight()) {
-
-            return 0; // Ou une valeur par défaut
+            return 0;
         }
         return index;
     }
 
-
-
+    /**
+     * Checks whether a given pixel position collides with a solid tile (i.e., non-sky).
+     *
+     * @param x X coordinate in pixels
+     * @param y Y coordinate in pixels
+     * @return true if there is a collision, false otherwise
+     */
     public boolean checkCollision(int x, int y) {
         return block(getXView(x), getYView(y)) != 1;
     }
 
+    /**
+     * Internal method to validate that all tilemap rows have the same length.
+     * Outputs a warning to stderr if inconsistency is found.
+     */
     private void validateTiles() {
         int expectedWidth = tiles[0].length;
         for (int i = 0; i < tiles.length; i++) {
             if (tiles[i].length != expectedWidth) {
-                System.err.println("Ligne " + i + " a une longueur incorrecte : " + tiles[i].length + ", attendu : " + expectedWidth);
+                System.err.println("Line " + i + " has incorrect width: " + tiles[i].length + ", expected: " + expectedWidth);
             }
         }
     }

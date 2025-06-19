@@ -86,7 +86,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                universite_paris8.iut.rgarry.ashforged/universite_paris8.iut.rgarry.ashforged.HelloApplication
+                                universite_paris8.iut.rgarry.ashforged/universite_paris8.iut.rgarry.ashforged.Launcher
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

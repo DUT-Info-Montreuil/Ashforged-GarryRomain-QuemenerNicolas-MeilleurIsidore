@@ -17,7 +17,7 @@ public class Mobs extends Character {
     private final int JUMP_STRENGHT = -12;
     private boolean aVuJoueur = false;
 
-    // Ajout des bornes de déplacement en tuiles
+    // Bornes de déplacement en tuiles (non initialisées dans le constructeur ici)
     private int minX;
     private int maxX;
 
@@ -37,6 +37,7 @@ public class Mobs extends Character {
         this.setHoldingItem(item);
     }
 
+    /** Choisit une direction aléatoire */
     public void choisirDirectionAleatoire() {
         int r = random.nextInt(3);
         if (r == 0) directionCourante = 'g';
@@ -44,6 +45,7 @@ public class Mobs extends Character {
         else directionCourante = 'i';
     }
 
+    /** Se déplace selon direction aléatoire */
     public void seDeplacerRandom() {
         if (directionCourante == 'g') {
             vaAGaucheR();
@@ -68,38 +70,40 @@ public class Mobs extends Character {
         }
     }
 
+    /** Version avec saut si collision au sol */
     public void vaADroiteR() {
         int newX = getX() + getVitesse();
         if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31) && isWithinMap(newX, getY())) {
             setX(newX);
         } else {
             if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
-                setVelocityY(-12);
+                setVelocityY(JUMP_STRENGHT);
             }
         }
     }
 
+    /** Version avec saut si collision au sol */
     public void vaAGaucheR() {
         int newX = getX() - getVitesse();
         if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31) && isWithinMap(newX, getY())) {
             setX(newX);
         } else {
             if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
-                setVelocityY(-12);
+                setVelocityY(JUMP_STRENGHT);
             }
         }
     }
 
     @Override
     public void seDeplacer() {
-        // Récupère la position du joueur
+        // Position du joueur
         Character hero = env.getHero();
         int mobX = getX() / 64;
         int mobY = getY() / 64;
         int heroX = hero.getX() / 64;
         int heroY = hero.getY() / 64;
 
-        // Utilise BFS pour trouver le chemin
+        // Recherche de chemin BFS
         BFS bfs = new BFS(env.getField());
         Position start = new Position(mobX, mobY);
         Position goal = new Position(heroX, heroY);
@@ -110,25 +114,21 @@ public class Mobs extends Character {
             aVuJoueur = true;
         }
 
-        // Si un chemin existe et qu'il y a un prochain mouvement
         if (aVuJoueur) {
             if (path.size() > 1) {
                 Position next = path.get(1);
 
-                if (next.x < mobX) {
-                    vaAGauche();
-                } else if (next.x > mobX) {
-                    vaADroite();
-                }
+                if (next.x < mobX) vaAGauche();
+                else if (next.x > mobX) vaADroite();
 
-                // Sauter si la prochaine case est au-dessus
+                // Saut si case au-dessus
                 if (next.y < mobY) {
                     if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
                         setVelocityY(JUMP_STRENGHT);
                     }
                 }
             }
-        } if(!aVuJoueur) {
+        } else {
             seDeplacerRandom();
         }
     }
@@ -136,7 +136,7 @@ public class Mobs extends Character {
     @Override
     public void attack() {
         System.out.println(this.getName() + " Health:" + this.getHealth());
-        if (getHoldingItem() != null && this.getHoldingItem() instanceof ItemStock.Weapon) {
+        if (getHoldingItem() != null && getHoldingItem() instanceof ItemStock.Weapon) {
             for (Entity entity : env.getEntities()) {
                 if (!(entity instanceof Mobs)) {
                     int entityX = entity.getX() / 64;
