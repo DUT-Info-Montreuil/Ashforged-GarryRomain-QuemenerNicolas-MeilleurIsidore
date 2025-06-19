@@ -1,7 +1,7 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
-import universite_paris8.iut.rgarry.ashforged.Controller.BFS;
-import universite_paris8.iut.rgarry.ashforged.Controller.Position;
+import universite_paris8.iut.rgarry.ashforged.model.BFS;
+import universite_paris8.iut.rgarry.ashforged.model.Position;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;

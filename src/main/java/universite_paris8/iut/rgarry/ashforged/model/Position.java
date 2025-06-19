@@ -1,4 +1,4 @@
-package universite_paris8.iut.rgarry.ashforged.Controller;
+package universite_paris8.iut.rgarry.ashforged.model;
 
 import java.util.Objects;
 

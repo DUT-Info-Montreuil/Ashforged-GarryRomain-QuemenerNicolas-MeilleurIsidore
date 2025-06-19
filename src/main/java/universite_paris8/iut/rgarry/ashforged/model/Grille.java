@@ -1,8 +1,7 @@
-package universite_paris8.iut.rgarry.ashforged.Controller;
+package universite_paris8.iut.rgarry.ashforged.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.rgarry.ashforged.model.Environment;
 
 import java.util.HashMap;
 import java.util.HashSet;

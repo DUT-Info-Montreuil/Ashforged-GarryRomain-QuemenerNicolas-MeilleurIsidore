@@ -1,6 +1,5 @@
-package universite_paris8.iut.rgarry.ashforged.Controller;
+package universite_paris8.iut.rgarry.ashforged.model;
 
-import universite_paris8.iut.rgarry.ashforged.model.Field;
 import java.util.*;
 
 public class BFS {
