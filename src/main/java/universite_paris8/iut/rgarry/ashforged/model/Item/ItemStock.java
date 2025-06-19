@@ -276,9 +276,9 @@ public class ItemStock {
         IRON("iron",0,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/iron.png"),
         LEAF("leaf",10,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/leaf.png"),
         LEFT_GRASS("leftGrass",4,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftGrass.png"),
-        LEFT_SIDE_GRASS("leftSideGrass",6,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftSIdeGrass.png"),
+        LEFT_SIDE_GRASS("leftSideGrass",6,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftSideGrass.png"),
         RIGHT_GRASS("rightGrass",3,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightGrass.png"),
-        RIGHT_SIDE_GRASS("rightSideGrass",5,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightSideG   rass.png"),
+        RIGHT_SIDE_GRASS("rightSideGrass",5,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightSideGrass.png"),
         SKY("sky",1,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/sky.png"),
         STONE("stone",7,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png"),
         WOOD("wood",9,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/wood.png");
