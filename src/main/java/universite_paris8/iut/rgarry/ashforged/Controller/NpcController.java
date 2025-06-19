@@ -19,12 +19,6 @@ public class NpcController {
     public NpcController(TilePane tilePane, Pane paneNpc) {
         this.tilePane = tilePane;
         this.paneNpc = paneNpc;
-
-//        this.paolo = new Npc("Paolo", 15,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Weapon.bow, ItemStock.Usuable.coal}, 600, 250);
-//        this.branda = new Npc("Branda", 15,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Usuable.golden_piece}, 600, 250);;
-//        this.terry = new Npc("Terry", 15,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Weapon.bow, ItemStock.Usuable.coal}, 600, 250);
-//        this.salome = new Npc("Salome", 15,  new int[]{1, 1, 10, 1}, "Hey listen", new ItemInterface[]{ItemStock.Weapon.bow, ItemStock.Usuable.coal}, 600, 250);
-
     }
 
 }
