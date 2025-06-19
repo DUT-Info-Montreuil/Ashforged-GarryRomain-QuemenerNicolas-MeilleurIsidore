@@ -3,6 +3,7 @@ package universite_paris8.iut.rgarry.ashforged.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import org.controlsfx.control.PropertySheet;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 
 public class CraftController {
     private HashMap<ItemInterface, Integer> inventory;
-    
+
     @FXML
     private Label affichageResultatLabel;
 
@@ -75,7 +76,7 @@ public class CraftController {
                 inventory.getOrDefault(ItemStock.Usuable.feather, 0) >= 1) {
             character.removeFromInventory(ItemStock.Usuable.wood);
             character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.feather);
+            character.removeFromInventory(ItemStock.Usuable.string);
             character.addToInventory(ItemStock.Weapon.bow);
             affichageResultatLabel.setText("Arc fabriqué avec succès!");
         } else {
@@ -141,21 +142,6 @@ public class CraftController {
         updateInventoryLabels();
     }
 
-    public void craftAluminiumKnife(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.alluminium, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.addToInventory(ItemStock.Weapon.aluminium_knife);
-            affichageResultatLabel.setText("Couteau en aluminium fabriqué avec succès!");
-        } else {
-            affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en aluminium");
-        }
-        updateInventoryLabels();
-    }
 
     public void craftWoodenSword(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 4) {
@@ -202,21 +188,6 @@ public class CraftController {
         updateInventoryLabels();
     }
 
-    public void craftAluminiumSword(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.alluminium, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.addToInventory(ItemStock.Weapon.aluminium_sword);
-            affichageResultatLabel.setText("Épée en aluminium fabriquée avec succès!");
-        } else {
-            affichageResultatLabel.setText("Ressources insuffisantes pour créer une épée en aluminium");
-        }
-        updateInventoryLabels();
-    }
 
     public void craftWoodenSabre(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 4) {
@@ -263,21 +234,6 @@ public class CraftController {
         updateInventoryLabels();
     }
 
-    public void craftAluminiumSabre(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.alluminium, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.addToInventory(ItemStock.Weapon.aluminium_sabre);
-            affichageResultatLabel.setText("Sabre en aluminium fabriqué avec succès!");
-        } else {
-            affichageResultatLabel.setText("Ressources insuffisantes pour créer un sabre en aluminium");
-        }
-        updateInventoryLabels();
-    }
 
     public void craftWoodenAxe(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 4) {
@@ -324,21 +280,6 @@ public class CraftController {
         updateInventoryLabels();
     }
 
-    public void craftAluminiumAxe(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.alluminium, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.addToInventory(ItemStock.Weapon.aluminium_axe);
-            affichageResultatLabel.setText("Hache en aluminium fabriquée avec succès!");
-        } else {
-            affichageResultatLabel.setText("Ressources insuffisantes pour créer une hache en aluminium");
-        }
-        updateInventoryLabels();
-    }
 
     public void craftWoodenPickaxe(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 4) {
@@ -385,21 +326,6 @@ public class CraftController {
         updateInventoryLabels();
     }
 
-    public void craftAluminiumPickaxe(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.alluminium, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.removeFromInventory(ItemStock.Usuable.alluminium);
-            character.addToInventory(ItemStock.Weapon.aluminium_pickaxe);
-            affichageResultatLabel.setText("Pioche en aluminium fabriquée avec succès!");
-        } else {
-            affichageResultatLabel.setText("Ressources insuffisantes pour créer une pioche en aluminium");
-        }
-        updateInventoryLabels();
-    }
 
     public void craftFirearm(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.iron, 0) >= 4 &&
