@@ -280,6 +280,7 @@ public class Controller implements Initializable {
                             field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()),personnage.getHoldingItem().getId());
                             ImageView blockPoser = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
                             blockPoser.setImage(personnage.getHoldingItem().getImage());
+                            personnage.removeFromInventory(personnage.getHoldingItem());
                         }
                     }
                 }
