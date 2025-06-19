@@ -113,11 +113,11 @@ public class CraftController {
 
     public void craftStoneKnife(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.ground, 0) >= 2) {
+                inventory.getOrDefault(ItemStock.Usuable.stone, 0) >= 2) {
             character.removeFromInventory(ItemStock.Usuable.wood);
             character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.removeFromInventory(ItemStock.Usuable.ground);
+            character.removeFromInventory(ItemStock.Usuable.stone);
+            character.removeFromInventory(ItemStock.Usuable.stone);
             character.addToInventory(ItemStock.Weapon.stone_knife);
             affichageResultatLabel.setText("Couteau en pierre fabriqué avec succès!");
         } else {
@@ -159,11 +159,11 @@ public class CraftController {
 
     public void craftStoneSword(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.ground, 0) >= 2) {
+                inventory.getOrDefault(ItemStock.Usuable.stone, 0) >= 2) {
             character.removeFromInventory(ItemStock.Usuable.wood);
             character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.removeFromInventory(ItemStock.Usuable.ground);
+            character.removeFromInventory(ItemStock.Usuable.stone);
+            character.removeFromInventory(ItemStock.Usuable.stone);
             character.addToInventory(ItemStock.Weapon.stone_sword);
             affichageResultatLabel.setText("Épée en pierre fabriquée avec succès!");
         } else {
@@ -205,11 +205,11 @@ public class CraftController {
 
     public void craftStoneSabre(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.ground, 0) >= 2) {
+                inventory.getOrDefault(ItemStock.Usuable.stone, 0) >= 2) {
             character.removeFromInventory(ItemStock.Usuable.wood);
             character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.removeFromInventory(ItemStock.Usuable.ground);
+            character.removeFromInventory(ItemStock.Usuable.stone);
+            character.removeFromInventory(ItemStock.Usuable.stone);
             character.addToInventory(ItemStock.Weapon.stone_sabre);
             affichageResultatLabel.setText("Sabre en pierre fabriqué avec succès!");
         } else {
@@ -251,11 +251,11 @@ public class CraftController {
 
     public void craftStoneAxe(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.ground, 0) >= 2) {
+                inventory.getOrDefault(ItemStock.Usuable.stone, 0) >= 2) {
             character.removeFromInventory(ItemStock.Usuable.wood);
             character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.removeFromInventory(ItemStock.Usuable.ground);
+            character.removeFromInventory(ItemStock.Usuable.stone);
+            character.removeFromInventory(ItemStock.Usuable.stone);
             character.addToInventory(ItemStock.Weapon.stone_axe);
             affichageResultatLabel.setText("Hache en pierre fabriquée avec succès!");
         } else {
@@ -297,11 +297,11 @@ public class CraftController {
 
     public void craftStonePickaxe(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.ground, 0) >= 2) {
+                inventory.getOrDefault(ItemStock.Usuable.stone, 0) >= 2) {
             character.removeFromInventory(ItemStock.Usuable.wood);
             character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.removeFromInventory(ItemStock.Usuable.ground);
+            character.removeFromInventory(ItemStock.Usuable.stone);
+            character.removeFromInventory(ItemStock.Usuable.stone);
             character.addToInventory(ItemStock.Weapon.stone_pickaxe);
             affichageResultatLabel.setText("Pioche en pierre fabriquée avec succès!");
         } else {
