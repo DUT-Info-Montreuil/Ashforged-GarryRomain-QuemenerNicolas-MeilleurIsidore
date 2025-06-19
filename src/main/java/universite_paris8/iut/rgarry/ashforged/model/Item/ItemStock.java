@@ -255,22 +255,22 @@ public class ItemStock {
     }
 
     public enum Tile implements ItemInterface {
-        GRASS("grass",8,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/grass.png"),
-        BUILDING("building", 15,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/building.png"),
-        COAL("coal",13,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/coal.png"),
-        ENCHANTED_MINERAL("enchanted_mineral",12,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/enchanted_mineral.png"),
-        GLASS("glass",16,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/glass.png"),
-        GOLD("gold",11,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/gold.png"),
-        GROUND("ground",2,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/ground.png"),
-        IRON("iron",0,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/iron.png"),
-        LEAF("leaf",10,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/leaf.png"),
-        LEFT_GRASS("leftGrass",4,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftGrass.png"),
-        LEFT_SIDE_GRASS("leftSideGrass",6,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftSideGrass.png"),
-        RIGHT_GRASS("rightGrass",3,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightGrass.png"),
-        RIGHT_SIDE_GRASS("rightSideGrass",5,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightSideGrass.png"),
-        SKY("sky",1,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/sky.png"),
-        STONE("stone",7,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png"),
-        WOOD("wood",9,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/wood.png");
+        grass("grass",8,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/grass.png"),
+        building("building", 15,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/building.png"),
+        coal("coal",13,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/coal.png"),
+        enchanted_mineral("enchanted_mineral",12,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/enchanted_mineral.png"),
+        glass("glass",16,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/glass.png"),
+        gold("gold",11,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/gold.png"),
+        ground("ground",2,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/ground.png"),
+        iron("iron",0,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/iron.png"),
+        leaf("leaf",10,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/leaf.png"),
+        left_grass("leftGrass",4,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftGrass.png"),
+        left_side_grass("leftSideGrass",6,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/leftSideGrass.png"),
+        right_grass("rightGrass",3,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightGrass.png"),
+        right_side_grass("rightSideGrass",5,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/rightSideGrass.png"),
+        sky("sky",1,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/sky.png"),
+        stone("stone",7,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/stone.png"),
+        wood("wood",9,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/wood.png");
 
 
 
