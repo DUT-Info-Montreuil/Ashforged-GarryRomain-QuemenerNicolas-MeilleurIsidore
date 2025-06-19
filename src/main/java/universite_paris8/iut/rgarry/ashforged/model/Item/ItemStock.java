@@ -135,7 +135,7 @@ public class ItemStock {
             stick.getComponents().put(Usuable.wood, 2);
 
             // Arcs
-            bow.getComponents().put(Usuable.feather, 1);
+            bow.getComponents().put(Usuable.string, 1);
             bow.getComponents().put(Usuable.wood, 2);
 
             // Couteaux
