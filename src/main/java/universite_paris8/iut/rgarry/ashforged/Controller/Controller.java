@@ -301,7 +301,7 @@ public class Controller implements Initializable {
                     }
                 }
                 if (personnage.getHoldingItem().getName().contains("Bow")){
-                    Arrow arrow = new Arrow(personnage.getX(),personnage.getY()-32);
+                    Arrow arrow = new Arrow(personnage.getX(),personnage.getY()-32, environment);
                     arrows.add(arrow);
                 }
             } else if (event.getButton() == MouseButton.SECONDARY) {
