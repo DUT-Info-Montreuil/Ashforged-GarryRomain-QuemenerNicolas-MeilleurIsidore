@@ -218,7 +218,7 @@ public class Controller implements Initializable {
                 }
             }
 
-            personnage.seDeplacer();
+            personnage.move();
             personnage.applyGravity(environment);
 
             compteur += 1;

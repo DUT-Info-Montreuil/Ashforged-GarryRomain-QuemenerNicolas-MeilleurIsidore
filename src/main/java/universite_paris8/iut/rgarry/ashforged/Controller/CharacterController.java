@@ -2,74 +2,80 @@ package universite_paris8.iut.rgarry.ashforged.Controller;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 import universite_paris8.iut.rgarry.ashforged.model.KeyMapping;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 
 public class CharacterController {
 
-    enum Direction {
-        TOP, BOTTOM, LEFT, RIGHT
-    }
+    private static final double JUMP_STRENGTH = -12;
 
-    private Character personnage;
+    private final Character personnage;
 
-    private final BooleanProperty spacePressed = new SimpleBooleanProperty();
-    private final BooleanProperty qPressed = new SimpleBooleanProperty();
-    private final BooleanProperty sPressed = new SimpleBooleanProperty();
-    private final BooleanProperty dPressed = new SimpleBooleanProperty();
+    private final BooleanProperty spacePressed = new SimpleBooleanProperty(false);
+    private final BooleanProperty qPressed = new SimpleBooleanProperty(false);
+    private final BooleanProperty sPressed = new SimpleBooleanProperty(false);
+    private final BooleanProperty dPressed = new SimpleBooleanProperty(false);
 
-    private final double JUMP_STRENGHT = -12;
-
-    private final TilePane tilePane;
-    private final Pane panePerso;
-
-    public CharacterController(TilePane tilePane, Pane panePerso, Character personnage) {
-        this.tilePane = tilePane;
-        this.panePerso = panePerso;
+    public CharacterController(Pane pane, Character personnage) {
         this.personnage = personnage;
+        setupKeyHandlers(pane);
     }
 
-    public void setupKeyHandlers(Pane pane) {
+    private void setupKeyHandlers(Pane pane) {
         pane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyMapping.getKey("jump")) spacePressed.set(true);
-            if (event.getCode() == KeyMapping.getKey("moveLeft")) qPressed.set(true);
-            if (event.getCode() == KeyMapping.getKey("moveRight")) dPressed.set(true);
-            if (event.getCode() == KeyMapping.getKey("down")) sPressed.set(true);
+            KeyCode code = event.getCode();
+            if (code == KeyMapping.getKey("jump")) spacePressed.set(true);
+            if (code == KeyMapping.getKey("moveLeft")) qPressed.set(true);
+            if (code == KeyMapping.getKey("moveRight")) dPressed.set(true);
+            if (code == KeyMapping.getKey("down")) sPressed.set(true);
             changerDirectionPersonnage();
         });
 
         pane.setOnKeyReleased(event -> {
-            if (event.getCode() == KeyMapping.getKey("jump")) spacePressed.set(false);
-            if (event.getCode() == KeyMapping.getKey("moveLeft")) qPressed.set(false);
-            if (event.getCode() == KeyMapping.getKey("moveRight")) dPressed.set(false);
-            if (event.getCode() == KeyMapping.getKey("down")) sPressed.set(false);
+            KeyCode code = event.getCode();
+            if (code == KeyMapping.getKey("jump")) spacePressed.set(false);
+            if (code == KeyMapping.getKey("moveLeft")) qPressed.set(false);
+            if (code == KeyMapping.getKey("moveRight")) dPressed.set(false);
+            if (code == KeyMapping.getKey("down")) sPressed.set(false);
             changerDirectionPersonnage();
         });
     }
 
+    /**
+     * Met à jour la direction du personnage en fonction des touches pressées.
+     * Gère aussi le saut si le personnage est au sol.
+     */
     public void changerDirectionPersonnage() {
-        if (this.isQPressed()) {
-            personnage.vaAGauche();
+        if (isQPressed()) {
+            personnage.moveLeft();
         }
-        if (this.isDPressed()) {
-            personnage.vaADroite();
+        if (isDPressed()) {
+            personnage.moveRight();
         }
-        if (!this.isQPressed() && !this.isDPressed()) {
-            personnage.resteImobile();
+        if (!isQPressed() && !isDPressed()) {
+            personnage.stayIdle();
         }
-        // Vérifie la collision en bas à gauche ET en bas à droite avant d'autoriser le saut
-        int bottomY = personnage.getEnv().getField().getHeight() * 64 - 32;
-        boolean onGround = (personnage.getEnv().checkCollision(personnage.getX(), personnage.getY() + 32) &&
-                personnage.getEnv().checkCollision(personnage.getX() + 31, personnage.getY() + 32)) ||
-                (personnage.getY() == bottomY);
 
-        if (this.isSpacePressed() && onGround) {
-            personnage.setVelocityY(JUMP_STRENGHT);
+        boolean onGround = isOnGround();
+        if (isSpacePressed() && onGround) {
+            personnage.setVelocityY(JUMP_STRENGTH);
         }
     }
 
+    private boolean isOnGround() {
+        int x = personnage.getX();
+        int y = personnage.getY();
+        int bottomY = personnage.getEnv().getField().getHeight() * 64 - 32;
+
+        boolean collisionLeft = personnage.getEnv().checkCollision(x, y + 32);
+        boolean collisionRight = personnage.getEnv().checkCollision(x + 31, y + 32);
+
+        return (collisionLeft && collisionRight) || (y == bottomY);
+    }
+
+    // Getters pour les propriétés des touches
     public boolean isSpacePressed() {
         return spacePressed.get();
     }
@@ -85,6 +91,4 @@ public class CharacterController {
     public boolean isDPressed() {
         return dPressed.get();
     }
-
-
 }
