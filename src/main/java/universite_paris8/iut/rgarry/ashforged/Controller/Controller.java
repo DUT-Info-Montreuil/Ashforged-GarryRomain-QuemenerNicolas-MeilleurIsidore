@@ -64,23 +64,10 @@ public class Controller implements Initializable {
     private Pane camera;
 
     @FXML
-    private Pane AccesRapide;
-    @FXML
     private Pane AccesRapide1;
     @FXML
     private Pane AccesRapide2;
-    @FXML
-    private Pane AccesRapide3;
-    @FXML
-    private Pane AccesRapide4;
-    @FXML
-    private Pane AccesRapide5;
-    @FXML
-    private Pane AccesRapide6;
-    @FXML
-    private Pane AccesRapide7;
-    @FXML
-    private Pane AccesRapide8;
+
 
     @FXML
     private Pane ContainerInventory;
@@ -155,18 +142,11 @@ public class Controller implements Initializable {
         paneperso.setFocusTraversable(true);
         paneperso.requestFocus();
 
-        accesRapidePanes = List.of(
-                AccesRapide2, AccesRapide3, AccesRapide4,
-                AccesRapide5, AccesRapide6, AccesRapide7, AccesRapide8
-        );
-        initializeButton();
-
-
         FieldView fieldView = new FieldView(tilepane, field);
         this.personnageView = new CharacterView(paneperso, personnage, characterController, field);
 
-        initialiseHealthBar();
-        initialiseCamera(field);
+        initializeHealthBar();
+        initializeCamera(field);
 
         personnage.addToInventory(ItemStock.Usuable.golden_piece);
         personnage.addToInventory(ItemStock.Weapon.stone_pickaxe);
@@ -175,7 +155,8 @@ public class Controller implements Initializable {
         paneperso.setMouseTransparent(true);
         updateInventory();
 
-        initialiseClick(field);
+        initializeClick(field);
+        initializeButton();
 
         startTimeline();
     }
@@ -232,31 +213,18 @@ public class Controller implements Initializable {
     private void initializeButton() {
         AccesRapide1.setOnMouseClicked(event -> {
             ContainerInventory.setVisible(true);
-            this.craftView.openCraft(personnage);
-
         });
 
         quit.setOnMouseClicked(event -> {
             ContainerInventory.setVisible(false);
         });
 
-        for (int i = 0; i < accesRapidePanes.size(); i++) {
-            Pane pane = accesRapidePanes.get(i);
-            pane.getChildren().clear();
+        AccesRapide2.setOnMouseClicked(event -> {
+            this.craftView.openCraft(personnage);
 
-            ImageView iv = new ImageView();
-            iv.setFitWidth(32);
-            iv.setFitHeight(32);
-            iv.setPreserveRatio(true);
+        });
 
-            Image itemImage = getItemImageAt(i);  // utilise ta méthode qui combine findKey + getImage
-            if (itemImage != null) {
-                iv.setImage(itemImage);
-                pane.getChildren().add(iv);
-                iv.setLayoutX((pane.getPrefWidth() - iv.getFitWidth()) / 2);
-                iv.setLayoutY((pane.getPrefHeight() - iv.getFitHeight()) / 2);
-            }
-        }
+
 
 
     }
@@ -269,7 +237,7 @@ public class Controller implements Initializable {
         return null;
     }
 
-    public void initialiseClick(Field field) {
+    public void initializeClick(Field field) {
         Image ciel = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/Ciel.png").toExternalForm());
         Image inventoryCase = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/tiles/caseInventaire.png").toExternalForm());
         tilepane.setOnMouseClicked(event -> {
@@ -328,7 +296,7 @@ public class Controller implements Initializable {
         }
     }
 
-    public void initialiseCamera(Field field) {
+    public void initializeCamera(Field field) {
         IntegerBinding conditionalBindingX = Bindings.createIntegerBinding(() -> {
             int x = personnage.getX();
             if (x < LimitLeftCam) {
@@ -353,7 +321,7 @@ public class Controller implements Initializable {
         camera.translateYProperty().bind(conditionalBindingY);
     }
 
-    public void initialiseHealthBar() {
+    public void initializeHealthBar() {
         double maxBarWidth = 200.0;
         healthBar.widthProperty().bind(
                 Bindings.createDoubleBinding(
