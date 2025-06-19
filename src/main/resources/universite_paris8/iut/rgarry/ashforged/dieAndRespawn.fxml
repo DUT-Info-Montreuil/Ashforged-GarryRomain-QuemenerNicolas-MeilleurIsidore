@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="20"
-      prefWidth="600" prefHeight="400"
-      xmlns:fx="http://javafx.com/fxml/1"
-      xmlns="http://javafx.com/javafx/8.0.40"
-      fx:controller="universite_paris8.iut.rgarry.ashforged.Controller.DieAndRespawnController"
-      style="-fx-background-color: red;
-             -fx-background-size: cover;
-             -fx-background-repeat: no-repeat;
-             -fx-background-position: center;">
+<VBox alignment="CENTER" prefHeight="400" prefWidth="600" spacing="20" style="-fx-background-color: red;    -fx-background-size: cover;              -fx-background-repeat: no-repeat;              -fx-background-position: center;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.rgarry.ashforged.Controller.DieAndRespawnController">
+   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Game Over">
+      <font>
+         <Font name="Abyssinica SIL" size="69.0" />
+      </font>
+   </Text>
 
-    <Button onAction="#startGame" text="Jouer" />
-    <Button onAction="#quitGame" text="Quitter" />
+    <Button onAction="#startGame" text="Restart" />
+    <Button onAction="#quitGame" text="Quit" />
     <Pane prefHeight="200.0" prefWidth="200.0" />
 </VBox>

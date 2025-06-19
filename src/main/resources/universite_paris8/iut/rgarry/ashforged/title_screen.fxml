@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="universite_paris8.iut.rgarry.ashforged.Controller.TitleScreenController">
-    <style>
-        .root {
-        -fx-background-image: url("universite_paris8/iut/rgarry/ashforged/Image/apocalypse.jpg");
-        -fx-background-size: cover; /* Pour couvrir toute la zone */
-        }
-    </style>
+<VBox alignment="CENTER" prefHeight="400" prefWidth="600" spacing="20" style="-fx-background-color: grey; -fx-background-size: cover; -fx-background-repeat: no-repeat; -fx-background-position: center;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.rgarry.ashforged.Controller.TitleScreenController">
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Ashforged">
+        <font>
+            <Font name="Abyssinica SIL" size="69.0" />
+        </font>
+    </Text>
 
-    <Button text="Jouer" onAction="#startGame"/>
-    <Button text="Quitter" onAction="#quitGame"/>
+    <Button onAction="#startGame" text="Start" />
+    <Button onAction="#quitGame" text="Quit" />
+    <Pane prefHeight="200.0" prefWidth="200.0" />
 </VBox>
