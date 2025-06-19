@@ -79,6 +79,7 @@ public class Npc extends Entity {
                     int mobY = getY() / 64;
 
                     if (Math.abs(entityX - mobX) < 2 && Math.abs(entityY - mobY) < 2) {
+                        System.out.println("Attack");
                         int damage;
                         if (stats[1] > 1)
                             damage = (int) (stats[1] * 0.5 + ((double) getHoldingItem().getDamage() / 2));

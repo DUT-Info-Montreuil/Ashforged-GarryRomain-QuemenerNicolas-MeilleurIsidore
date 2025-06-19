@@ -18,6 +18,7 @@ public class Environment {
 
     public Entity[] getEntities() {
         List<Entity> entities = new ArrayList<>();
+        entities.add(hero);
         entities.addAll(mobs);
         entities.addAll(npcs);
         return entities.toArray(new Entity[0]);

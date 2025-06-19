@@ -354,6 +354,7 @@ public class Controller implements Initializable {
 
             if (compteur % 150 == 0) {
                 for (Mobs mob : mobs) {
+                    System.out.println("mob attaque");
                     mob.attack();
                 }
             }

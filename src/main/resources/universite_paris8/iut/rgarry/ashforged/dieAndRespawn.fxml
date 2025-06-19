@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.VBox?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="universite_paris8.iut.rgarry.ashforged.Controller.DieAndRespawnController">
+<VBox alignment="CENTER" spacing="20"
+      prefWidth="600" prefHeight="400"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/8.0.40"
+      fx:controller="universite_paris8.iut.rgarry.ashforged.Controller.DieAndRespawnController"
+      style="-fx-background-color: red;
+             -fx-background-size: cover;
+             -fx-background-repeat: no-repeat;
+             -fx-background-position: center;">
 
-    <Button text="Jouer" onAction="#startGame"/>
-    <Button text="Quitter" onAction="#quitGame"/>
+    <Button onAction="#startGame" text="Jouer" />
+    <Button onAction="#quitGame" text="Quitter" />
+    <Pane prefHeight="200.0" prefWidth="200.0" />
 </VBox>
-
