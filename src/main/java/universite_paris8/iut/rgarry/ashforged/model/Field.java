@@ -1,4 +1,3 @@
-
 package universite_paris8.iut.rgarry.ashforged.model;
 
 /*
@@ -21,8 +20,8 @@ public class Field {
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,15,16,15,16,15,16,15},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,10,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,15,15,15,1,15,15,1},
                 {1,1,1,1,1,1,1,10,1,1,1,1,1,1,10,10,10,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,15,15,15,15,15,15},
-                {5,1,1,1,1,1,10,10,10,1,1,1,1,10,10,10,10,10,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,8,7,7,7,7,7,7},
-                {2,8,8,5,1,1,1,9,1,1,1,1,1,1,1,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,2,2,2,7,7,7,7,7},
+                {6,1,1,1,1,1,10,10,10,1,1,1,1,10,10,10,10,10,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,8,7,7,7,7,7,7},
+                {2,8,8,6,1,1,1,9,1,1,1,1,1,1,1,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,2,2,2,7,7,7,7,7},
                 {2,2,2,3,1,1,1,9,1,1,1,1,1,1,1,9,1,1,1,1,1,1,1,1,6,8,8,8,8,8,8,8,8,2,7,7,2,7,7,7,7,7},
                 {2,2,2,2,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,2,2,2,2,2,2,2,2,2,2,7,7,7,7,7,7,7,7},
                 {7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,2,2,2,2,7,7,7,7,7,7,7,7},
@@ -48,6 +47,7 @@ public class Field {
      */
     public int block(int x, int y) {
         if (y < 0 || y >= tiles.length || x < 0 || x >= tiles[0].length) {
+            System.err.println("Accès invalide au bloc : x=" + x + ", y=" + y);
             return 1; // Valeur par défaut (ciel ou autre valeur sûre)
         }
         return this.tiles[y][x];
@@ -81,6 +81,7 @@ public class Field {
     public int getXView(int x) {
         int index = x / 64;
         if (index < 0 || index >= getWidth()) {
+            System.err.println("getXView hors limites : x=" + x + ", index=" + index);
             return 0; // Ou une valeur par défaut
         }
         return index;
@@ -89,6 +90,7 @@ public class Field {
     public int getYView(int y) {
         int index = y / 64;
         if (index < 0 || index >= getHeight()) {
+            System.err.println("getYView hors limites : y=" + y + ", index=" + index);
             return 0; // Ou une valeur par défaut
         }
         return index;
