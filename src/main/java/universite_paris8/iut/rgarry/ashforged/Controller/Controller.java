@@ -276,9 +276,9 @@ public class Controller implements Initializable {
                 }
 
             } else if (event.getButton() == MouseButton.SECONDARY) {
-                if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) == 1) {
+                if  (personnage.getHoldingItem() instanceof ItemStock.Tile){
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
-                        if (personnage.getHoldingItem() instanceof ItemStock.Tile) {
+                        if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) == 1) {
                             field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()),personnage.getHoldingItem().getId());
                             ImageView blockPoser = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
                             blockPoser.setImage(personnage.getHoldingItem().getImage());
