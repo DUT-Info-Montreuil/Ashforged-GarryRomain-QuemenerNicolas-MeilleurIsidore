@@ -84,15 +84,4 @@ public class Character extends Entity {
             }
         }
     }
-
-    // Ces méthodes privées ne semblent pas utilisées, la vérification via isWithinMap() suffit
-    /*
-    private boolean isWithinMapX(int x) {
-        return x >= 0 && x + 31 < env.getField().getWidth();
-    }
-
-    private boolean isWithinMapY(int y) {
-        return y >= 0 && y + 31 < env.getField().getHeight();
-    }
-    */
 }
