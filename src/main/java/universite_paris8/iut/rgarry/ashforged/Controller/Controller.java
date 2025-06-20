@@ -39,23 +39,40 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     // UI components injected via FXML
-    @FXML private Pane healthBarContainer;
-    @FXML private Rectangle healthBar;
-    @FXML private Rectangle healthBarBackground;
-    @FXML private Rectangle expBar;
-    @FXML private Rectangle expBarBackground;
-    @FXML private Rectangle lvl;
-    @FXML private Label lvlLabel;
-    @FXML private TilePane tilepane;
-    @FXML private Pane paneperso;
-    @FXML private Pane paneItem;
-    @FXML private Pane camera;
-    @FXML private Pane AccesRapide1;
-    @FXML private Pane AccesRapide2;
-    @FXML private Pane ContainerInventory;
-    @FXML private TilePane Inventory;
-    @FXML private Pane quit;
-    @FXML private Pane startScreen;
+    @FXML
+    private Pane healthBarContainer;
+    @FXML
+    private Rectangle healthBar;
+    @FXML
+    private Rectangle healthBarBackground;
+    @FXML
+    private Rectangle expBar;
+    @FXML
+    private Rectangle expBarBackground;
+    @FXML
+    private Rectangle lvl;
+    @FXML
+    private Label lvlLabel;
+    @FXML
+    private TilePane tilepane;
+    @FXML
+    private Pane paneperso;
+    @FXML
+    private Pane paneItem;
+    @FXML
+    private Pane camera;
+    @FXML
+    private Pane AccesRapide1;
+    @FXML
+    private Pane AccesRapide2;
+    @FXML
+    private Pane ContainerInventory;
+    @FXML
+    private TilePane Inventory;
+    @FXML
+    private Pane quit;
+    @FXML
+    private Pane startScreen;
 
     private List<Pane> accesRapidePanes;
     private int compteur = 0; // counter for timeline cycles
@@ -278,6 +295,7 @@ public class Controller implements Initializable {
 
     /**
      * Retrieves the image of the item at the specified inventory index.
+     *
      * @param index The inventory slot index.
      * @return The image of the item, or null if none exists.
      */
@@ -291,6 +309,7 @@ public class Controller implements Initializable {
 
     /**
      * Initializes click handlers on the game field to handle player actions like attack, mining, placing blocks, and shooting arrows.
+     *
      * @param field The game field containing blocks.
      */
     public void initializeClick(Field field) {
@@ -300,11 +319,11 @@ public class Controller implements Initializable {
         tilepane.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 // Attack with weapon if holding a weapon other than pickaxe
-                if (personnage.getHoldingItem() instanceof ItemStock.Weapon && !personnage.getHoldingItem().getName().contains("pickaxe")) {
+                if (personnage.getHoldingItem() != null && personnage.getHoldingItem() instanceof ItemStock.Weapon && !personnage.getHoldingItem().getName().contains("pickaxe")) {
                     personnage.attack();
                 }
                 // Mining blocks with pickaxe if close enough and block is breakable
-                else if (personnage.getHoldingItem().getName().contains("pickaxe")) {
+                else if (personnage.getHoldingItem() != null && personnage.getHoldingItem().getName().contains("pickaxe")) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
                         if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
                             personnage.addToInventory(ItemStock.Tile.fromId(field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY()))));
@@ -315,17 +334,16 @@ public class Controller implements Initializable {
                     }
                 }
                 // Shoot arrow if holding bow
-                if (personnage.getHoldingItem().getName().contains("Bow")){
-                    Arrow arrow = new Arrow(personnage.getX(),personnage.getY()-32, environment);
+                if (personnage.getHoldingItem() != null && personnage.getHoldingItem().getName().contains("Bow")) {
+                    Arrow arrow = new Arrow(personnage.getX(), personnage.getY() - 32, environment);
                     arrows.add(arrow);
                 }
-            }
-            else if (event.getButton() == MouseButton.SECONDARY) {
+            } else if (event.getButton() == MouseButton.SECONDARY) {
                 // Place block if holding a block and close enough to the target position
-                if  (personnage.getHoldingItem() instanceof ItemStock.Tile){
+                if (personnage.getHoldingItem() instanceof ItemStock.Tile) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
                         if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) == 1) {
-                            field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()),personnage.getHoldingItem().getId());
+                            field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), personnage.getHoldingItem().getId());
                             ImageView blockPoser = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
                             blockPoser.setImage(personnage.getHoldingItem().getImage());
                             personnage.removeFromInventory(personnage.getHoldingItem());
@@ -446,7 +464,7 @@ public class Controller implements Initializable {
             while (change.next()) {
                 if (change.wasAdded()) {
                     for (Arrow arrow : change.getAddedSubList()) {
-                        ImageView fleche =  new ImageView(new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/arrow.png").toExternalForm()));
+                        ImageView fleche = new ImageView(new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/arrow.png").toExternalForm()));
                         fleche.translateXProperty().bind(arrow.xProperty());
                         fleche.translateYProperty().bind(arrow.yProperty());
                         arrow.setArrowImage(fleche);
