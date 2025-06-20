@@ -20,7 +20,6 @@ public class Character extends Entity {
 
         if (direction == 'd') { // déplacement vers la droite
             newX += getVitesse();
-
             if (!env.checkCollision(newX + 31, getY()) &&
                     !env.checkCollision(newX + 31, getY() + 31) &&
                     isWithinMap(newX, getY())) {
