@@ -15,6 +15,8 @@ Nous avons réalisé un *mapping de touche* pour le déplacement, permettant à 
 Pour casser des blocs ou utiliser des items comme l'épée ou la pioche il faudra utiliser le clic gauche de la souris, et pour placer des blocs ce sera le clic droit. 
 Pour ouvrir l'inventaire, la table de craft ou la zone d'attribution de statistique il suffira de cliquer sur le bouton qui y correspond. 
 
+Une vidéo est disponible et montre l'ensemble des features présentes dans ce projet: [Ashforged Features](https://youtu.be/QLGifWHleRA)
+
 ## Items
 
 Il y a trois types d'items mit à disposition, tout d'abord les *consomable* qui sont ici les items permettant la fabrication des armes, il y a donc par la suite les *armes* ayant chacunes des utilités et caractéristiques diverses, 
