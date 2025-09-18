@@ -1,7 +1,7 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 
 import java.util.Random;
 
@@ -77,7 +77,7 @@ public class Npc extends Entity {
 
     /** Attaque les entités de type Mobs proches si arme tenue */
     public void attack() {
-        if (getHoldingItem() != null && getHoldingItem() instanceof ItemStock.Weapon) {
+        if (getHoldingItem() != null && getHoldingItem() instanceof Weapon) {
             for (Entity entity : env.getEntities()) {
                 if (entity instanceof Mobs) {
                     int entityX = entity.getX() / 64;

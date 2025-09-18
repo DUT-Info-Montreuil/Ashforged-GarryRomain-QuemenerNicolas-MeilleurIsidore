@@ -1,10 +1,12 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import universite_paris8.iut.rgarry.ashforged.model.BFS;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 import universite_paris8.iut.rgarry.ashforged.model.Position;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -144,15 +146,15 @@ public class Mobs extends Character {
 
         // List of possible resources
         List<ItemInterface> resources = Arrays.asList(
-                ItemStock.Usuable.iron,
-                ItemStock.Usuable.canon_powder,
-                ItemStock.Usuable.perlimpinpin_powder,
-                ItemStock.Usuable.feather,
-                ItemStock.Usuable.ball,
-                ItemStock.Usuable.string,
-                ItemStock.Usuable.coal,
-                ItemStock.Usuable.enchanted_mineral,
-                ItemStock.Usuable.golden_piece
+                Usuable.iron,
+                Usuable.canon_powder,
+                Usuable.perlimpinpin_powder,
+                Usuable.feather,
+                Usuable.ball,
+                Usuable.string,
+                Usuable.coal,
+                Usuable.enchanted_mineral,
+                Usuable.golden_piece
         );
 
         // Randomly decide how many resources to drop (at least 1)
@@ -167,7 +169,7 @@ public class Mobs extends Character {
     @Override
     public void attack() {
         System.out.println(this.getName() + " Health:" + this.getHealth());
-        if (getHoldingItem() != null && getHoldingItem() instanceof ItemStock.Weapon) {
+        if (getHoldingItem() != null && getHoldingItem() instanceof Weapon) {
             for (Entity entity : env.getEntities()) {
                 if (!(entity instanceof Mobs)) {
                     int entityX = entity.getX() / 64;

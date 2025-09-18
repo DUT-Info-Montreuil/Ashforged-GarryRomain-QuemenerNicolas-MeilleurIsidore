@@ -4,7 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 
 import java.util.HashMap;
@@ -72,16 +73,16 @@ public class CraftController {
         inventory = character.getInventory();
 
         // Update each resource label with corresponding item quantity or zero if absent
-        dirtLabel.setText(inventory.getOrDefault(ItemStock.Usuable.ground, 0).toString());
-        woodLabel.setText(inventory.getOrDefault(ItemStock.Usuable.wood, 0).toString());
-        ironLabel.setText(inventory.getOrDefault(ItemStock.Usuable.iron, 0).toString());
-        aluminiumLabel.setText(inventory.getOrDefault(ItemStock.Usuable.alluminium, 0).toString());
-        poudreACanonLabel.setText(inventory.getOrDefault(ItemStock.Usuable.canon_powder, 0).toString());
-        PoudreDePerlimpinpinLabel.setText(inventory.getOrDefault(ItemStock.Usuable.perlimpinpin_powder, 0).toString());
-        FilLabel.setText(inventory.getOrDefault(ItemStock.Usuable.string, 0).toString());
-        PlumeLabel.setText(inventory.getOrDefault(ItemStock.Usuable.feather, 0).toString());
-        CharbonLabel.setText(inventory.getOrDefault(ItemStock.Usuable.coal, 0).toString());
-        MineraiEnchanteLabel.setText(inventory.getOrDefault(ItemStock.Usuable.enchanted_mineral, 0).toString());
+        dirtLabel.setText(inventory.getOrDefault(Usuable.ground, 0).toString());
+        woodLabel.setText(inventory.getOrDefault(Usuable.wood, 0).toString());
+        ironLabel.setText(inventory.getOrDefault(Usuable.iron, 0).toString());
+        aluminiumLabel.setText(inventory.getOrDefault(Usuable.alluminium, 0).toString());
+        poudreACanonLabel.setText(inventory.getOrDefault(Usuable.canon_powder, 0).toString());
+        PoudreDePerlimpinpinLabel.setText(inventory.getOrDefault(Usuable.perlimpinpin_powder, 0).toString());
+        FilLabel.setText(inventory.getOrDefault(Usuable.string, 0).toString());
+        PlumeLabel.setText(inventory.getOrDefault(Usuable.feather, 0).toString());
+        CharbonLabel.setText(inventory.getOrDefault(Usuable.coal, 0).toString());
+        MineraiEnchanteLabel.setText(inventory.getOrDefault(Usuable.enchanted_mineral, 0).toString());
     }
 
     /**
@@ -91,14 +92,14 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftBow(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.feather, 0) >= 1) {
+        if (inventory.getOrDefault(Usuable.wood, 0) >= 2 &&
+                inventory.getOrDefault(Usuable.feather, 0) >= 1) {
             // Remove required materials from inventory
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.string);
+            character.removeFromInventory(Usuable.wood);
+            character.removeFromInventory(Usuable.wood);
+            character.removeFromInventory(Usuable.string);
             // Add crafted bow to inventory
-            character.addToInventory(ItemStock.Weapon.bow);
+            character.addToInventory(Weapon.bow);
             affichageResultatLabel.setText("Arc fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un arc");
@@ -112,10 +113,10 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftStick(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.addToInventory(ItemStock.Weapon.stick);
+        if (inventory.getOrDefault(Usuable.wood, 0) >= 2) {
+            character.removeFromInventory(Usuable.wood);
+            character.removeFromInventory(Usuable.wood);
+            character.addToInventory(Weapon.stick);
             affichageResultatLabel.setText("Bâton fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un bâton");
@@ -129,11 +130,11 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftWoodenKnife(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 4) {
+        if (inventory.getOrDefault(Usuable.wood, 0) >= 4) {
             for (int i = 0; i < 4; i++) {
-                character.removeFromInventory(ItemStock.Usuable.wood);
+                character.removeFromInventory(Usuable.wood);
             }
-            character.addToInventory(ItemStock.Weapon.wooden_knife);
+            character.addToInventory(Weapon.wooden_knife);
             affichageResultatLabel.setText("Couteau en bois fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en bois");
@@ -148,13 +149,13 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftStoneKnife(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.stone, 0) >= 2) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.stone);
-            character.removeFromInventory(ItemStock.Usuable.stone);
-            character.addToInventory(ItemStock.Weapon.stone_knife);
+        if (inventory.getOrDefault(Usuable.wood, 0) >= 2 &&
+                inventory.getOrDefault(Usuable.stone, 0) >= 2) {
+            character.removeFromInventory(Usuable.wood);
+            character.removeFromInventory(Usuable.wood);
+            character.removeFromInventory(Usuable.stone);
+            character.removeFromInventory(Usuable.stone);
+            character.addToInventory(Weapon.stone_knife);
             affichageResultatLabel.setText("Couteau en pierre fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en pierre");
@@ -169,14 +170,14 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftIronKnife(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(ItemStock.Usuable.iron, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
+        if (inventory.getOrDefault(Usuable.wood, 0) >= 2 &&
+                inventory.getOrDefault(Usuable.iron, 0) >= 3) {
+            character.removeFromInventory(Usuable.wood);
+            character.removeFromInventory(Usuable.wood);
             for (int i = 0; i < 3; i++) {
-                character.removeFromInventory(ItemStock.Usuable.iron);
+                character.removeFromInventory(Usuable.iron);
             }
-            character.addToInventory(ItemStock.Weapon.iron_knife);
+            character.addToInventory(Weapon.iron_knife);
             affichageResultatLabel.setText("Couteau en fer fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en fer");

@@ -2,7 +2,7 @@ package universite_paris8.iut.rgarry.ashforged.model;
 
 import javafx.scene.Node;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
@@ -43,8 +43,8 @@ public class Environment {
         this.field = field;
         this.hero = new Character("Hero", 1, new int[]{999, 99999, 5, 1}, 250, 300, this);
 
-        this.mobs.add(new Mobs("Mongolfière", 15, new int[]{10, 1, 3, 1}, 5, ItemStock.Weapon.wooden_sabre, 1664, 300, this));
-        this.mobs.add(new Mobs("Kozuki", 30, new int[]{1, 1, 3, 1}, 5, ItemStock.Weapon.enma, 600, 250, this));
+        this.mobs.add(new Mobs("Mongolfière", 15, new int[]{10, 1, 3, 1}, 5, Weapon.wooden_sabre, 1664, 300, this));
+        this.mobs.add(new Mobs("Kozuki", 30, new int[]{1, 1, 3, 1}, 5, Weapon.enma, 600, 250, this));
 
         this.npcs.add(new Npc("Paolo", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
         this.npcs.add(new Npc("Branda", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
@@ -131,13 +131,13 @@ public class Environment {
         System.out.println("Generating random mobs...");
         Random rand = new Random();
         String[] mobNames = {"Mongolfière", "Soldat", "Zombie", "Bandit", "Boss", "Kozuki"};
-        ItemStock.Weapon[] mobWeapons = {
-                ItemStock.Weapon.wooden_sabre,
-                ItemStock.Weapon.stone_sword,
-                ItemStock.Weapon.stick,
-                ItemStock.Weapon.firearm,
-                ItemStock.Weapon.iron_sabre,
-                ItemStock.Weapon.enma
+                Weapon[] mobWeapons = {
+                Weapon.wooden_sabre,
+                Weapon.stone_sword,
+                Weapon.stick,
+                Weapon.firearm,
+                Weapon.iron_sabre,
+                Weapon.enma
         };
 
         int heroLevel = hero.getLevel();

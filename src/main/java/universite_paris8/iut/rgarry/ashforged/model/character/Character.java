@@ -1,7 +1,7 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 
 public class Character extends Entity {
 
@@ -56,7 +56,7 @@ public class Character extends Entity {
      */
     @Override
     public void attack() {
-        if (getHoldingItem() instanceof ItemStock.Weapon) {
+        if (getHoldingItem() instanceof Weapon) {
             for (Entity entity : env.getEntities()) {
                 if (entity instanceof Mobs) {
                     int dx = Math.abs(entity.getX() / 64 - this.getX() / 64);

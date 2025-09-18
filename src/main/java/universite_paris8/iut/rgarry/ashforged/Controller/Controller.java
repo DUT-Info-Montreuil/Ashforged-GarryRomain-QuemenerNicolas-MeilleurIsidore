@@ -23,7 +23,9 @@ import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Tile;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 import universite_paris8.iut.rgarry.ashforged.model.Projectile.Arrow;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
@@ -146,13 +148,13 @@ public class Controller implements Initializable {
         initializeCamera(field);
 
         // Add some starting items to player's inventory
-        personnage.addToInventory(ItemStock.Usuable.golden_piece);
-        personnage.addToInventory(ItemStock.Weapon.stone_pickaxe);
-        personnage.addToInventory(ItemStock.Weapon.stone_sword);
-        personnage.addToInventory(ItemStock.Weapon.bow);
-        personnage.addToInventory(ItemStock.Usuable.wood);
-        personnage.addToInventory(ItemStock.Usuable.wood);
-        personnage.addToInventory(ItemStock.Usuable.wood);
+        personnage.addToInventory(Usuable.golden_piece);
+        personnage.addToInventory(Weapon.stone_pickaxe);
+        personnage.addToInventory(Weapon.stone_sword);
+        personnage.addToInventory(Weapon.bow);
+        personnage.addToInventory(Usuable.wood);
+        personnage.addToInventory(Usuable.wood);
+        personnage.addToInventory(Usuable.wood);
 
         paneperso.setMouseTransparent(true);
         updateInventory();
@@ -300,14 +302,14 @@ public class Controller implements Initializable {
         tilepane.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 // Attack with weapon if holding a weapon other than pickaxe
-                if (personnage.getHoldingItem() instanceof ItemStock.Weapon && !personnage.getHoldingItem().getName().contains("pickaxe")) {
+                if (personnage.getHoldingItem() instanceof Weapon && !personnage.getHoldingItem().getName().contains("pickaxe")) {
                     personnage.attack();
                 }
                 // Mining blocks with pickaxe if close enough and block is breakable
                 else if (personnage.getHoldingItem().getName().contains("pickaxe")) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
                         if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
-                            personnage.addToInventory(ItemStock.Tile.fromId(field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY()))));
+                            personnage.addToInventory(Tile.fromId(field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY()))));
                             field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), 1);
                             ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
                             test.setImage(ciel);
@@ -322,7 +324,7 @@ public class Controller implements Initializable {
             }
             else if (event.getButton() == MouseButton.SECONDARY) {
                 // Place block if holding a block and close enough to the target position
-                if  (personnage.getHoldingItem() instanceof ItemStock.Tile){
+                if  (personnage.getHoldingItem() instanceof Tile){
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
                         if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) == 1) {
                             field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()),personnage.getHoldingItem().getId());
