@@ -121,15 +121,11 @@ public class Field {
     }
 
     /**
-     * Internal method to validate that all tilemap rows have the same length.
-     * Outputs a warning to stderr if inconsistency is found.
+     * Vérifie que la position (x,y) est dans les limites de la carte
      */
-    private void validateTiles() {
-        int expectedWidth = tiles[0].length;
-        for (int i = 0; i < tiles.length; i++) {
-            if (tiles[i].length != expectedWidth) {
-                System.err.println("Line " + i + " has incorrect width: " + tiles[i].length + ", expected: " + expectedWidth);
-            }
-        }
+    public boolean isWithinMap(int x, int y) {
+        int width = getWidth() * 64;
+        int height = getHeight() * 64;
+        return x >= 0 && x + 31 < width && y >= 0 && y + 31 < height;
     }
 }

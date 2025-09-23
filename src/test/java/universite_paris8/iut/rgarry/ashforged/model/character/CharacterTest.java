@@ -1,14 +1,13 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
-
+import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 
 
 public class CharacterTest {
@@ -21,9 +20,9 @@ public class CharacterTest {
     @Test
     public void testAttackEntityInRange() {
         // Ajouter un mob à proximité
-        Mobs mob = new Mobs("TestMob", 1, new int[]{10, 1, 5, 1}, 1, ItemStock.Weapon.stick, character.getX() + 64, character.getY(), environment);
+        Ennemis mob = new Ennemis("TestMob", 1, new int[]{10, 1, 5, 1}, 1, Weapon.stick, character.getX() + 64, character.getY(), environment);
         environment.getMobs().add(mob);
-        character.setHoldingItem(ItemStock.Weapon.stick);
+        character.setHoldingItem(Weapon.stick);
 
         int initialMobHealth = mob.getHealth();
         int expectedDamage = character.getHoldingItem().getDamage() / 2; // stats[1] = 1, donc damage = item.getDamage()/2
@@ -37,9 +36,9 @@ public class CharacterTest {
     @Test
     public void testAttackNoEntityInRange() {
         // Ajouter un mob hors de portée
-        Mobs mob = new Mobs("TestMob", 1, new int[]{10, 1, 5, 1}, 1, ItemStock.Weapon.stick, character.getX() + 200, character.getY() + 200, environment);
+        Ennemis mob = new Ennemis("TestMob", 1, new int[]{10, 1, 5, 1}, 1, Weapon.stick, character.getX() + 200, character.getY() + 200, environment);
         environment.getMobs().add(mob);
-        character.setHoldingItem(ItemStock.Weapon.stick);
+        character.setHoldingItem(Weapon.stick);
 
         int initialMobHealth = mob.getHealth();
 
@@ -51,7 +50,7 @@ public class CharacterTest {
     // Test de l'ajout d'un item à l'inventaire
     @Test
     public void testAddToInventory() {
-        ItemInterface item = ItemStock.Usuable.golden_piece;
+        ItemInterface item = Usuable.golden_piece;
         character.addToInventory(item);
 
         assertTrue(character.getInventory().containsKey(item), "L'item devrait être ajouté à l'inventaire.");

@@ -5,7 +5,7 @@ import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 
 import java.util.Random;
 
-public class Npc extends Entity {
+public class NPC extends NonePlayer {
     private final int initialX;
     private final Random random = new Random();
 
@@ -16,7 +16,7 @@ public class Npc extends Entity {
     // Direction courante : 'g' = gauche, 'd' = droite, 'i' = immobile
     private char directionCourante = 'i';
 
-    public Npc(String name, int level, int[] stats, int x, int y, Environment env) {
+    public NPC(String name, int level, int[] stats, int x, int y, Environment env) {
         super(name, level, stats, x, y, env);
         this.initialX = x;
         this.minX = initialX - 640;
@@ -24,6 +24,7 @@ public class Npc extends Entity {
     }
 
     /** Choisit une direction aléatoire parmi gauche, droite, immobile */
+    @Override
     public void choisirDirectionAleatoire() {
         int r = random.nextInt(3);
         switch (r) {
@@ -32,6 +33,8 @@ public class Npc extends Entity {
             default -> directionCourante = 'i';
         }
     }
+
+
 
     @Override
     public void vaAGauche() {
@@ -79,7 +82,7 @@ public class Npc extends Entity {
     public void attack() {
         if (getHoldingItem() != null && getHoldingItem() instanceof Weapon) {
             for (Entity entity : env.getEntities()) {
-                if (entity instanceof Mobs) {
+                if (entity instanceof Ennemis) {
                     int entityX = entity.getX() / 64;
                     int entityY = entity.getY() / 64;
                     int npcX = getX() / 64;

@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class Mobs extends Character {
+public class Ennemis extends NonePlayer {
     private int stats_multiplier;
     private ItemInterface item;
     private final int initialX;
@@ -32,7 +32,7 @@ public class Mobs extends Character {
     private int lastJoueurCaseX = -1;
     private int lastJoueurCaseY = -1;
 
-    public Mobs(String name, int level, int[] stats, int stats_multiplier, ItemInterface item, int x, int y, Environment env) {
+    public Ennemis(String name, int level, int[] stats, int stats_multiplier, ItemInterface item, int x, int y, Environment env) {
         super(name, level, stats, x, y, env);
         this.stats_multiplier = stats_multiplier;
         this.item = item;
@@ -41,6 +41,7 @@ public class Mobs extends Character {
     }
 
     /** Choisit une direction aléatoire */
+    @Override
     public void choisirDirectionAleatoire() {
         int r = random.nextInt(3);
         if (r == 0) directionCourante = 'g';
@@ -49,6 +50,7 @@ public class Mobs extends Character {
     }
 
     /** Se déplace selon direction aléatoire */
+    @Override
     public void seDeplacerRandom() {
         if (directionCourante == 'g') {
             vaAGaucheR();
@@ -171,7 +173,7 @@ public class Mobs extends Character {
         System.out.println(this.getName() + " Health:" + this.getHealth());
         if (getHoldingItem() != null && getHoldingItem() instanceof Weapon) {
             for (Entity entity : env.getEntities()) {
-                if (!(entity instanceof Mobs)) {
+                if (!(entity instanceof Ennemis)) {
                     int entityX = entity.getX() / 64;
                     int entityY = entity.getY() / 64;
                     int mobX = getX() / 64;

@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.ImageView;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
-import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
+import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
 
 /**
  * Represents an arrow projectile in the game.
@@ -98,7 +98,7 @@ public class Arrow {
      */
     public void attackFleche() {
         for (Entity entity : environment.getEntities()) {
-            if(entity instanceof Mobs) {
+            if(entity instanceof Ennemis) {
                 int dx = Math.abs(entity.getX() / 64 - this.getX() / 64);
                 int dy = Math.abs(entity.getY() / 64 - this.getY() / 64);
                 if (dx == 0 && dy == 0) {

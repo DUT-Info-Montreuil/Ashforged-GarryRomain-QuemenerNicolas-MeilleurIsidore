@@ -1,13 +1,10 @@
 package universite_paris8.iut.rgarry.ashforged.model;
 
-import javafx.scene.Node;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
-import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
-import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
-import universite_paris8.iut.rgarry.ashforged.view.MobView;
+import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
+import universite_paris8.iut.rgarry.ashforged.model.character.NPC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +18,8 @@ public class Environment {
 
     private Field field;
     private Character hero;
-    private List<Mobs> mobs = new ArrayList<>();
-    private List<Npc> npcs = new ArrayList<>();
+    private List<Ennemis> mobs = new ArrayList<>();
+    private List<NPC> npcs = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     private int maxMobs = 5;
 
@@ -43,13 +40,13 @@ public class Environment {
         this.field = field;
         this.hero = new Character("Hero", 1, new int[]{999, 99999, 5, 1}, 250, 300, this);
 
-        this.mobs.add(new Mobs("Mongolfière", 15, new int[]{10, 1, 3, 1}, 5, Weapon.wooden_sabre, 1664, 300, this));
-        this.mobs.add(new Mobs("Kozuki", 30, new int[]{1, 1, 3, 1}, 5, Weapon.enma, 600, 250, this));
+        this.mobs.add(new Ennemis("Mongolfière", 15, new int[]{10, 1, 3, 1}, 5, Weapon.wooden_sabre, 1664, 300, this));
+        this.mobs.add(new Ennemis("Kozuki", 30, new int[]{1, 1, 3, 1}, 5, Weapon.enma, 600, 250, this));
 
-        this.npcs.add(new Npc("Paolo", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
-        this.npcs.add(new Npc("Branda", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
-        this.npcs.add(new Npc("Terry", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
-        this.npcs.add(new Npc("Salome", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
+        this.npcs.add(new NPC("Paolo", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
+        this.npcs.add(new NPC("Branda", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
+        this.npcs.add(new NPC("Terry", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
+        this.npcs.add(new NPC("Salome", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
 
         this.entities.addAll(mobs);
         this.entities.addAll(npcs);
@@ -72,12 +69,12 @@ public class Environment {
     }
 
     /** @return list of mobs (enemies). */
-    public List<Mobs> getMobs() {
+    public List<Ennemis> getMobs() {
         return mobs;
     }
 
     /** @return list of non-playable characters (npcs). */
-    public List<Npc> getNpcs() {
+    public List<NPC> getNpcs() {
         return npcs;
     }
 
@@ -89,10 +86,10 @@ public class Environment {
      */
     public void addEntity(Entity entity) {
         entities.add(entity);
-        if (entity instanceof Mobs) {
-            mobs.add((Mobs) entity);
-        } else if (entity instanceof Npc) {
-            npcs.add((Npc) entity);
+        if (entity instanceof Ennemis) {
+            mobs.add((Ennemis) entity);
+        } else if (entity instanceof NPC) {
+            npcs.add((NPC) entity);
         }
     }
 
@@ -103,9 +100,9 @@ public class Environment {
      * @param entity the entity to remove
      */
     public void removeEntity(Entity entity) {
-        if (entity instanceof Mobs) {
+        if (entity instanceof Ennemis) {
             mobs.remove(entity);
-        } else if (entity instanceof Npc) {
+        } else if (entity instanceof NPC) {
             npcs.remove(entity);
         }
         entities.remove(entity);
@@ -168,7 +165,7 @@ public class Environment {
 
             if (!checkCollision(x, y)) {
                 System.out.println("Generating mob: " + mobNames[idx] + " (lvl " + mobLevel + ") at (" + x + ", " + y + ")");
-                Mobs mob = new Mobs(
+                Ennemis mob = new Ennemis(
                         mobNames[idx],
                         mobLevel,
                         mobStats,

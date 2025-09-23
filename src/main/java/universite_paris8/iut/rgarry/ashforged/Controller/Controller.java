@@ -29,8 +29,8 @@ import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 import universite_paris8.iut.rgarry.ashforged.model.Projectile.Arrow;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
-import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
-import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
+import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
+import universite_paris8.iut.rgarry.ashforged.model.character.NPC;
 import universite_paris8.iut.rgarry.ashforged.view.*;
 
 import java.io.IOException;
@@ -191,8 +191,8 @@ public class Controller implements Initializable {
 
             // Remove dead entities from scene and environment
             for (Entity entity : entitiesToDie) {
-                if (entity instanceof Mobs) {
-                    ((Mobs) entity).onDeath();
+                if (entity instanceof Ennemis) {
+                    ((Ennemis) entity).onDeath();
                 }
                 paneperso.getChildren().remove(entity.getNode());
                 environment.removeEntity(entity);
@@ -209,21 +209,21 @@ public class Controller implements Initializable {
 
             // NPC and mobs choose random directions every 100 cycles
             if (compteur % 100 == 0) {
-                for (Npc npc : mobView.getNpcs()) {
+                for (NPC npc : mobView.getNpcs()) {
                     npc.choisirDirectionAleatoire();
                 }
-                for (Mobs mob : mobView.getMobs()) {
+                for (Ennemis mob : mobView.getMobs()) {
                     mob.choisirDirectionAleatoire();
                 }
             }
 
             // Apply gravity and move NPCs
-            for (Npc npc : mobView.getNpcs()) {
+            for (NPC npc : mobView.getNpcs()) {
                 npc.applyGravity(environment);
                 npc.seDeplacer();
             }
             // Execute mob AI actions
-            for (Mobs mob : mobView.getMobs()) {
+            for (Ennemis mob : mobView.getMobs()) {
                 mob.action();
             }
 
