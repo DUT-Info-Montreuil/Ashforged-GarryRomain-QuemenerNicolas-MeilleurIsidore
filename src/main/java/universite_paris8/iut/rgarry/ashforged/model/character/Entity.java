@@ -6,8 +6,6 @@ import universite_paris8.iut.rgarry.ashforged.model.Environment;
 
 public abstract class Entity {
 
-    private Environment env;
-
     private IntegerProperty x, y;
 
     private String id;
@@ -15,14 +13,12 @@ public abstract class Entity {
     private static int compter = 0;
 
 
-    public Entity(String name, int x, int y, Environment env) {
+    public Entity(String name, int x, int y) {
 
         this.id = "#" + compter++;
         this.name = name;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
-        this.env = env;
-
     }
 
 
@@ -37,9 +33,6 @@ public abstract class Entity {
 
     // Méthodes abstraites à implémenter par les classes filles
     public abstract void seDeplacer();
-
-    public abstract void attack();
-
 
     public String getId() {
         return id;
@@ -71,10 +64,6 @@ public abstract class Entity {
 
     public void setY(int pos) {
         y.setValue(pos);
-    }
-
-    public Environment getEnv() {
-        return env;
     }
 
 

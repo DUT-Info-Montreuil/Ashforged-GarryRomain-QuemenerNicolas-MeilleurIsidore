@@ -4,15 +4,11 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.KeyMapping;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 
 public class CharacterController {
-
-    // Enumération simple pour représenter les directions (non utilisée dans ce code, mais prête pour extension)
-    enum Direction {
-        TOP, BOTTOM, LEFT, RIGHT
-    }
 
     private Character personnage;
 
@@ -70,14 +66,11 @@ public class CharacterController {
         if (this.isDPressed()) {
             personnage.vaADroite();
         }
-        if (!this.isQPressed() && !this.isDPressed()) {
-            personnage.resteImmobile();
-        }
 
         // Vérifie si le personnage est "au sol" (collision en bas à gauche et à droite ou limite basse du terrain)
-        int bottomY = personnage.getEnv().getField().getHeight() * 64 - 32;
-        boolean onGround = (personnage.getEnv().checkCollision(personnage.getX(), personnage.getY() + 32) &&
-                personnage.getEnv().checkCollision(personnage.getX() + 31, personnage.getY() + 32)) ||
+        int bottomY = Environment.getInstance().getField().getHeight() * 64 - 32;
+        boolean onGround = (Environment.getInstance().checkCollision(personnage.getX(), personnage.getY() + 32) &&
+                Environment.getInstance().checkCollision(personnage.getX() + 31, personnage.getY() + 32)) ||
                 (personnage.getY() == bottomY);
 
         // Saut uniquement si la touche jump est pressée et que le personnage est au sol

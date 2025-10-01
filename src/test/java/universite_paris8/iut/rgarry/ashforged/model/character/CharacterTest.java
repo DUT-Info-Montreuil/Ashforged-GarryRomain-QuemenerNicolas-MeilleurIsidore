@@ -24,12 +24,12 @@ public class CharacterTest {
         environment.getMobs().add(mob);
         character.setHoldingItem(Weapon.stick);
 
-        int initialMobHealth = mob.getHealth();
+        int initialMobHealth = mob.health();
         int expectedDamage = character.getHoldingItem().getDamage() / 2; // stats[1] = 1, donc damage = item.getDamage()/2
 
         character.attack();
 
-        assertEquals(initialMobHealth - expectedDamage, mob.getHealth(), "Le mob devrait subir des dégâts.");
+        assertEquals(initialMobHealth - expectedDamage, mob.health(), "Le mob devrait subir des dégâts.");
     }
 
     // Test de l'attaque sans entité à proximité
@@ -40,11 +40,11 @@ public class CharacterTest {
         environment.getMobs().add(mob);
         character.setHoldingItem(Weapon.stick);
 
-        int initialMobHealth = mob.getHealth();
+        int initialMobHealth = mob.health();
 
         character.attack();
 
-        assertEquals(initialMobHealth, mob.getHealth(), "Le mob ne devrait pas subir de dégâts s'il est hors de portée.");
+        assertEquals(initialMobHealth, mob.health(), "Le mob ne devrait pas subir de dégâts s'il est hors de portée.");
     }
 
     // Test de l'ajout d'un item à l'inventaire

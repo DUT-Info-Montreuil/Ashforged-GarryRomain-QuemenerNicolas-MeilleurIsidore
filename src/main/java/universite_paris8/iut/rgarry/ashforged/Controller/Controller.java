@@ -4,9 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,11 +19,13 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
+import universite_paris8.iut.rgarry.ashforged.model.Gravity;
+import universite_paris8.iut.rgarry.ashforged.model.Inventory;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Tile;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
-import universite_paris8.iut.rgarry.ashforged.model.Projectile.Arrow;
+//import universite_paris8.iut.rgarry.ashforged.model.Projectile.Arrow;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
@@ -73,14 +72,14 @@ public class Controller implements Initializable {
 
     private Environment environment; // game environment holding entities, field, etc.
 
-    private LinkedHashMap<ItemInterface, Image> inventory = new LinkedHashMap<>();
-
     private CraftView craftView;
     private MobView mobView;
 
     private List<Entity> entitiesToDie = new ArrayList<>(); // entities scheduled for removal
 
-    private ObservableList<Arrow> arrows; // currently active arrows in game
+
+
+    //private ObservableList<Arrow> arrows; // currently active arrows in game
 
     /**
      * Called when the user starts the game.
@@ -111,19 +110,18 @@ public class Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Field field = new Field();
 
         this.craftView = new CraftView();
 
         // Initialize the game environment with the field
-        environment = new Environment(field);
+        environment = Environment.getInstance();
 
         // Get the player character (hero)
         personnage = environment.getHero();
 
         // Initialize arrow list and add listener for changes
-        arrows = FXCollections.observableArrayList();
-        arrowListener();
+//        arrows = FXCollections.observableArrayList();
+//        arrowListener();
 
         // Setup death menu logic
         deathMenu();
@@ -138,29 +136,29 @@ public class Controller implements Initializable {
         paneperso.requestFocus();
 
         // Initialize field view with tiles
-        FieldView fieldView = new FieldView(tilepane, field);
+        FieldView fieldView = new FieldView(tilepane, Environment.getInstance().getField());
 
         // Initialize character view with player and controller
-        this.personnageView = new CharacterView(paneperso, personnage, characterController, field);
+        this.personnageView = new CharacterView(paneperso, personnage, characterController, Environment.getInstance().getField());
 
         // Setup health bar and camera behavior
         initializeHealthBar();
-        initializeCamera(field);
+        initializeCamera(environment.getField());
 
         // Add some starting items to player's inventory
-        personnage.addToInventory(Usuable.golden_piece);
-        personnage.addToInventory(Weapon.stone_pickaxe);
-        personnage.addToInventory(Weapon.stone_sword);
-        personnage.addToInventory(Weapon.bow);
-        personnage.addToInventory(Usuable.wood);
-        personnage.addToInventory(Usuable.wood);
-        personnage.addToInventory(Usuable.wood);
+        personnage.getInventory().addToInventory(Usuable.golden_piece);
+        personnage.getInventory().addToInventory(Weapon.stone_pickaxe);
+        personnage.getInventory().addToInventory(Weapon.stone_sword);
+        personnage.getInventory().addToInventory(Weapon.bow);
+        personnage.getInventory().addToInventory(Usuable.wood);
+        personnage.getInventory().addToInventory(Usuable.wood);
+        personnage.getInventory().addToInventory(Usuable.wood);
 
         paneperso.setMouseTransparent(true);
         updateInventory();
 
         // Setup click handlers on the game field
-        initializeClick(field);
+        initializeClick(environment.getField());
 
         // Setup UI button handlers
         initializeButton();
@@ -236,20 +234,20 @@ public class Controller implements Initializable {
 
             // Health regeneration every 300 cycles
             if (compteur % 300 == 0) {
-                if (personnage.getHealth() > 0) {
-                    personnage.setHealth(Math.min(personnage.getHealth() + (personnage.getMaxHealth() / 10), personnage.getMaxHealth()));
+                if (personnage.health().getHealth() > 0) {
+                    personnage.health().setHealthProperty(Math.min(personnage.health().getHealth() + (personnage.health().getMaxHealth() / 10), personnage.health().getMaxHealth()));
                 }
             }
 
             // Remove inactive arrows from list and update active arrows
-            arrows.removeIf(arrow -> !arrow.isActive());
-            for (Arrow arrow : arrows) {
-                arrow.update();
-            }
+//            arrows.removeIf(arrow -> !arrow.isActive());
+//            for (Arrow arrow : arrows) {
+//                arrow.update();
+//            }
 
             // Update player movement and apply gravity
             personnage.seDeplacer();
-            personnage.applyGravity(environment);
+            Gravity.applyGravityCharacter(personnage);
 
             compteur += 1;
         }));
@@ -284,7 +282,7 @@ public class Controller implements Initializable {
      * @return The image of the item, or null if none exists.
      */
     public Image getItemImageAt(int index) {
-        ItemInterface item = personnage.findKey(personnage.getInventory(), index);
+        ItemInterface item = personnage.getInventory().findKey(personnage.getInventory(), index);
         if (item != null) {
             return item.getImage();
         }
@@ -309,7 +307,7 @@ public class Controller implements Initializable {
                 else if (personnage.getHoldingItem().getName().contains("pickaxe")) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
                         if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
-                            personnage.addToInventory(Tile.fromId(field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY()))));
+                            personnage.getInventory().addToInventory(Tile.fromId(field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY()))));
                             field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), 1);
                             ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
                             test.setImage(ciel);
@@ -318,8 +316,8 @@ public class Controller implements Initializable {
                 }
                 // Shoot arrow if holding bow
                 if (personnage.getHoldingItem().getName().contains("Bow")){
-                    Arrow arrow = new Arrow(personnage.getX(),personnage.getY()-32, environment);
-                    arrows.add(arrow);
+//                    Arrow arrow = new Arrow(personnage.getX(),personnage.getY()-32, environment);
+//                    arrows.add(arrow);
                 }
             }
             else if (event.getButton() == MouseButton.SECONDARY) {
@@ -330,7 +328,7 @@ public class Controller implements Initializable {
                             field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()),personnage.getHoldingItem().getId());
                             ImageView blockPoser = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
                             blockPoser.setImage(personnage.getHoldingItem().getImage());
-                            personnage.removeFromInventory(personnage.getHoldingItem());
+                            personnage.getInventory().removeFromInventory(personnage.getHoldingItem());
                         }
                     }
                 }
@@ -351,7 +349,7 @@ public class Controller implements Initializable {
 
             imageView.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    HashMap<ItemInterface, Integer> inventoryMap = personnage.getInventory();
+                    HashMap<ItemInterface, Integer> inventoryMap = personnage.getInventory().getInventory();
                     if (inventoryMap != null) {
                         List<ItemInterface> items = new ArrayList<>(inventoryMap.keySet());
 
@@ -400,24 +398,24 @@ public class Controller implements Initializable {
         double maxBarWidth = 200.0;
         healthBar.widthProperty().bind(
                 Bindings.createDoubleBinding(
-                        () -> (personnage.getHealth() / (double) personnage.getMaxHealth()) * maxBarWidth,
-                        personnage.healthProperty()
+                        () -> (personnage.health().getHealth() / (double) personnage.health().getMaxHealth()) * maxBarWidth,
+                        personnage.health().getHealthProperty()
                 )
         );
         expBar.widthProperty().bind(
                 Bindings.createDoubleBinding(
                         () -> (personnage.getExp() / (double) personnage.getExpToNextLevel()) * maxBarWidth,
-                        personnage.expProperty(), personnage.expToNextLevelProperty()
+                        personnage.getExpProperty(), personnage.getExpToNextLevelProperty()
                 )
         );
         lvlLabel.textProperty().bind(Bindings.createStringBinding(
                 () -> String.valueOf(personnage.getLevel()),
-                personnage.levelProperty()
+                personnage.getLevel()
         ));
     }
 
     public void deathMenu() {
-        personnage.healthProperty().addListener((obs, oldVal, newVal) -> {
+        personnage.health().getHealthProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.intValue() <= 0) {
 
                 try {
@@ -443,25 +441,25 @@ public class Controller implements Initializable {
 
     }
 
-    public void arrowListener() {
-        arrows.addListener((ListChangeListener<Arrow>) change -> {
-            while (change.next()) {
-                if (change.wasAdded()) {
-                    for (Arrow arrow : change.getAddedSubList()) {
-                        ImageView fleche =  new ImageView(new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/arrow.png").toExternalForm()));
-                        fleche.translateXProperty().bind(arrow.xProperty());
-                        fleche.translateYProperty().bind(arrow.yProperty());
-                        arrow.setArrowImage(fleche);
-                        paneperso.getChildren().add(fleche);
-                    }
-                }
-                if (change.wasRemoved()) {
-                    for (Arrow arrow : change.getRemoved()) {
-                        paneperso.getChildren().remove(arrow.getArrowImage());
-                    }
-                }
-            }
-        });
-
-    }
+//    public void arrowListener() {
+//        arrows.addListener((ListChangeListener<Arrow>) change -> {
+//            while (change.next()) {
+//                if (change.wasAdded()) {
+//                    for (Arrow arrow : change.getAddedSubList()) {
+//                        ImageView fleche =  new ImageView(new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/arrow.png").toExternalForm()));
+//                        fleche.translateXProperty().bind(arrow.xProperty());
+//                        fleche.translateYProperty().bind(arrow.yProperty());
+//                        arrow.setArrowImage(fleche);
+//                        paneperso.getChildren().add(fleche);
+//                    }
+//                }
+//                if (change.wasRemoved()) {
+//                    for (Arrow arrow : change.getRemoved()) {
+//                        paneperso.getChildren().remove(arrow.getArrowImage());
+//                    }
+//                }
+//            }
+//        });
+//
+//    }
 }

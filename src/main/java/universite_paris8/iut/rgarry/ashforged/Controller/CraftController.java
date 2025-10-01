@@ -3,6 +3,7 @@ package universite_paris8.iut.rgarry.ashforged.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import universite_paris8.iut.rgarry.ashforged.model.Inventory;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
@@ -70,7 +71,7 @@ public class CraftController {
             return;
         }
         // Retrieve current inventory from character
-        inventory = character.getInventory();
+        inventory = character.getInventory().getInventory();
 
         // Update each resource label with corresponding item quantity or zero if absent
         dirtLabel.setText(inventory.getOrDefault(Usuable.ground, 0).toString());
@@ -95,11 +96,11 @@ public class CraftController {
         if (inventory.getOrDefault(Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(Usuable.feather, 0) >= 1) {
             // Remove required materials from inventory
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.string);
+            character.getInventory().removeFromInventory(Usuable.wood);
+            character.getInventory().removeFromInventory(Usuable.wood);
+            character.getInventory().removeFromInventory(Usuable.string);
             // Add crafted bow to inventory
-            character.addToInventory(Weapon.bow);
+            character.getInventory().addToInventory(Weapon.bow);
             affichageResultatLabel.setText("Arc fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un arc");
@@ -114,9 +115,9 @@ public class CraftController {
      */
     public void craftStick(ActionEvent actionEvent) {
         if (inventory.getOrDefault(Usuable.wood, 0) >= 2) {
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.wood);
-            character.addToInventory(Weapon.stick);
+            character.getInventory().removeFromInventory(Usuable.wood);
+            character.getInventory().removeFromInventory(Usuable.wood);
+            character.getInventory().addToInventory(Weapon.stick);
             affichageResultatLabel.setText("Bâton fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un bâton");
@@ -132,9 +133,9 @@ public class CraftController {
     public void craftWoodenKnife(ActionEvent actionEvent) {
         if (inventory.getOrDefault(Usuable.wood, 0) >= 4) {
             for (int i = 0; i < 4; i++) {
-                character.removeFromInventory(Usuable.wood);
+                character.getInventory().removeFromInventory(Usuable.wood);
             }
-            character.addToInventory(Weapon.wooden_knife);
+            character.getInventory().addToInventory(Weapon.wooden_knife);
             affichageResultatLabel.setText("Couteau en bois fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en bois");
@@ -151,11 +152,11 @@ public class CraftController {
     public void craftStoneKnife(ActionEvent actionEvent) {
         if (inventory.getOrDefault(Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(Usuable.stone, 0) >= 2) {
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.stone);
-            character.removeFromInventory(Usuable.stone);
-            character.addToInventory(Weapon.stone_knife);
+            character.getInventory().removeFromInventory(Usuable.wood);
+            character.getInventory().removeFromInventory(Usuable.wood);
+            character.getInventory().removeFromInventory(Usuable.stone);
+            character.getInventory().removeFromInventory(Usuable.stone);
+            character.getInventory().addToInventory(Weapon.stone_knife);
             affichageResultatLabel.setText("Couteau en pierre fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en pierre");
@@ -172,12 +173,12 @@ public class CraftController {
     public void craftIronKnife(ActionEvent actionEvent) {
         if (inventory.getOrDefault(Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(Usuable.iron, 0) >= 3) {
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.wood);
+            character.getInventory().removeFromInventory(Usuable.wood);
+            character.getInventory().removeFromInventory(Usuable.wood);
             for (int i = 0; i < 3; i++) {
-                character.removeFromInventory(Usuable.iron);
+                character.getInventory().removeFromInventory(Usuable.iron);
             }
-            character.addToInventory(Weapon.iron_knife);
+            character.getInventory().addToInventory(Weapon.iron_knife);
             affichageResultatLabel.setText("Couteau en fer fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en fer");
