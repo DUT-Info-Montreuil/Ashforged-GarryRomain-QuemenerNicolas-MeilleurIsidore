@@ -7,6 +7,7 @@ module universite_paris8.iut.rgarry.ashforged {
     requires eu.hansolo.tilesfx;
     requires javafx.graphics;
     requires java.desktop;
+    requires javafx.base;
 
     opens universite_paris8.iut.rgarry.ashforged to javafx.fxml;
     exports universite_paris8.iut.rgarry.ashforged;

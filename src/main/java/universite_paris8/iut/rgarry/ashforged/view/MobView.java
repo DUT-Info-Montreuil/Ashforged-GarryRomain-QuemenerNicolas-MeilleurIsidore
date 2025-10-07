@@ -55,22 +55,25 @@ public class MobView {
                 npcView = new ImageView(inventoryImage); // Default image
                 if (npc.getName().equals("Branda")) {
                     npcView = new ImageView(brandaImage);
-                    npc.setX(200);
-                    npc.setY(200);
+                    //npc.setX(200);
+                    //npc.setY(200);
                 } else if (npc.getName().equals("Terry")) {
                     npcView = new ImageView(terryImage);
-                    npc.setX(300);
-                    npc.setY(300);
+                    //npc.setX(300);
+                    //npc.setY(300);
                 } else if (npc.getName().equals("Salome")) {
                     npcView = new ImageView(salomeImage);
-                    npc.setX(400);
-                    npc.setY(400);
+                    //npc.setX(400);
+                    //npc.setY(400);
                 }
             }
 
             // Bind the NPC's position to the ImageView position in the pane
             npcView.layoutXProperty().bind(npc.getXProperty().asObject());
             npcView.layoutYProperty().bind(npc.getYProperty().asObject());
+
+            // Associer l'ImageView à l'entité NPC
+            npc.setImageView(npcView);
 
             // Add the NPC view to the pane
             paneperso.getChildren().add(npcView);
@@ -84,12 +87,12 @@ public class MobView {
     public void setMobsView() {
         mobs = environment.getMobs();
         for (Mobs m : mobs) {
-            if (m.getNode() == null) { // Only add if not already added
+            if (m.getImageView() == null) { // Only add if not already added
                 ImageView mobView = new ImageView(mobImage);
                 mobView.layoutXProperty().bind(m.getXProperty().asObject());
                 mobView.layoutYProperty().bind(m.getYProperty().asObject());
                 paneperso.getChildren().add(mobView);
-                m.setNode(mobView); // Save reference to the node
+                m.setImageView(mobView); // Save reference to the ImageView
             }
         }
     }

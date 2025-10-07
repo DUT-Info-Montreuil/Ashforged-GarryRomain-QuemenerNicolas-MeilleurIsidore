@@ -79,6 +79,7 @@ public class Controller implements Initializable {
     private MobView mobView;
 
     private List<Entity> entitiesToDie = new ArrayList<>(); // entities scheduled for removal
+    private List<Mobs> deadMobs = new ArrayList<>(); // mobs qui sont morts et à supprimer
 
     private ObservableList<Arrow> arrows; // currently active arrows in game
 
@@ -189,15 +190,36 @@ public class Controller implements Initializable {
                 if (entity.getHealth() <= 0) entitiesToDie.add(entity);
             }
 
-            // Remove dead entities from scene and environment
+            // Séparer les mobs des autres entités pour une gestion plus claire
             for (Entity entity : entitiesToDie) {
                 if (entity instanceof Mobs) {
-                    ((Mobs) entity).onDeath();
+                    Mobs mob = (Mobs) entity;
+                    deadMobs.add(mob);
+                    mob.onDeath();
+                } else {
+                    // Supprimer immédiatement les entités non-mobs
+                    if (entity.getImageView() != null) {
+                        paneperso.getChildren().remove(entity.getImageView());
+                    }
+                    environment.removeEntity(entity);
                 }
-                paneperso.getChildren().remove(entity.getNode());
-                environment.removeEntity(entity);
             }
-            entitiesToDie.clear();
+
+            // Traiter spécifiquement les mobs morts
+            for (Mobs deadMob : deadMobs) {
+                // Supprimer de l'affichage
+                if (deadMob.getImageView() != null) {
+                    paneperso.getChildren().remove(deadMob.getImageView());
+                }
+                // Supprimer de l'environnement
+                environment.removeEntity(deadMob);
+                // Supprimer de la liste des mobs dans MobView
+                mobView.getMobs().remove(deadMob);
+            }
+            
+            // Nettoyer les listes
+            deadMobs.clear();
+            entitiesToDie.clear(); // Nettoyer la liste après traitement
 
             // Spawn new mobs if fewer than 5 exist every 50 cycles
             if (compteur % 50 == 0) {

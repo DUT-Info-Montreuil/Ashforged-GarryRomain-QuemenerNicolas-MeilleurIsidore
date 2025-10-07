@@ -1,13 +1,10 @@
 package universite_paris8.iut.rgarry.ashforged.model;
 
-import javafx.scene.Node;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
 import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
-import universite_paris8.iut.rgarry.ashforged.view.MobView;
 
 import java.util.ArrayList;
 import java.util.List;

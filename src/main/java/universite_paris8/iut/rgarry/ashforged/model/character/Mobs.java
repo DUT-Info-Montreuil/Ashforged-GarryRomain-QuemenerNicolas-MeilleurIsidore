@@ -57,22 +57,6 @@ public class Mobs extends Character {
         }
     }
 
-    @Override
-    public void vaAGauche() {
-        int newX = getX() - getVitesse();
-        if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31) && isWithinMap(newX, getY())) {
-            setX(newX);
-        }
-    }
-
-    @Override
-    public void vaADroite() {
-        int newX = getX() + getVitesse();
-        if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31) && isWithinMap(newX, getY())) {
-            setX(newX);
-        }
-    }
-
     /** Version avec saut si collision au sol */
     public void vaADroiteR() {
         int newX = getX() + getVitesse();

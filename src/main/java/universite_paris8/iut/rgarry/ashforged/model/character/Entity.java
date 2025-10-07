@@ -2,14 +2,14 @@ package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 
 import java.util.LinkedHashMap;
 
 public abstract class Entity {
-    private Node node;
+    private ImageView imageView;
     private ItemInterface holdingItem;
     private static final double GRAVITY = 0.5;
     protected double velocityY;
@@ -105,8 +105,8 @@ public abstract class Entity {
 
     // Getters et setters usuels
 
-    public Node getNode() { return node; }
-    public void setNode(Node node) { this.node = node; }
+    public ImageView getImageView() { return imageView; }
+    public void setImageView(ImageView imageView) { this.imageView = imageView; }
 
     public double getVelocityY() { return velocityY; }
     public void setVelocityY(double velocityY) { this.velocityY = velocityY; }
