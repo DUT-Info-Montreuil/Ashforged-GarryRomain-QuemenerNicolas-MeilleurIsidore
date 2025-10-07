@@ -282,7 +282,7 @@ public class Controller implements Initializable {
      * @return The image of the item, or null if none exists.
      */
     public Image getItemImageAt(int index) {
-        ItemInterface item = personnage.getInventory().findKey(personnage.getInventory(), index);
+        ItemInterface item = personnage.getInventory().findKey(index);
         if (item != null) {
             return item.getImage();
         }

@@ -53,10 +53,10 @@ public class Inventory {
     }
 
     /** Retourne la clé (item) à l'index donné dans l'inventaire */
-    public ItemInterface findKey(Inventory inventory, int index) {
-        if (index < 0 || index >= inventory.getInventory().size()) return null;
+    public ItemInterface findKey(int index) {
+        if (index < 0 || index >= this.getInventory().size()) return null;
         int i = 0;
-        for (ItemInterface key : inventory.getInventory().keySet()) {
+        for (ItemInterface key : this.getInventory().keySet()) {
             if (i == index) return key;
             i++;
         }

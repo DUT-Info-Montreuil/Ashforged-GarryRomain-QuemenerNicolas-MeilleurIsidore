@@ -9,6 +9,7 @@ import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 
 public class Character extends Entity {
+    private static Character character;
 
     private final int JUMP_STRENGHT = -12;
 
@@ -209,6 +210,10 @@ public class Character extends Entity {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public static Character getInstance(){
+        return character;
     }
 
 

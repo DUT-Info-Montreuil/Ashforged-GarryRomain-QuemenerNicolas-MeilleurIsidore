@@ -113,7 +113,7 @@ public enum Weapon implements ItemInterface {
     private final int durability;
     private final int id;
     private final String imagePath;
-    private HashMap<ItemInterface, Integer> components = new HashMap();
+    private HashMap<ItemInterface, Integer> components;
 
     Weapon(String name, int weight, int power, int durability, int id, String imagePath) {
         this.name = name;
