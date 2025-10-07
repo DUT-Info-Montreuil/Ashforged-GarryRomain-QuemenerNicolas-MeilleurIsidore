@@ -3,6 +3,7 @@ package universite_paris8.iut.rgarry.ashforged.model.character;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
+import universite_paris8.iut.rgarry.ashforged.model.Gravity;
 
 public abstract class Entity {
 
@@ -11,14 +12,15 @@ public abstract class Entity {
     private String id;
     private String name;
     private static int compter = 0;
+    private Gravity gravity;
 
 
-    public Entity(String name, int x, int y) {
-
+    public Entity(String name, int x, int y, Gravity gravity) {
         this.id = "#" + compter++;
         this.name = name;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
+        this.gravity = new Gravity();
     }
 
 
@@ -64,6 +66,10 @@ public abstract class Entity {
 
     public void setY(int pos) {
         y.setValue(pos);
+    }
+
+    public Gravity getGravity() {
+        return gravity;
     }
 
 

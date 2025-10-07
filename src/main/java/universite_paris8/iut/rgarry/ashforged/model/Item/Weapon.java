@@ -159,6 +159,8 @@ public enum Weapon implements ItemInterface {
         return new Image(url.toExternalForm());
     }
 
+
+
     public HashMap<ItemInterface, Integer> getComponents() {
         return components;
     }

@@ -217,7 +217,7 @@ public class Controller implements Initializable {
 
             // Apply gravity and move NPCs
             for (NPC npc : mobView.getNpcs()) {
-                npc.applyGravity(environment);
+                npc.getGravity().applyGravity(npc);
                 npc.seDeplacer();
             }
             // Execute mob AI actions
@@ -247,7 +247,7 @@ public class Controller implements Initializable {
 
             // Update player movement and apply gravity
             personnage.seDeplacer();
-            Gravity.applyGravityCharacter(personnage);
+            personnage.getGravity().applyGravity(personnage);
 
             compteur += 1;
         }));
