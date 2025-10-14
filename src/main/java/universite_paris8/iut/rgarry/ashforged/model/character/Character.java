@@ -3,6 +3,9 @@ package universite_paris8.iut.rgarry.ashforged.model.character;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
+import universite_paris8.iut.rgarry.ashforged.model.Gravity;
+import universite_paris8.iut.rgarry.ashforged.model.Health;
+import universite_paris8.iut.rgarry.ashforged.model.Inventory;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 
@@ -32,8 +35,8 @@ public class Character extends Entity {
     protected Inventory inventory;
 
 
-    public Character(String name, int x, int y, int speed, int power, int health, int maxHealth, char direction, int level, int stat_point, int exp, double velocityY) {
-        super(name, x, y);
+    public Character(String name, int x, int y, Gravity gravity, int speed, int power, int health, int maxHealth, char direction, int level, int stat_point, int exp, double velocityY) {
+        super(name, x, y, gravity);
         this.level = level;
         this.stat_point = stat_point;
         this.exp.set(exp);

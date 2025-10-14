@@ -1,5 +1,8 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
+import universite_paris8.iut.rgarry.ashforged.model.Gravity;
+import universite_paris8.iut.rgarry.ashforged.model.Health;
+
 public abstract class NonePlayer extends Entity {
     private char direction;
     private static final double GRAVITY = 0.5;
@@ -8,8 +11,8 @@ public abstract class NonePlayer extends Entity {
     private Health health;
 
 
-    public NonePlayer(String name, int x, int y, int speed, int health, char direction, double velocityY) {
-        super(name, x, y);
+    public NonePlayer(String name, int x, int y, Gravity gravity, int speed, int health, char direction, double velocityY) {
+        super(name, x, y, gravity);
         this.direction = direction;
         this.speed = speed;
         this.health = new Health(health,health);

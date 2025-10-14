@@ -5,10 +5,10 @@ import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 public class Gravity {
 
     private static final double GRAVITY = 0.5;
-    private static double velocityY = 15;
+    private double velocityY = 15;
 
 
-    public static void applyGravityCharacter(Entity entity) {
+    public  void applyGravity(Entity entity) {
         velocityY += GRAVITY;
         int steps = (int) Math.abs(velocityY);
         int direction = velocityY > 0 ? 1 : -1;
