@@ -3,6 +3,7 @@ package universite_paris8.iut.rgarry.ashforged.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import universite_paris8.iut.rgarry.ashforged.model.Craft;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
@@ -50,27 +51,17 @@ public class CraftController {
     private Label MineraiEnchanteLabel;
 
     // The character whose inventory we are managing
-    private Character character;
 
-    /**
-     * Sets the character instance and updates the inventory labels accordingly.
-     * @param character The Character object whose inventory will be displayed and manipulated.
-     */
-    public void setCharacter(Character character) {
-        this.character = character;
-        updateInventoryLabels();
-    }
+
+
 
     /**
      * Updates all resource labels with the current quantities in the character's inventory.
      * If character is null, no update occurs.
      */
     private void updateInventoryLabels() {
-        if (character == null) {
-            return;
-        }
         // Retrieve current inventory from character
-        inventory = character.getInventory();
+        inventory = Character.getInstance().getInventory().getInventory();
 
         // Update each resource label with corresponding item quantity or zero if absent
         dirtLabel.setText(inventory.getOrDefault(Usuable.ground, 0).toString());
@@ -92,18 +83,7 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftBow(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(Usuable.feather, 0) >= 1) {
-            // Remove required materials from inventory
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.string);
-            // Add crafted bow to inventory
-            character.addToInventory(Weapon.bow);
-            affichageResultatLabel.setText("Arc fabriqué avec succès!");
-        } else {
-            affichageResultatLabel.setText("Ressources insuffisantes pour créer un arc");
-        }
+        Craft.getInstance().craftWeapon(Weapon.bow);
         updateInventoryLabels();
     }
 
@@ -113,14 +93,7 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftStick(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(Usuable.wood, 0) >= 2) {
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.wood);
-            character.addToInventory(Weapon.stick);
-            affichageResultatLabel.setText("Bâton fabriqué avec succès!");
-        } else {
-            affichageResultatLabel.setText("Ressources insuffisantes pour créer un bâton");
-        }
+        Craft.getInstance().craftWeapon(Weapon.stick);
         updateInventoryLabels();
     }
 
@@ -130,15 +103,7 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftWoodenKnife(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(Usuable.wood, 0) >= 4) {
-            for (int i = 0; i < 4; i++) {
-                character.removeFromInventory(Usuable.wood);
-            }
-            character.addToInventory(Weapon.wooden_knife);
-            affichageResultatLabel.setText("Couteau en bois fabriqué avec succès!");
-        } else {
-            affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en bois");
-        }
+        Craft.getInstance().craftWeapon(Weapon.wooden_knife);
         updateInventoryLabels();
     }
 
@@ -149,17 +114,7 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftStoneKnife(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(Usuable.stone, 0) >= 2) {
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.stone);
-            character.removeFromInventory(Usuable.stone);
-            character.addToInventory(Weapon.stone_knife);
-            affichageResultatLabel.setText("Couteau en pierre fabriqué avec succès!");
-        } else {
-            affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en pierre");
-        }
+        Craft.getInstance().craftWeapon(Weapon.stone_knife);
         updateInventoryLabels();
     }
 
@@ -170,27 +125,68 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftIronKnife(ActionEvent actionEvent) {
-        if (inventory.getOrDefault(Usuable.wood, 0) >= 2 &&
-                inventory.getOrDefault(Usuable.iron, 0) >= 3) {
-            character.removeFromInventory(Usuable.wood);
-            character.removeFromInventory(Usuable.wood);
-            for (int i = 0; i < 3; i++) {
-                character.removeFromInventory(Usuable.iron);
-            }
-            character.addToInventory(Weapon.iron_knife);
-            affichageResultatLabel.setText("Couteau en fer fabriqué avec succès!");
-        } else {
-            affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en fer");
-        }
+        Craft.getInstance().craftWeapon(Weapon.iron_knife);
         updateInventoryLabels();
     }
 
-    // Other crafting methods follow the same pattern:
-    // 1. Check if required resources are available
-    // 2. Remove used resources from inventory
-    // 3. Add crafted item to inventory
-    // 4. Update UI labels
-    // Example methods include craftWoodenSword, craftStoneSword, craftIronSword, craftWoodenSabre, etc.
+    public void craftWoodenSword(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.wooden_sword);
+        updateInventoryLabels();
+    }
 
-    // To avoid repetition here, I can generate the rest upon request.
+    public void craftStoneSword(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.stone_sword);
+        updateInventoryLabels();
+    }
+
+    public void craftIronSword(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.iron_sword);
+        updateInventoryLabels();
+    }
+
+    public void craftWoodenSabre(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.iron_knife);
+        updateInventoryLabels();
+    }
+
+    public void craftStoneSabre(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.stone_sabre);
+        updateInventoryLabels();
+    }
+
+    public void craftIronSabre(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.iron_sabre);
+        updateInventoryLabels();
+    }
+
+    public void craftWoodenAxe(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.wooden_axe);
+        updateInventoryLabels();
+    }
+
+    public void craftStoneAxe(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.stone_axe);
+        updateInventoryLabels();
+    }
+
+    public void craftIronAxe(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.iron_axe);
+        updateInventoryLabels();
+    }
+
+
+    public void craftWoodenPickaxe(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.wooden_pickaxe);
+        updateInventoryLabels();
+    }
+
+    public void craftStonePickaxe(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.stone_pickaxe);
+        updateInventoryLabels();
+    }
+
+    public void craftIronPickaxe(ActionEvent actionEvent) {
+        Craft.getInstance().craftWeapon(Weapon.iron_pickaxe);
+        updateInventoryLabels();
+    }
 }

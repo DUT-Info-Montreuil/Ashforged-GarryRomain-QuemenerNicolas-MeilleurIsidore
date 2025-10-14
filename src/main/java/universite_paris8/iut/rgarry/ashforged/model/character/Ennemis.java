@@ -12,13 +12,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class Mobs extends Character {
+public class Ennemis extends NonePlayer {
     private int stats_multiplier;
     private ItemInterface item;
     private final int initialX;
+    private int force;
     private final Random random = new Random();
     private final int JUMP_STRENGHT = -12;
     private boolean aVuJoueur = false;
+
+    private ItemInterface holdingItem;
 
     // Bornes de déplacement en tuiles (non initialisées dans le constructeur ici)
     private int minX;
@@ -26,21 +29,18 @@ public class Mobs extends Character {
 
     private char directionCourante = 'i';
 
-    private List<Position> currentPath = null;
-    private int pathIndex = 1;
 
-    private int lastJoueurCaseX = -1;
-    private int lastJoueurCaseY = -1;
 
-    public Mobs(String name, int level, int[] stats, int stats_multiplier, ItemInterface item, int x, int y, Environment env) {
-        super(name, level, stats, x, y, env);
-        this.stats_multiplier = stats_multiplier;
+    public Ennemis(String name, int x, int y,int speed, int health, int force, char direction,  ItemInterface item, double velocityY) {
+        super(name, x, y, speed, health, direction, velocityY);
         this.item = item;
+        this.force = force;
         this.initialX = x;
         this.setHoldingItem(item);
     }
 
     /** Choisit une direction aléatoire */
+    @Override
     public void choisirDirectionAleatoire() {
         int r = random.nextInt(3);
         if (r == 0) directionCourante = 'g';
@@ -51,31 +51,33 @@ public class Mobs extends Character {
     /** Se déplace selon direction aléatoire */
     public void seDeplacerRandom() {
         if (directionCourante == 'g') {
-            vaAGaucheR();
+            vaAGauche();
         } else if (directionCourante == 'd') {
-            vaADroiteR();
+            vaADroite();
         }
     }
 
+
+
     /** Version avec saut si collision au sol */
-    public void vaADroiteR() {
-        int newX = getX() + getVitesse();
-        if (!env.checkCollision(newX + 31, getY()) && !env.checkCollision(newX + 31, getY() + 31) && isWithinMap(newX, getY())) {
+    public void vaADroite() {
+        int newX = getX() + getSpeed();
+        if (!Environment.getInstance().checkCollision(newX + 31, getY()) && !Environment.getInstance().checkCollision(newX + 31, getY() + 31) && Environment.getInstance().getField().isWithinMap(newX, getY())) {
             setX(newX);
         } else {
-            if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
+            if (Environment.getInstance().checkCollision(getX(), getY() + 32) && Environment.getInstance().checkCollision(getX() + 31, getY() + 32)) {
                 setVelocityY(JUMP_STRENGHT);
             }
         }
     }
 
     /** Version avec saut si collision au sol */
-    public void vaAGaucheR() {
-        int newX = getX() - getVitesse();
-        if (!env.checkCollision(newX, getY()) && !env.checkCollision(newX, getY() + 31) && isWithinMap(newX, getY())) {
+    public void vaAGauche() {
+        int newX = getX() - getSpeed();
+        if (!Environment.getInstance().checkCollision(newX, getY()) && !Environment.getInstance().checkCollision(newX, getY() + 31) && Environment.getInstance().getField().isWithinMap(newX, getY())) {
             setX(newX);
         } else {
-            if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
+            if (Environment.getInstance().checkCollision(getX(), getY() + 32) && Environment.getInstance().checkCollision(getX() + 31, getY() + 32)) {
                 setVelocityY(JUMP_STRENGHT);
             }
         }
@@ -84,14 +86,14 @@ public class Mobs extends Character {
     @Override
     public void seDeplacer() {
         // Position du joueur
-        Character hero = env.getHero();
+        Character hero = Environment.getInstance().getHero();
         int mobX = getX() / 64;
         int mobY = getY() / 64;
         int heroX = hero.getX() / 64;
         int heroY = hero.getY() / 64;
 
         // Recherche de chemin BFS
-        BFS bfs = new BFS(env.getField());
+        BFS bfs = new BFS(Environment.getInstance().getField());
         Position start = new Position(mobX, mobY);
         Position goal = new Position(heroX, heroY);
 
@@ -110,7 +112,7 @@ public class Mobs extends Character {
 
                 // Saut si case au-dessus
                 if (next.y < mobY) {
-                    if (env.checkCollision(getX(), getY() + 32) && env.checkCollision(getX() + 31, getY() + 32)) {
+                    if (Environment.getInstance().checkCollision(getX(), getY() + 32) && Environment.getInstance().checkCollision(getX() + 31, getY() + 32)) {
                         setVelocityY(JUMP_STRENGHT);
                     }
                 }
@@ -125,7 +127,7 @@ public class Mobs extends Character {
 
         // 5% chance to drop weapon
         if (getHoldingItem() != null && rand.nextInt(100) < 5) {
-            env.getHero().addToInventory(getHoldingItem());
+//            Environment.getInstance().getHero().addToInventory(getHoldingItem());
         }
 
         // List of possible resources
@@ -146,16 +148,16 @@ public class Mobs extends Character {
 
         for (int i = 0; i < numDrops; i++) {
             ItemInterface resource = resources.get(rand.nextInt(resources.size()));
-            env.getHero().addToInventory(resource);
+//            Environment.getInstance().getHero().addToInventory(resource);
         }
     }
 
-    @Override
+
     public void attack() {
-        System.out.println(this.getName() + " Health:" + this.getHealth());
+        System.out.println(this.getName() + " Health:" + this.health());
         if (getHoldingItem() != null && getHoldingItem() instanceof Weapon) {
-            for (Entity entity : env.getEntities()) {
-                if (!(entity instanceof Mobs)) {
+            for (Entity entity : Environment.getInstance().getEntities()) {
+                if (!(entity instanceof Ennemis)) {
                     int entityX = entity.getX() / 64;
                     int entityY = entity.getY() / 64;
                     int mobX = getX() / 64;
@@ -163,19 +165,29 @@ public class Mobs extends Character {
 
                     if (Math.abs(entityX - mobX) < 2 && Math.abs(entityY - mobY) < 2) {
                         int damage;
-                        if (stats[1] > 1)
-                            damage = (int) (stats[1] * 0.5 + ((double) getHoldingItem().getDamage() / 2));
+                        if (getForce() > 1)
+                            damage = (int) (getForce() * 0.5 + ((double) getHoldingItem().getDamage() / 2));
                         else
                             damage = getHoldingItem().getDamage() / 2;
-                        entity.setHealth(entity.getHealth() - damage);
+                        this.health().setHealthProperty(health().getHealth() - damage);
                     }
                 }
             }
         }
     }
 
+
+    public void setVelocityY(double velocityY) {
+       this.velocityY = velocityY;
+    }
+
+    public int getForce(){return force;}
+
+    public ItemInterface getHoldingItem() { return holdingItem; }
+    public void setHoldingItem(ItemInterface holdingItem) { this.holdingItem = holdingItem; }
+
     public void action() {
-        this.applyGravity(env);
+//        this.applyGravity(Environment.getInstance());
         this.seDeplacer();
     }
 }

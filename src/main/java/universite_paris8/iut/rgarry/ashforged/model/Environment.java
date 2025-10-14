@@ -3,8 +3,8 @@ package universite_paris8.iut.rgarry.ashforged.model;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
-import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
-import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
+import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
+import universite_paris8.iut.rgarry.ashforged.model.character.NPC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +15,12 @@ import java.util.Random;
  * player character (Hero), mobs (enemies), and NPCs.
  */
 public class Environment {
+    private static Environment uniqueInstance=null;
 
     private Field field;
     private Character hero;
-    private List<Mobs> mobs = new ArrayList<>();
-    private List<Npc> npcs = new ArrayList<>();
+    private List<Ennemis> mobs = new ArrayList<>();
+    private List<NPC> npcs = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     private int maxMobs = 5;
 
@@ -34,19 +35,19 @@ public class Environment {
      * Creates the environment with a given field.
      * Initializes the hero, predefined mobs and NPCs, and adds them to the entity list.
      *
-     * @param field the game field (map)
+     *
      */
-    public Environment(Field field) {
-        this.field = field;
-        this.hero = new Character("Hero", 1, new int[]{999, 99999, 5, 1}, 250, 300, this);
+    public Environment() {
+        this.field = new Field();
+        this.hero = new Character("Hero", 1, 3, 250, 300, 13, 5, 'd', 75, 5, 3, 16);
 
-        this.mobs.add(new Mobs("Mongolfière", 15, new int[]{10, 1, 3, 1}, 5, Weapon.wooden_sabre, 1664, 300, this));
-        this.mobs.add(new Mobs("Kozuki", 30, new int[]{1, 1, 3, 1}, 5, Weapon.enma, 600, 250, this));
+        this.mobs.add(new Ennemis("Mongolfière", 15, 4, 5,13,28, 'g' , Weapon.wooden_sabre, 1664));
+        this.mobs.add(new Ennemis("Kozuki", 30, 15, 4, 5,13,'g', Weapon.iron_sword, 1664));
 
-        this.npcs.add(new Npc("Paolo", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
-        this.npcs.add(new Npc("Branda", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
-        this.npcs.add(new Npc("Terry", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
-        this.npcs.add(new Npc("Salome", 15, new int[]{1, 1, 10, 1}, 2500, 400, this));
+        this.npcs.add(new NPC("Paolo", 15, 20, 2500, 400, 'i', 75));
+        this.npcs.add(new NPC("Branda", 15, 20, 2500, 400, 'i', 75));
+        this.npcs.add(new NPC("Terry", 15, 20, 2500, 400, 'i', 75));
+        this.npcs.add(new NPC("Salome", 15, 20, 2500, 400, 'i', 75));
 
         this.entities.addAll(mobs);
         this.entities.addAll(npcs);
@@ -69,12 +70,12 @@ public class Environment {
     }
 
     /** @return list of mobs (enemies). */
-    public List<Mobs> getMobs() {
+    public List<Ennemis> getMobs() {
         return mobs;
     }
 
     /** @return list of non-playable characters (npcs). */
-    public List<Npc> getNpcs() {
+    public List<NPC> getNpcs() {
         return npcs;
     }
 
@@ -86,10 +87,10 @@ public class Environment {
      */
     public void addEntity(Entity entity) {
         entities.add(entity);
-        if (entity instanceof Mobs) {
-            mobs.add((Mobs) entity);
-        } else if (entity instanceof Npc) {
-            npcs.add((Npc) entity);
+        if (entity instanceof Ennemis) {
+            mobs.add((Ennemis) entity);
+        } else if (entity instanceof NPC) {
+            npcs.add((NPC) entity);
         }
     }
 
@@ -100,9 +101,9 @@ public class Environment {
      * @param entity the entity to remove
      */
     public void removeEntity(Entity entity) {
-        if (entity instanceof Mobs) {
+        if (entity instanceof Ennemis) {
             mobs.remove(entity);
-        } else if (entity instanceof Npc) {
+        } else if (entity instanceof NPC) {
             npcs.remove(entity);
         }
         entities.remove(entity);
@@ -138,9 +139,8 @@ public class Environment {
         };
 
         int heroLevel = hero.getLevel();
-        int[] heroStats = hero.getStats();
         int heroStatSum = 0;
-        for (int s : heroStats) heroStatSum += s;
+
 
         for (int i = 0; i + this.mobs.size() < maxMobs; i++) {
             int idx = rand.nextInt(mobNames.length);
@@ -165,20 +165,18 @@ public class Environment {
 
             if (!checkCollision(x, y)) {
                 System.out.println("Generating mob: " + mobNames[idx] + " (lvl " + mobLevel + ") at (" + x + ", " + y + ")");
-                Mobs mob = new Mobs(
-                        mobNames[idx],
-                        mobLevel,
-                        mobStats,
-                        5,
-                        mobWeapons[idx],
-                        x,
-                        y,
-                        this
-                );
+                Ennemis mob = new Ennemis(mobNames[idx], x, y, 13, 45, 56, 'g', Weapon.iron_sword, 13);
                 this.mobs.add(mob);
                 this.addEntity(mob);
             }
         }
+    }
+
+    public static Environment getInstance(){
+        if (uniqueInstance == null){
+            uniqueInstance = new Environment();
+        }
+        return uniqueInstance;
     }
 }
 
