@@ -1,7 +1,7 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import universite_paris8.iut.rgarry.ashforged.model.Gravity;
-import universite_paris8.iut.rgarry.ashforged.model.Health;
+
 
 public abstract class NonePlayer extends Entity {
     private char direction;
