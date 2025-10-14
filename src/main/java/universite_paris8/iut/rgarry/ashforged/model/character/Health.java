@@ -1,4 +1,4 @@
-package universite_paris8.iut.rgarry.ashforged.model;
+package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

@@ -1,8 +1,6 @@
-package universite_paris8.iut.rgarry.ashforged.model;
+package universite_paris8.iut.rgarry.ashforged.model.character;
 
-import javafx.scene.image.Image;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
 
 import java.util.LinkedHashMap;
 

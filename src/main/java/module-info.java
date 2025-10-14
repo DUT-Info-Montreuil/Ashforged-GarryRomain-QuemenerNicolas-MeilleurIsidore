@@ -14,4 +14,6 @@ module universite_paris8.iut.rgarry.ashforged {
     opens universite_paris8.iut.rgarry.ashforged.Controller to javafx.fxml;
     exports universite_paris8.iut.rgarry.ashforged.model;
     opens universite_paris8.iut.rgarry.ashforged.model to javafx.fxml;
+    exports universite_paris8.iut.rgarry.ashforged.model.character;
+    opens universite_paris8.iut.rgarry.ashforged.model.character to javafx.fxml;
 }

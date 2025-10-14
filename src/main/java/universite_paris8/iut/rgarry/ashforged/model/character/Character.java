@@ -3,8 +3,6 @@ package universite_paris8.iut.rgarry.ashforged.model.character;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
-import universite_paris8.iut.rgarry.ashforged.model.Health;
-import universite_paris8.iut.rgarry.ashforged.model.Inventory;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 

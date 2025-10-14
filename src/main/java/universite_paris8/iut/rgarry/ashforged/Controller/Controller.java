@@ -20,7 +20,6 @@ import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Gravity;
-import universite_paris8.iut.rgarry.ashforged.model.Inventory;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Tile;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
