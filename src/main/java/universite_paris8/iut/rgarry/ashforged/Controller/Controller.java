@@ -4,9 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,11 +19,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
-import universite_paris8.iut.rgarry.ashforged.model.Gravity;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Tile;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Tile;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
 import universite_paris8.iut.rgarry.ashforged.model.Projectile.Arrow;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
@@ -148,13 +143,13 @@ public class Controller implements Initializable {
         initializeCamera(environment.getField());
 
         // Add some starting items to player's inventory
-        personnage.getInventory().addToInventory(Usuable.golden_piece);
-        personnage.getInventory().addToInventory(Weapon.stone_pickaxe);
-        personnage.getInventory().addToInventory(Weapon.stone_sword);
-        personnage.getInventory().addToInventory(Weapon.bow);
-        personnage.getInventory().addToInventory(Usuable.wood);
-        personnage.getInventory().addToInventory(Usuable.wood);
-        personnage.getInventory().addToInventory(Usuable.wood);
+        personnage.getInventory().addToInventory(Consomable.golden_piece);
+        personnage.getInventory().addToInventory(Usuable.stone_pickaxe);
+        personnage.getInventory().addToInventory(Usuable.stone_sword);
+        personnage.getInventory().addToInventory(Usuable.bow);
+        personnage.getInventory().addToInventory(Consomable.wood);
+        personnage.getInventory().addToInventory(Consomable.wood);
+        personnage.getInventory().addToInventory(Consomable.wood);
 
         paneperso.setMouseTransparent(true);
         updateInventory();
@@ -302,7 +297,7 @@ public class Controller implements Initializable {
         tilepane.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 // Attack with weapon if holding a weapon other than pickaxe
-                if (personnage.getHoldingItem() instanceof Weapon && !personnage.getHoldingItem().getName().contains("pickaxe")) {
+                if (personnage.getHoldingItem() instanceof Usuable && !personnage.getHoldingItem().getName().contains("pickaxe")) {
                     personnage.attack();
                 }
                 // Mining blocks with pickaxe if close enough and block is breakable

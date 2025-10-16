@@ -1,7 +1,6 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
 
 import java.util.Random;
 

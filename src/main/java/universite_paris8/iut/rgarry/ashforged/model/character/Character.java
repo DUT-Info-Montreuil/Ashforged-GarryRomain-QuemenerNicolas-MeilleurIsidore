@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Gravity;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
 
 public class Character extends Entity {
     private static Character character;
@@ -121,7 +121,7 @@ public class Character extends Entity {
      * Inflige des dégâts et gagne de l'expérience en cas de kill.
      */
     public void attack() {
-        if (getHoldingItem() instanceof Weapon) {
+        if (getHoldingItem() instanceof Usuable) {
             for (Entity entity : Environment.getInstance().getEntities()) {
                 if (entity instanceof Ennemis) {
                     int dx = Math.abs(this.getX() / 64 - this.getX() / 64);

@@ -1,8 +1,7 @@
 package universite_paris8.iut.rgarry.ashforged.model;
 
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 
 public class Craft {
@@ -13,7 +12,7 @@ public class Craft {
         this.character = character;
     }
 
-    public void craftWeapon(Weapon weapon) {
+    public void craftWeapon(Usuable weapon) {
         boolean craftAutoriser=true;
         for(ItemInterface key:weapon.getComponents().keySet()){
             if(!(character.getInventory().getInventory().get(key)>=weapon.getComponents().get(key))){
@@ -30,7 +29,7 @@ public class Craft {
         character.getInventory().addToInventory(weapon);
     }
 
-    public void craftUsable(Usuable usuable) {
+    public void craftUsable(Consomable usuable) {
         boolean craftAutoriser=true;
         for(ItemInterface key:usuable.getComponents().keySet()){
             if(!(character.getInventory().getInventory().get(key)>=usuable.getComponents().get(key))){

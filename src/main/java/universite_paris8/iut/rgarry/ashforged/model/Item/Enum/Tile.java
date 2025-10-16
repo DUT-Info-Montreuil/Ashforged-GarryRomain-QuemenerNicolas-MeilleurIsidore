@@ -1,10 +1,11 @@
-package universite_paris8.iut.rgarry.ashforged.model.Item;
+package universite_paris8.iut.rgarry.ashforged.model.Item.Enum;
 
 import javafx.scene.image.Image;
+import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 
 import java.net.URL;
 
-public enum Tile implements ItemInterface{
+public enum Tile{
     grass("grass",8,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/grass.png"),
     building("building", 15,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/building.png"),
     coal("coal",13,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/coal.png"),
@@ -34,32 +35,31 @@ public enum Tile implements ItemInterface{
         this.imagePath = imagePath;
     }
 
-    @Override
+
     public int getId() {
         return id;
     }
 
-    @Override
+
     public String getName() {
         return name;
     }
 
-    @Override
+
     public int getWeight() {
         return 0; // Pas pertinent pour Tile
     }
 
-    @Override
+
     public int getDamage() {
         return 0; // Pas pertinent pour Tile
     }
 
-    @Override
     public String getImagePath() {
         return imagePath;
     }
 
-    @Override
+
     public Image getImage() {
         URL url = getClass().getResource(getImagePath());
         return url != null ? new Image(url.toExternalForm()) : null;

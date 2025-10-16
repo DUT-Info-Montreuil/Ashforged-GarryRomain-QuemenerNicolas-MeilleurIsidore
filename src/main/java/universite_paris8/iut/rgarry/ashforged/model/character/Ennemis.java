@@ -1,8 +1,7 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import universite_paris8.iut.rgarry.ashforged.model.BFS;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
 import universite_paris8.iut.rgarry.ashforged.model.Position;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
@@ -132,15 +131,15 @@ public class Ennemis extends NonePlayer {
 
         // List of possible resources
         List<ItemInterface> resources = Arrays.asList(
-                Usuable.iron,
-                Usuable.canon_powder,
-                Usuable.perlimpinpin_powder,
-                Usuable.feather,
-                Usuable.ball,
-                Usuable.string,
-                Usuable.coal,
-                Usuable.enchanted_mineral,
-                Usuable.golden_piece
+                Consomable.iron,
+                Consomable.canon_powder,
+                Consomable.perlimpinpin_powder,
+                Consomable.feather,
+                Consomable.ball,
+                Consomable.string,
+                Consomable.coal,
+                Consomable.enchanted_mineral,
+                Consomable.golden_piece
         );
 
         // Randomly decide how many resources to drop (at least 1)
@@ -155,7 +154,7 @@ public class Ennemis extends NonePlayer {
 
     public void attack() {
         System.out.println(this.getName() + " Health:" + this.health());
-        if (getHoldingItem() != null && getHoldingItem() instanceof Weapon) {
+        if (getHoldingItem() != null && getHoldingItem() instanceof Usuable) {
             for (Entity entity : Environment.getInstance().getEntities()) {
                 if (!(entity instanceof Ennemis)) {
                     int entityX = entity.getX() / 64;

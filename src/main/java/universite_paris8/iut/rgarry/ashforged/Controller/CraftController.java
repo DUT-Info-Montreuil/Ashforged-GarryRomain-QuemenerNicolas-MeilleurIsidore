@@ -5,8 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import universite_paris8.iut.rgarry.ashforged.model.Craft;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 
 import java.util.HashMap;
@@ -64,16 +63,16 @@ public class CraftController {
         inventory = Character.getInstance().getInventory().getInventory();
 
         // Update each resource label with corresponding item quantity or zero if absent
-        dirtLabel.setText(inventory.getOrDefault(Usuable.ground, 0).toString());
-        woodLabel.setText(inventory.getOrDefault(Usuable.wood, 0).toString());
-        ironLabel.setText(inventory.getOrDefault(Usuable.iron, 0).toString());
-        aluminiumLabel.setText(inventory.getOrDefault(Usuable.alluminium, 0).toString());
-        poudreACanonLabel.setText(inventory.getOrDefault(Usuable.canon_powder, 0).toString());
-        PoudreDePerlimpinpinLabel.setText(inventory.getOrDefault(Usuable.perlimpinpin_powder, 0).toString());
-        FilLabel.setText(inventory.getOrDefault(Usuable.string, 0).toString());
-        PlumeLabel.setText(inventory.getOrDefault(Usuable.feather, 0).toString());
-        CharbonLabel.setText(inventory.getOrDefault(Usuable.coal, 0).toString());
-        MineraiEnchanteLabel.setText(inventory.getOrDefault(Usuable.enchanted_mineral, 0).toString());
+        dirtLabel.setText(inventory.getOrDefault(Consomable.ground, 0).toString());
+        woodLabel.setText(inventory.getOrDefault(Consomable.wood, 0).toString());
+        ironLabel.setText(inventory.getOrDefault(Consomable.iron, 0).toString());
+        aluminiumLabel.setText(inventory.getOrDefault(Consomable.alluminium, 0).toString());
+        poudreACanonLabel.setText(inventory.getOrDefault(Consomable.canon_powder, 0).toString());
+        PoudreDePerlimpinpinLabel.setText(inventory.getOrDefault(Consomable.perlimpinpin_powder, 0).toString());
+        FilLabel.setText(inventory.getOrDefault(Consomable.string, 0).toString());
+        PlumeLabel.setText(inventory.getOrDefault(Consomable.feather, 0).toString());
+        CharbonLabel.setText(inventory.getOrDefault(Consomable.coal, 0).toString());
+        MineraiEnchanteLabel.setText(inventory.getOrDefault(Consomable.enchanted_mineral, 0).toString());
     }
 
     /**
@@ -83,7 +82,7 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftBow(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.bow);
+        Craft.getInstance().craftWeapon(Usuable.bow);
         updateInventoryLabels();
     }
 
@@ -93,7 +92,7 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftStick(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.stick);
+        Craft.getInstance().craftWeapon(Usuable.stick);
         updateInventoryLabels();
     }
 
@@ -103,7 +102,7 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftWoodenKnife(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.wooden_knife);
+        Craft.getInstance().craftWeapon(Usuable.wooden_knife);
         updateInventoryLabels();
     }
 
@@ -114,7 +113,7 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftStoneKnife(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.stone_knife);
+        Craft.getInstance().craftWeapon(Usuable.stone_knife);
         updateInventoryLabels();
     }
 
@@ -125,68 +124,68 @@ public class CraftController {
      * @param actionEvent The action event triggered by the UI.
      */
     public void craftIronKnife(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.iron_knife);
+        Craft.getInstance().craftWeapon(Usuable.iron_knife);
         updateInventoryLabels();
     }
 
     public void craftWoodenSword(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.wooden_sword);
+        Craft.getInstance().craftWeapon(Usuable.wooden_sword);
         updateInventoryLabels();
     }
 
     public void craftStoneSword(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.stone_sword);
+        Craft.getInstance().craftWeapon(Usuable.stone_sword);
         updateInventoryLabels();
     }
 
     public void craftIronSword(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.iron_sword);
+        Craft.getInstance().craftWeapon(Usuable.iron_sword);
         updateInventoryLabels();
     }
 
     public void craftWoodenSabre(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.iron_knife);
+        Craft.getInstance().craftWeapon(Usuable.iron_knife);
         updateInventoryLabels();
     }
 
     public void craftStoneSabre(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.stone_sabre);
+        Craft.getInstance().craftWeapon(Usuable.stone_sabre);
         updateInventoryLabels();
     }
 
     public void craftIronSabre(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.iron_sabre);
+        Craft.getInstance().craftWeapon(Usuable.iron_sabre);
         updateInventoryLabels();
     }
 
     public void craftWoodenAxe(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.wooden_axe);
+        Craft.getInstance().craftWeapon(Usuable.wooden_axe);
         updateInventoryLabels();
     }
 
     public void craftStoneAxe(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.stone_axe);
+        Craft.getInstance().craftWeapon(Usuable.stone_axe);
         updateInventoryLabels();
     }
 
     public void craftIronAxe(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.iron_axe);
+        Craft.getInstance().craftWeapon(Usuable.iron_axe);
         updateInventoryLabels();
     }
 
 
     public void craftWoodenPickaxe(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.wooden_pickaxe);
+        Craft.getInstance().craftWeapon(Usuable.wooden_pickaxe);
         updateInventoryLabels();
     }
 
     public void craftStonePickaxe(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.stone_pickaxe);
+        Craft.getInstance().craftWeapon(Usuable.stone_pickaxe);
         updateInventoryLabels();
     }
 
     public void craftIronPickaxe(ActionEvent actionEvent) {
-        Craft.getInstance().craftWeapon(Weapon.iron_pickaxe);
+        Craft.getInstance().craftWeapon(Usuable.iron_pickaxe);
         updateInventoryLabels();
     }
 }
