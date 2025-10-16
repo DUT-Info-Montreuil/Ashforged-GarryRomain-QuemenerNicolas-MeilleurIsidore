@@ -45,24 +45,8 @@ public enum Tile{
         return name;
     }
 
-
-    public int getWeight() {
-        return 0; // Pas pertinent pour Tile
-    }
-
-
-    public int getDamage() {
-        return 0; // Pas pertinent pour Tile
-    }
-
     public String getImagePath() {
         return imagePath;
-    }
-
-
-    public Image getImage() {
-        URL url = getClass().getResource(getImagePath());
-        return url != null ? new Image(url.toExternalForm()) : null;
     }
 
     public static Tile fromId(int id) {

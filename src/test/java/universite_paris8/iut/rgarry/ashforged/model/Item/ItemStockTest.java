@@ -22,7 +22,7 @@ public class ItemStockTest {
     @Test
     @DisplayName("Test des getters de Usuable")
     public void testUsuableMethods() {
-        for (Consomable item : Consomable.values()) {
+        for (Usuable item : Usuable.values()) {
             assertNotNull(item.getId(), "getId() ne doit pas retourner null");
             assertNotNull(item.getName(), "getName() ne doit pas retourner null");
             assertTrue(item.getWeight() >= 0, "getWeight() doit être >= 0");
