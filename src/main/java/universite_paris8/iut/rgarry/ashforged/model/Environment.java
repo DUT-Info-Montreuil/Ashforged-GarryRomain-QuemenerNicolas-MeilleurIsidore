@@ -39,7 +39,7 @@ public class Environment {
      */
     public Environment() {
         this.field = new Field();
-        this.hero = new Character("Hero", 1, 3, 250, 300, 13, 5, 'd', 75, 5, 3, 16);
+        this.hero = Character.getInstance();
 
         this.mobs.add(new Ennemis("Mongolfière", 15, 4, 5,13,28, 'g' , Weapon.wooden_sabre, 1664));
         this.mobs.add(new Ennemis("Kozuki", 30, 15, 4, 5,13,'g', Weapon.iron_sword, 1664));
