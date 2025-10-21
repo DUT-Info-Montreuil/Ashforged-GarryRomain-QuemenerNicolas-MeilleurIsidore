@@ -4,7 +4,7 @@ import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
 
 import java.util.HashMap;
 
-public class Weapons extends Item {
+public abstract class Weapons extends Item {
     private String name;
     private int weight;
     private int power;
@@ -22,6 +22,8 @@ public class Weapons extends Item {
         this.breakable = breakable;
         this.components = new HashMap<Usuable, Integer>();
     }
+
+    public abstract void agir();
 
     public int getId() {
         return this.id;

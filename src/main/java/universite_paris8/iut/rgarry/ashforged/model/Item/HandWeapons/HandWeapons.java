@@ -4,16 +4,11 @@ import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
 
 import java.util.HashMap;
 
-public class HandWeapons extends Weapons {
+public abstract class HandWeapons extends Weapons {
     public HandWeapons(int id, String name, String imagePath, int weight, int power, int durability, boolean breakable, HashMap<Usuable, Integer> components) {
         super(id, name, imagePath, weight, power, durability, breakable, components);
     }
 
-    public void createStick(){
-        HandWeapons stick = new HandWeapons(Usuable.stick.getId(), Usuable.stick.getName(),
-                Usuable.stick.getImagePath(), Usuable.stick.getWeight(), Usuable.stick.getPower(),
-                Usuable.stick.getDurability(), Usuable.stick.isBreakable(), Usuable.stick.getComponents());
-    }
 
     public void createWoodenKnife(){
         HandWeapons wooden_knife = new HandWeapons(Usuable.wooden_knife.getId(), Usuable.wooden_knife.getName(),
@@ -103,12 +98,6 @@ public class HandWeapons extends Weapons {
         HandWeapons iron_pickaxe = new HandWeapons(Usuable.iron_pickaxe.getId(), Usuable.iron_pickaxe.getName(),
                 Usuable.iron_pickaxe.getImagePath(), Usuable.iron_pickaxe.getWeight(), Usuable.iron_pickaxe.getPower(),
                 Usuable.iron_pickaxe.getDurability(), Usuable.iron_pickaxe.isBreakable(), Usuable.iron_pickaxe.getComponents());
-    }
-
-    public void createFireArm(){
-        HandWeapons firearm = new HandWeapons(Usuable.firearm.getId(), Usuable.firearm.getName(),
-                Usuable.firearm.getImagePath(), Usuable.firearm.getWeight(), Usuable.firearm.getPower(),
-                Usuable.firearm.getDurability(), Usuable.firearm.isBreakable(), Usuable.firearm.getComponents());
     }
 
     public void createBomb(){
