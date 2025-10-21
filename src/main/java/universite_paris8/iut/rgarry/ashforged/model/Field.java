@@ -5,6 +5,7 @@ package universite_paris8.iut.rgarry.ashforged.model;
  * Example: 1 = sky block, 2 = earth block, etc.
  */
 public class Field {
+    private static Field field;
     private int[][] tiles;
 
     /**
@@ -127,5 +128,12 @@ public class Field {
         int width = getWidth() * 64;
         int height = getHeight() * 64;
         return x >= 0 && x + 31 < width && y >= 0 && y + 31 < height;
+    }
+
+    public Field getInstance(){
+        if (field == null) {
+            field = new Field();
+        }
+        return field;
     }
 }

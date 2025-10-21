@@ -213,7 +213,7 @@ public class Character extends Entity {
 
     public static Character getInstance() {
         if (character == null) {
-            character = new Character("Hero", 1, 3, 250, 300, 13, 5, 'd', 75, 5, 3, 16);
+            character = new Character("Hero", 1, 3, new Gravity(), 250, 300, 13, 5, 'd', 75, 5, 3, 16);
         }
         return character;
     }
