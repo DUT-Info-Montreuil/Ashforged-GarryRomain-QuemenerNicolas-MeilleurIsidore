@@ -1,10 +1,5 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.Enum;
 
-import javafx.scene.image.Image;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-
-import java.net.URL;
-
 public enum Tile{
     grass("grass",8,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/grass.png"),
     building("building", 15,  "/universite_paris8/iut/rgarry/ashforged/Image/tiles/building.png"),

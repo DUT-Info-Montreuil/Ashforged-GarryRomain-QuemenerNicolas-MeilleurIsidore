@@ -4,8 +4,9 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Gravity;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Item;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Weapons;
 
 public class Character extends Entity {
     private static Character character;
@@ -28,13 +29,13 @@ public class Character extends Entity {
     private char direction;
     private double velocityY;
 
-    private ItemInterface holdingItem;
+    private Item holdingItem;
 
     protected Inventory inventory;
 
 
-    public Character(String name, int x, int y, Gravity gravity, int speed, int power, int health, int maxHealth, char direction, int level, int stat_point, int exp, double velocityY) {
-        super(name, x, y, gravity);
+    public Character(String name, int x, int y, int speed, int power, int health, int maxHealth, char direction, int level, int stat_point, int exp, double velocityY) {
+        super(name, x, y);
         this.level = level;
         this.stat_point = stat_point;
         this.exp.set(exp);
@@ -121,7 +122,7 @@ public class Character extends Entity {
      * Inflige des dégâts et gagne de l'expérience en cas de kill.
      */
     public void attack() {
-        if (getHoldingItem() instanceof Usuable) {
+        if (getHoldingItem() instanceof Weapons) {
             for (Entity entity : Environment.getInstance().getEntities()) {
                 if (entity instanceof Ennemis) {
                     int dx = Math.abs(this.getX() / 64 - this.getX() / 64);
@@ -131,9 +132,9 @@ public class Character extends Entity {
                         System.out.println("HUSSSSS !");
                         int damage;
                         if (this.power > 1) {
-                            damage = (int) (this.power * 0.5 + ((double) getHoldingItem().getDamage() / 2));
+                            damage = (int) (this.power * 0.5 + ((double) ((Weapons) getHoldingItem()).getPower() / 2));
                         } else {
-                            damage = getHoldingItem().getDamage() / 2;
+                            damage = ((Weapons) getHoldingItem()).getPower() / 2;
                         }
 
                         if (health.getHealth() - damage <= 0) {
@@ -199,11 +200,11 @@ public class Character extends Entity {
         return this.health;
     }
 
-    public ItemInterface getHoldingItem() {
+    public Item getHoldingItem() {
         return holdingItem;
     }
 
-    public void setHoldingItem(ItemInterface holdingItem) {
+    public void setHoldingItem(Item holdingItem) {
         this.holdingItem = holdingItem;
     }
 

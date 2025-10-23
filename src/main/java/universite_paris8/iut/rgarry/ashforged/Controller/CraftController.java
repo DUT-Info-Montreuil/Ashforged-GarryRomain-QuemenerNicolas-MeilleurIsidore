@@ -4,15 +4,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import universite_paris8.iut.rgarry.ashforged.model.Craft;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Item;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 
 import java.util.HashMap;
 
 public class CraftController {
     // Inventory map holding items and their quantities
-    private HashMap<ItemInterface, Integer> inventory;
+    private HashMap<Item, Integer> inventory;
 
     // Label to display crafting result messages
     @FXML

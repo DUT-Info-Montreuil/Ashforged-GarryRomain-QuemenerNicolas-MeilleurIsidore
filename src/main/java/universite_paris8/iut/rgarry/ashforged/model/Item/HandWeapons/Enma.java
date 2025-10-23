@@ -1,4 +1,7 @@
-package universite_paris8.iut.rgarry.ashforged.model.Item;
+package universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons;
+
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+
 
 public class Enma extends HandWeapons {
     public Enma() {
@@ -10,5 +13,10 @@ public class Enma extends HandWeapons {
               Usuable.enma.getDurability(),
               Usuable.enma.isBreakable(),
               Usuable.enma.getComponents());
+    }
+
+    @Override
+    public void agir() {
+
     }
 }

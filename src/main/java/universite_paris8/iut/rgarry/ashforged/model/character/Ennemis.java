@@ -1,10 +1,11 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
 import universite_paris8.iut.rgarry.ashforged.model.BFS;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumables.*;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Item;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Weapons;
 import universite_paris8.iut.rgarry.ashforged.model.Position;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 
 
 import java.util.Arrays;
@@ -13,14 +14,14 @@ import java.util.Random;
 
 public class Ennemis extends NonePlayer {
     private int stats_multiplier;
-    private ItemInterface item;
+    private Item item;
     private final int initialX;
     private int force;
     private final Random random = new Random();
     private final int JUMP_STRENGHT = -12;
     private boolean aVuJoueur = false;
 
-    private ItemInterface holdingItem;
+    private Item holdingItem;
 
     // Bornes de déplacement en tuiles (non initialisées dans le constructeur ici)
     private int minX;
@@ -30,7 +31,7 @@ public class Ennemis extends NonePlayer {
 
 
 
-    public Ennemis(String name, int x, int y,int speed, int health, int force, char direction,  ItemInterface item, double velocityY) {
+    public Ennemis(String name, int x, int y,int speed, int health, int force, char direction,  Item item, double velocityY) {
         super(name, x, y, speed, health, direction, velocityY);
         this.item = item;
         this.force = force;
@@ -130,23 +131,22 @@ public class Ennemis extends NonePlayer {
         }
 
         // List of possible resources
-        List<ItemInterface> resources = Arrays.asList(
-                Consomable.iron,
-                Consomable.canon_powder,
-                Consomable.perlimpinpin_powder,
-                Consomable.feather,
-                Consomable.ball,
-                Consomable.string,
-                Consomable.coal,
-                Consomable.enchanted_mineral,
-                Consomable.golden_piece
+        List<Item> resources = Arrays.asList(
+                new Iron(),
+                new CanonPowder(),
+                new PerlimpinpinPowder(),
+                new Feather(),
+                new Ball(),
+                new Coal(),
+                new EnchantedMineral(),
+                new GoldenPiece()
         );
 
         // Randomly decide how many resources to drop (at least 1)
         int numDrops = 1 + rand.nextInt(resources.size());
 
         for (int i = 0; i < numDrops; i++) {
-            ItemInterface resource = resources.get(rand.nextInt(resources.size()));
+            Item resource = resources.get(rand.nextInt(resources.size()));
 //            Environment.getInstance().getHero().addToInventory(resource);
         }
     }
@@ -154,7 +154,7 @@ public class Ennemis extends NonePlayer {
 
     public void attack() {
         System.out.println(this.getName() + " Health:" + this.health());
-        if (getHoldingItem() != null && getHoldingItem() instanceof Usuable) {
+        if (getHoldingItem() != null && getHoldingItem() instanceof Weapons) {
             for (Entity entity : Environment.getInstance().getEntities()) {
                 if (!(entity instanceof Ennemis)) {
                     int entityX = entity.getX() / 64;
@@ -165,9 +165,9 @@ public class Ennemis extends NonePlayer {
                     if (Math.abs(entityX - mobX) < 2 && Math.abs(entityY - mobY) < 2) {
                         int damage;
                         if (getForce() > 1)
-                            damage = (int) (getForce() * 0.5 + ((double) getHoldingItem().getDamage() / 2));
+                            damage = (int) (getForce() * 0.5 + ((double) getHoldingItem().getPower() / 2));
                         else
-                            damage = getHoldingItem().getDamage() / 2;
+                            damage = getHoldingItem().getPower() / 2;
                         this.health().setHealthProperty(health().getHealth() - damage);
                     }
                 }
@@ -182,8 +182,8 @@ public class Ennemis extends NonePlayer {
 
     public int getForce(){return force;}
 
-    public ItemInterface getHoldingItem() { return holdingItem; }
-    public void setHoldingItem(ItemInterface holdingItem) { this.holdingItem = holdingItem; }
+    public Item getHoldingItem() { return holdingItem; }
+    public void setHoldingItem(Item holdingItem) { this.holdingItem = holdingItem; }
 
     public void action() {
 //        this.applyGravity(Environment.getInstance());

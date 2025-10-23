@@ -1,4 +1,4 @@
-package universite_paris8.iut.rgarry.ashforged.model.Item;
+package universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons;
 
 import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
 
@@ -9,7 +9,7 @@ public class Stick extends HandWeapons{
                 Usuable.stick.getDurability(), Usuable.stick.isBreakable(), Usuable.stick.getComponents());
     }
 
-    @Override
+
     public void agir() {
 
     }

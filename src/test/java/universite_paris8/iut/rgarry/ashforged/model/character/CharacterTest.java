@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
 
 

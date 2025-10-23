@@ -1,7 +1,6 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.Enum;
 
 import javafx.scene.image.Image;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -55,7 +54,7 @@ public enum Usuable {
     perlimpinpin_powder("perlimpinpin_powder", 1, 0, 0, 31, false, "/universite_paris8/iut/rgarry/ashforged/Image/Usuable/perlimpinpin_powder.png"),
     feather("feather", 0, 0, 0, 32, false, "/universite_paris8/iut/rgarry/ashforged/Image/Usuable/feather.png"),
     ball("ball", 2, 0, 0, 33, false, "/universite_paris8/iut/rgarry/ashforged/Image/Usuable/ball.png"),
-    string("string", 1, 0, 0, 34, false, "/universite_paris8/iut/rgarry/ashforged/Image/Usuable/string.png"),
+    string("thread", 1, 0, 0, 34, false, "/universite_paris8/iut/rgarry/ashforged/Image/Usuable/thread.png"),
     coal("coal", 3, 0, 0, 35, true, "/universite_paris8/iut/rgarry/ashforged/Image/Usuable/coal.png"),
     enchanted_mineral("enchanted_mineral", 2, 0, 0, 35,false, "/universite_paris8/iut/rgarry/ashforged/Image/Usuable/enchanted_mineral.png"),
     golden_piece("golden_piece", 1, 0, 0, 36, false, "/universite_paris8/iut/rgarry/ashforged/Image/Usuable/goldenPiece.png"),

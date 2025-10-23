@@ -1,6 +1,13 @@
 package universite_paris8.iut.rgarry.ashforged.model;
 
+import universite_paris8.iut.rgarry.ashforged.model.Item.*;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Pickaxe.IronPickaxe;
+import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Sword.IronSword;
+import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Sword.WoodenSword;
+import universite_paris8.iut.rgarry.ashforged.model.Item.IronSword;
+import universite_paris8.iut.rgarry.ashforged.model.Item.RangedWeapons.RangedWeapons;
+import universite_paris8.iut.rgarry.ashforged.model.Item.WoodenSabre;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
@@ -22,7 +29,9 @@ public class Environment {
     private List<Ennemis> mobs = new ArrayList<>();
     private List<NPC> npcs = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
+    private ObservableList<RangedWeapons> arrows;
     private int maxMobs = 5;
+
 
     /**
      * Possible movement directions for entities.
@@ -39,10 +48,10 @@ public class Environment {
      */
     public Environment() {
         this.field = new Field();
-        this.hero = new Character("Hero", 1, 3, 250, 300, 13, 5, 'd', 75, 5, 3, 16);
+        this.hero = new Character("Hero", 1, 3,300, 13, 5, 25, 'd', 5, 3, 16, 75);
 
-        this.mobs.add(new Ennemis("Mongolfière", 15, 4, 5,13,28, 'g' , Usuable.wooden_sabre, 1664));
-        this.mobs.add(new Ennemis("Kozuki", 30, 15, 4, 5,13,'g', Usuable.iron_sword, 1664));
+        this.mobs.add(new Ennemis("Mongolfière", 15, 4, 5,13,28, 'g' , new WoodenSword(), 1664));
+        this.mobs.add(new Ennemis("Kozuki", 30, 15, 4, 5,13,'g', new IronSword(), 1664));
 
         this.npcs.add(new NPC("Paolo", 15, 20, 2500, 400, 'i', 75));
         this.npcs.add(new NPC("Branda", 15, 20, 2500, 400, 'i', 75));
@@ -52,6 +61,8 @@ public class Environment {
         this.entities.addAll(mobs);
         this.entities.addAll(npcs);
         this.entities.add(hero);
+
+
     }
 
     /** @return the game field (map). */
@@ -165,7 +176,7 @@ public class Environment {
 
             if (!checkCollision(x, y)) {
                 System.out.println("Generating mob: " + mobNames[idx] + " (lvl " + mobLevel + ") at (" + x + ", " + y + ")");
-                Ennemis mob = new Ennemis(mobNames[idx], x, y, 13, 45, 56, 'g', Usuable.iron_sword, 13);
+                Ennemis mob = new Ennemis(mobNames[idx], x, y, 13, 45, 56, 'g', new IronPickaxe(), 13);
                 this.mobs.add(mob);
                 this.addEntity(mob);
             }

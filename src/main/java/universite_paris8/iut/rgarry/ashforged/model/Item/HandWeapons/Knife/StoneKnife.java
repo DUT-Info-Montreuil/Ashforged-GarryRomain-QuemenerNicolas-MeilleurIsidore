@@ -1,4 +1,7 @@
-package universite_paris8.iut.rgarry.ashforged.model.Item;
+package universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Knife;
+
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.HandWeapons;
 
 public class StoneKnife extends HandWeapons {
     public StoneKnife() {
@@ -10,5 +13,10 @@ public class StoneKnife extends HandWeapons {
               Usuable.stone_knife.getDurability(),
               Usuable.stone_knife.isBreakable(),
               Usuable.stone_knife.getComponents());
+    }
+
+    @Override
+    public void agir() {
+
     }
 }

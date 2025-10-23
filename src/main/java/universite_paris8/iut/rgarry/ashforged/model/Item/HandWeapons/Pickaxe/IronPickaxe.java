@@ -1,4 +1,7 @@
-package universite_paris8.iut.rgarry.ashforged.model.Item;
+package universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Pickaxe;
+
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.HandWeapons;
 
 public class IronPickaxe extends HandWeapons {
     public IronPickaxe() {
@@ -11,4 +14,6 @@ public class IronPickaxe extends HandWeapons {
               Usuable.iron_pickaxe.isBreakable(),
               Usuable.iron_pickaxe.getComponents());
     }
+
+    public void  agir(){}
 }

@@ -1,6 +1,7 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+
 
 public class Bomb extends HandWeapons {
     public Bomb() {
@@ -12,5 +13,10 @@ public class Bomb extends HandWeapons {
               Usuable.bomb.getDurability(),
               Usuable.bomb.isBreakable(),
               Usuable.bomb.getComponents());
+    }
+
+    @Override
+    public void agir() {
+
     }
 }

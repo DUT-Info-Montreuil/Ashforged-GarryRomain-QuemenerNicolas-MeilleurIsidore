@@ -33,6 +33,8 @@ public abstract class Weapons extends Item {
         return this.name;
     }
 
+    public int getPower(){return this.power;}
+
     public String getImagePath() {
         return this.imagePath;
     }

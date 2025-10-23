@@ -1,7 +1,5 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-
 import java.util.LinkedHashMap;
 
 public class Inventory {

@@ -3,18 +3,24 @@ package universite_paris8.iut.rgarry.ashforged.model.Item;
 public abstract class Item {
     private int id;
     private String name;
-    private String description;
+    private String imagePath;
 
     public Item(int id, String name, String imagePath) {
         this.id = id;
         this.name = name;
-        this.description = imagePath;
+        this.imagePath = imagePath;
     }
 
-    public abstract int getId();
+    public int getId(){
+        return this.id;
+    }
 
-    public abstract String getName();
+    public String getName(){
+        return this.name;
+    }
 
-    public abstract String getImagePath();
+    public String getImagePath(){
+        return this.imagePath;
+    }
 
 }

@@ -1,4 +1,7 @@
-package universite_paris8.iut.rgarry.ashforged.model.Item;
+package universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Sabre;
+
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.HandWeapons;
 
 public class WoodenSabre extends HandWeapons {
     public WoodenSabre() {
@@ -10,5 +13,10 @@ public class WoodenSabre extends HandWeapons {
               Usuable.wooden_sabre.getDurability(),
               Usuable.wooden_sabre.isBreakable(),
               Usuable.wooden_sabre.getComponents());
+    }
+
+    @Override
+    public void agir() {
+
     }
 }

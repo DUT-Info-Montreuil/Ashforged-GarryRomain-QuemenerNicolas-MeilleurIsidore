@@ -11,8 +11,9 @@ public abstract class NonePlayer extends Entity {
     private Health health;
 
 
-    public NonePlayer(String name, int x, int y, Gravity gravity, int speed, int health, char direction, double velocityY) {
-        super(name, x, y, gravity);
+    public NonePlayer(String name, int x, int y, int speed, int health, char direction, double velocityY) {
+        super(name, x, y);
+
         this.direction = direction;
         this.speed = speed;
         this.health = new Health(health,health);

@@ -15,12 +15,12 @@ public abstract class Entity {
     private Gravity gravity;
 
 
-    public Entity(String name, int x, int y, Gravity gravity) {
+    public Entity(String name, int x, int y) {
         this.id = "#" + compter++;
         this.name = name;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
-        this.gravity = new Gravity();
+        gravity = new Gravity();
     }
 
 

@@ -19,10 +19,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
-import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Tile;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
-import universite_paris8.iut.rgarry.ashforged.model.Projectile.Arrow;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
@@ -300,7 +298,8 @@ public class Controller implements Initializable {
                 if (personnage.getHoldingItem() instanceof Usuable && !personnage.getHoldingItem().getName().contains("pickaxe")) {
                     personnage.attack();
                 }
-                // Mining blocks with pickaxe if close enough and block is breakable
+                // Mining blocks with pickaxe if close enough and block is breakable.
+
                 else if (personnage.getHoldingItem().getName().contains("pickaxe")) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
                         if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {

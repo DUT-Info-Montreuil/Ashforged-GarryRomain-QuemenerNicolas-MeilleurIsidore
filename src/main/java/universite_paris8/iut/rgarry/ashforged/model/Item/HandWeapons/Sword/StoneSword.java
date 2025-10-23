@@ -1,5 +1,8 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item;
 
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.HandWeapons;
+
 public class StoneSword extends HandWeapons {
     public StoneSword() {
         super(Usuable.stone_sword.getId(),
@@ -10,5 +13,10 @@ public class StoneSword extends HandWeapons {
               Usuable.stone_sword.getDurability(),
               Usuable.stone_sword.isBreakable(),
               Usuable.stone_sword.getComponents());
+    }
+
+    @Override
+    public void agir() {
+
     }
 }

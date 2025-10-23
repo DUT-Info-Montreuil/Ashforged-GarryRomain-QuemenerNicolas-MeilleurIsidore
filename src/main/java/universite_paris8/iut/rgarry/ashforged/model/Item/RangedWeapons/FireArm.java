@@ -1,4 +1,4 @@
-package universite_paris8.iut.rgarry.ashforged.model.Item;
+package universite_paris8.iut.rgarry.ashforged.model.Item.RangedWeapons;
 
 import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
 
