@@ -1,25 +1,27 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
+import universite_paris8.iut.rgarry.ashforged.model.Item.Item;
+
 import java.util.LinkedHashMap;
 
 public class Inventory {
-    private LinkedHashMap<ItemInterface, Integer> inventory;
+    private LinkedHashMap<Item, Integer> inventory;
     private int pods;
     private int maxPods;
 
 
     public Inventory(){
-        inventory = new LinkedHashMap<ItemInterface, Integer>();
+        inventory = new LinkedHashMap<Item, Integer>();
         maxPods = 0;
         pods = 0;
     }
 
-    public LinkedHashMap<ItemInterface, Integer> getInventory() {
+    public LinkedHashMap<Item, Integer> getListOfInventory() {
         return inventory;
     }
 
     /** Ajoute un item à l'inventaire */
-    public void addToInventory(ItemInterface item) {
+    public void addToInventory(Item item) {
         System.out.println("------ Add to Inventory ------");
         if (!inventory.containsKey(item)) {
             if (item.getWeight() + pods <= maxPods) {
@@ -34,7 +36,7 @@ public class Inventory {
 
 
     /** Enlève un item de l'inventaire */
-    public void removeFromInventory(ItemInterface item) {
+    public void removeFromInventory(Item item) {
         System.out.println("------ Remove from Inventory ------");
         if (inventory.containsKey(item)) {
             if (inventory.get(item) > 1) {
@@ -49,10 +51,10 @@ public class Inventory {
     }
 
     /** Retourne la clé (item) à l'index donné dans l'inventaire */
-    public ItemInterface findKey(int index) {
-        if (index < 0 || index >= this.getInventory().size()) return null;
+    public Item findKey(int index) {
+        if (index < 0 || index >= this.getListOfInventory().size()) return null;
         int i = 0;
-        for (ItemInterface key : this.getInventory().keySet()) {
+        for (Item key : this.getListOfInventory().keySet()) {
             if (i == index) return key;
             i++;
         }

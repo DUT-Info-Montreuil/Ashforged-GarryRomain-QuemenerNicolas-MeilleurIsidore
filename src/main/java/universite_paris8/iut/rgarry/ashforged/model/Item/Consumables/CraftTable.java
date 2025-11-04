@@ -1,16 +1,17 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.Consumables;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
-public class CraftTable extends Consumables {
+public class CraftTable extends Consumable {
     public CraftTable() {
-        super(Usuable.craft_table.getId(),
-              Usuable.craft_table.getName(),
-              Usuable.craft_table.getImagePath(),
-              Usuable.craft_table.getWeight(),
-              Usuable.craft_table.getPower(),
-              Usuable.craft_table.getDurability(),
-              Usuable.craft_table.isBreakable(),
-              Usuable.craft_table.getComponents());
+        super(Usuables.craft_table.getId(),
+              Usuables.craft_table.getName(),
+              Usuables.craft_table.getImagePath(),
+              Usuables.craft_table.getWeight(),
+              Usuables.craft_table.getPower(),
+              Usuables.craft_table.getDurability(),
+              Usuables.craft_table.isBreakable(),
+              Usuables.craft_table.getComponents());
     }
 }

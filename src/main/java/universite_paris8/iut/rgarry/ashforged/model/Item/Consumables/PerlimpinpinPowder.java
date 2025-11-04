@@ -1,16 +1,17 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.Consumables;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
-public class PerlimpinpinPowder extends Consumables {
+public class PerlimpinpinPowder extends Consumable {
     public PerlimpinpinPowder() {
-        super(Usuable.perlimpinpin_powder.getId(),
-              Usuable.perlimpinpin_powder.getName(),
-              Usuable.perlimpinpin_powder.getImagePath(),
-              Usuable.perlimpinpin_powder.getWeight(),
-              Usuable.perlimpinpin_powder.getPower(),
-              Usuable.perlimpinpin_powder.getDurability(),
-              Usuable.perlimpinpin_powder.isBreakable(),
-              Usuable.perlimpinpin_powder.getComponents());
+        super(Usuables.perlimpinpin_powder.getId(),
+              Usuables.perlimpinpin_powder.getName(),
+              Usuables.perlimpinpin_powder.getImagePath(),
+              Usuables.perlimpinpin_powder.getWeight(),
+              Usuables.perlimpinpin_powder.getPower(),
+              Usuables.perlimpinpin_powder.getDurability(),
+              Usuables.perlimpinpin_powder.isBreakable(),
+              Usuables.perlimpinpin_powder.getComponents());
     }
 }

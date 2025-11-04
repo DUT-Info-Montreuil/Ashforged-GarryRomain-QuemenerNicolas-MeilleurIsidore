@@ -1,13 +1,9 @@
 package universite_paris8.iut.rgarry.ashforged.model;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.*;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Pickaxe.IronPickaxe;
 import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Sword.IronSword;
 import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Sword.WoodenSword;
-import universite_paris8.iut.rgarry.ashforged.model.Item.IronSword;
-import universite_paris8.iut.rgarry.ashforged.model.Item.RangedWeapons.RangedWeapons;
-import universite_paris8.iut.rgarry.ashforged.model.Item.WoodenSabre;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
@@ -29,7 +25,6 @@ public class Environment {
     private List<Ennemis> mobs = new ArrayList<>();
     private List<NPC> npcs = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
-    private ObservableList<RangedWeapons> arrows;
     private int maxMobs = 5;
 
 
@@ -140,13 +135,13 @@ public class Environment {
         System.out.println("Generating random mobs...");
         Random rand = new Random();
         String[] mobNames = {"Mongolfière", "Soldat", "Zombie", "Bandit", "Boss", "Kozuki"};
-                Usuable[] mobWeapons = {
-                Usuable.wooden_sabre,
-                Usuable.stone_sword,
-                Usuable.stick,
-                Usuable.firearm,
-                Usuable.iron_sabre,
-                Usuable.enma
+                Usuables[] mobWeapons = {
+                Usuables.wooden_sabre,
+                Usuables.stone_sword,
+                Usuables.stick,
+                Usuables.firearm,
+                Usuables.iron_sabre,
+                Usuables.enma
         };
 
         int heroLevel = hero.getLevel();

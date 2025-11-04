@@ -1,17 +1,17 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.Consumables;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Consumables.Consumables;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
-public class CanonPowder extends Consumables {
+public class CanonPowder extends Consumable {
     public CanonPowder() {
-        super(Usuable.canon_powder.getId(),
-              Usuable.canon_powder.getName(),
-              Usuable.canon_powder.getImagePath(),
-              Usuable.canon_powder.getWeight(),
-              Usuable.canon_powder.getPower(),
-              Usuable.canon_powder.getDurability(),
-              Usuable.canon_powder.isBreakable(),
-              Usuable.canon_powder.getComponents());
+        super(Usuables.canon_powder.getId(),
+              Usuables.canon_powder.getName(),
+              Usuables.canon_powder.getImagePath(),
+              Usuables.canon_powder.getWeight(),
+              Usuables.canon_powder.getPower(),
+              Usuables.canon_powder.getDurability(),
+              Usuables.canon_powder.isBreakable(),
+              Usuables.canon_powder.getComponents());
     }
 }

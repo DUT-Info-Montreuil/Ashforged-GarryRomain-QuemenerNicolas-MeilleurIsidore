@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
 
 public class CharacterTest {
@@ -18,9 +18,9 @@ public class CharacterTest {
     @Test
     public void testAttackEntityInRange() {
         // Ajouter un mob à proximité
-        Ennemis mob = new Ennemis("TestMob", 1, new int[]{10, 1, 5, 1}, 1, Usuable.stick, character.getX() + 64, character.getY(), environment);
+        Ennemis mob = new Ennemis("TestMob", 1, new int[]{10, 1, 5, 1}, 1, Usuables.stick, character.getX() + 64, character.getY(), environment);
         environment.getMobs().add(mob);
-        character.setHoldingItem(Usuable.stick);
+        character.setHoldingItem(Usuables.stick);
 
         int initialMobHealth = mob.health();
         int expectedDamage = character.getHoldingItem().getDamage() / 2; // stats[1] = 1, donc damage = item.getDamage()/2
@@ -34,9 +34,9 @@ public class CharacterTest {
     @Test
     public void testAttackNoEntityInRange() {
         // Ajouter un mob hors de portée
-        Ennemis mob = new Ennemis("TestMob", 1, new int[]{10, 1, 5, 1}, 1, Usuable.stick, character.getX() + 200, character.getY() + 200, environment);
+        Ennemis mob = new Ennemis("TestMob", 1, new int[]{10, 1, 5, 1}, 1, Usuables.stick, character.getX() + 200, character.getY() + 200, environment);
         environment.getMobs().add(mob);
-        character.setHoldingItem(Usuable.stick);
+        character.setHoldingItem(Usuables.stick);
 
         int initialMobHealth = mob.health();
 

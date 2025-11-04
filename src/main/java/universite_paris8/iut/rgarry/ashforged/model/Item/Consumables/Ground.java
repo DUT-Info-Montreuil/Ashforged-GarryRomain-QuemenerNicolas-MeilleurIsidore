@@ -1,16 +1,17 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.Consumables;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
-public class Ground extends Consumables {
+public class Ground extends Consumable {
     public Ground() {
-        super(Usuable.ground.getId(),
-              Usuable.ground.getName(),
-              Usuable.ground.getImagePath(),
-              Usuable.ground.getWeight(),
-              Usuable.ground.getPower(),
-              Usuable.ground.getDurability(),
-              Usuable.ground.isBreakable(),
-              Usuable.ground.getComponents());
+        super(Usuables.ground.getId(),
+              Usuables.ground.getName(),
+              Usuables.ground.getImagePath(),
+              Usuables.ground.getWeight(),
+              Usuables.ground.getPower(),
+              Usuables.ground.getDurability(),
+              Usuables.ground.isBreakable(),
+              Usuables.ground.getComponents());
     }
 }

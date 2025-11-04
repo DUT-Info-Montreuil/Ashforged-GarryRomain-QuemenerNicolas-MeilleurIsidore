@@ -1,16 +1,17 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.Consumables;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
-public class Wood extends Consumables {
+public class Wood extends Consumable {
     public Wood() {
-        super(Usuable.wood.getId(),
-              Usuable.wood.getName(),
-              Usuable.wood.getImagePath(),
-              Usuable.wood.getWeight(),
-              Usuable.wood.getPower(),
-              Usuable.wood.getDurability(),
-              Usuable.wood.isBreakable(),
-              Usuable.wood.getComponents());
+        super(Usuables.wood.getId(),
+              Usuables.wood.getName(),
+              Usuables.wood.getImagePath(),
+              Usuables.wood.getWeight(),
+              Usuables.wood.getPower(),
+              Usuables.wood.getDurability(),
+              Usuables.wood.isBreakable(),
+              Usuables.wood.getComponents());
     }
 }

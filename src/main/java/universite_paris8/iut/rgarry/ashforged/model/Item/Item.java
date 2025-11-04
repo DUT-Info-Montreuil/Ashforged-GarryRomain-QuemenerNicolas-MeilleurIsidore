@@ -1,5 +1,9 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item;
 
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
+
+import java.util.HashMap;
+
 public abstract class Item {
     private int id;
     private String name;
@@ -22,5 +26,15 @@ public abstract class Item {
     public String getImagePath(){
         return this.imagePath;
     }
+
+    public abstract int getWeight();
+
+    public abstract int getPower();
+
+    public abstract int getDurability();
+
+    public abstract boolean isBreakable();
+
+    public abstract HashMap<Usuables, Integer> getComponents();
 
 }

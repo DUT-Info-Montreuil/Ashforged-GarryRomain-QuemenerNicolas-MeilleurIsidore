@@ -1,12 +1,12 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
 public class Stick extends HandWeapons{
     public Stick() {
-        super(Usuable.stick.getId(), Usuable.stick.getName(),
-                Usuable.stick.getImagePath(), Usuable.stick.getWeight(), Usuable.stick.getPower(),
-                Usuable.stick.getDurability(), Usuable.stick.isBreakable(), Usuable.stick.getComponents());
+        super(Usuables.stick.getId(), Usuables.stick.getName(),
+                Usuables.stick.getImagePath(), Usuables.stick.getWeight(), Usuables.stick.getPower(),
+                Usuables.stick.getDurability(), Usuables.stick.isBreakable(), Usuables.stick.getComponents());
     }
 
 

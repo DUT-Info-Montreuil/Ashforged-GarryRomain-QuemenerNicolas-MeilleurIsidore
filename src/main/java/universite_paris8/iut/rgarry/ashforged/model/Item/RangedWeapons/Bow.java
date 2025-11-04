@@ -1,15 +1,13 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.RangedWeapons;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
-
-import java.util.HashMap;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
 
 public class Bow extends RangedWeapons {
     public Bow(){
-        super(Usuable.bow.getId(), Usuable.bow.getName(),
-                Usuable.bow.getImagePath(), Usuable.bow.getWeight(), Usuable.bow.getPower(),
-                Usuable.bow.getDurability(), Usuable.bow.isBreakable(), Usuable.bow.getComponents());
+        super(Usuables.bow.getId(), Usuables.bow.getName(),
+                Usuables.bow.getImagePath(), Usuables.bow.getWeight(), Usuables.bow.getPower(),
+                Usuables.bow.getDurability(), Usuables.bow.isBreakable(), Usuables.bow.getComponents());
     }
 
     @Override

@@ -21,7 +21,7 @@ public class Ennemis extends NonePlayer {
     private final int JUMP_STRENGHT = -12;
     private boolean aVuJoueur = false;
 
-    private Item holdingItem;
+    private Weapons holdingItem;
 
     // Bornes de déplacement en tuiles (non initialisées dans le constructeur ici)
     private int minX;
@@ -31,7 +31,7 @@ public class Ennemis extends NonePlayer {
 
 
 
-    public Ennemis(String name, int x, int y,int speed, int health, int force, char direction,  Item item, double velocityY) {
+    public Ennemis(String name, int x, int y,int speed, int health, int force, char direction,  Weapons item, double velocityY) {
         super(name, x, y, speed, health, direction, velocityY);
         this.item = item;
         this.force = force;
@@ -182,8 +182,8 @@ public class Ennemis extends NonePlayer {
 
     public int getForce(){return force;}
 
-    public Item getHoldingItem() { return holdingItem; }
-    public void setHoldingItem(Item holdingItem) { this.holdingItem = holdingItem; }
+    public Weapons getHoldingItem() { return holdingItem; }
+    public void setHoldingItem(Weapons holdingItem) { this.holdingItem = holdingItem; }
 
     public void action() {
 //        this.applyGravity(Environment.getInstance());

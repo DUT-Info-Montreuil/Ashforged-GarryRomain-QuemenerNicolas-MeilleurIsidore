@@ -1,17 +1,17 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.Consumables;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Consumables.Consumables;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
-public class Alluminium extends Consumables {
+public class Alluminium extends Consumable {
     public Alluminium() {
-        super(Usuable.alluminium.getId(),
-              Usuable.alluminium.getName(),
-              Usuable.alluminium.getImagePath(),
-              Usuable.alluminium.getWeight(),
-              Usuable.alluminium.getPower(),
-              Usuable.alluminium.getDurability(),
-              Usuable.alluminium.isBreakable(),
-              Usuable.alluminium.getComponents());
+        super(Usuables.alluminium.getId(),
+              Usuables.alluminium.getName(),
+              Usuables.alluminium.getImagePath(),
+              Usuables.alluminium.getWeight(),
+              Usuables.alluminium.getPower(),
+              Usuables.alluminium.getDurability(),
+              Usuables.alluminium.isBreakable(),
+              Usuables.alluminium.getComponents());
     }
 }

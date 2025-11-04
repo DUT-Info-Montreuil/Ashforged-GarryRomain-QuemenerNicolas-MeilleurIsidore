@@ -1,18 +1,18 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
 
 public class Enma extends HandWeapons {
     public Enma() {
-        super(Usuable.enma.getId(),
-              Usuable.enma.getName(),
-              Usuable.enma.getImagePath(),
-              Usuable.enma.getWeight(),
-              Usuable.enma.getPower(),
-              Usuable.enma.getDurability(),
-              Usuable.enma.isBreakable(),
-              Usuable.enma.getComponents());
+        super(Usuables.enma.getId(),
+              Usuables.enma.getName(),
+              Usuables.enma.getImagePath(),
+              Usuables.enma.getWeight(),
+              Usuables.enma.getPower(),
+              Usuables.enma.getDurability(),
+              Usuables.enma.isBreakable(),
+              Usuables.enma.getComponents());
     }
 
     @Override

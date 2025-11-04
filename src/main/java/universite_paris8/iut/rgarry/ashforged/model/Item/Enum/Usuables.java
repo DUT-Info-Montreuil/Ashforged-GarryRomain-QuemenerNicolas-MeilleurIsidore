@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.net.URL;
 import java.util.HashMap;
 
-public enum Usuable {
+public enum Usuables {
     /// Weapons
 
     bow("Bow", 3, 0, 16, 1, false, "/universite_paris8/iut/rgarry/ashforged/Image/Weapons/bow.png"),
@@ -62,69 +62,69 @@ public enum Usuable {
 
     static {
         // Bâton
-        stick.getComponents().put(Usuable.wood, 2);
+        stick.getComponents().put(Usuables.wood, 2);
 
         // Arcs
-        bow.getComponents().put(Usuable.string, 1);
-        bow.getComponents().put(Usuable.wood, 2);
+        bow.getComponents().put(Usuables.string, 1);
+        bow.getComponents().put(Usuables.wood, 2);
 
         // Couteaux
-        wooden_knife.getComponents().put(Usuable.wood, 4);
+        wooden_knife.getComponents().put(Usuables.wood, 4);
 
-        stone_knife.getComponents().put(Usuable.wood, 2);
-        stone_knife.getComponents().put(Usuable.stone, 2);
+        stone_knife.getComponents().put(Usuables.wood, 2);
+        stone_knife.getComponents().put(Usuables.stone, 2);
 
-        iron_knife.getComponents().put(Usuable.wood, 2);
-        iron_knife.getComponents().put(Usuable.iron, 3);
+        iron_knife.getComponents().put(Usuables.wood, 2);
+        iron_knife.getComponents().put(Usuables.iron, 3);
 
 
         // Épées
-        wooden_sword.getComponents().put(Usuable.wood, 4);
+        wooden_sword.getComponents().put(Usuables.wood, 4);
 
-        stone_sword.getComponents().put(Usuable.wood, 2);
-        stone_sword.getComponents().put(Usuable.stone, 2);
+        stone_sword.getComponents().put(Usuables.wood, 2);
+        stone_sword.getComponents().put(Usuables.stone, 2);
 
-        iron_sword.getComponents().put(Usuable.wood, 2);
-        iron_sword.getComponents().put(Usuable.iron, 3);
+        iron_sword.getComponents().put(Usuables.wood, 2);
+        iron_sword.getComponents().put(Usuables.iron, 3);
 
 
         // Sabres
-        wooden_sabre.getComponents().put(Usuable.wood, 4);
+        wooden_sabre.getComponents().put(Usuables.wood, 4);
 
-        stone_sabre.getComponents().put(Usuable.wood, 2);
-        stone_sabre.getComponents().put(Usuable.stone, 2);
+        stone_sabre.getComponents().put(Usuables.wood, 2);
+        stone_sabre.getComponents().put(Usuables.stone, 2);
 
-        iron_sabre.getComponents().put(Usuable.wood, 2);
-        iron_sabre.getComponents().put(Usuable.iron, 3);
+        iron_sabre.getComponents().put(Usuables.wood, 2);
+        iron_sabre.getComponents().put(Usuables.iron, 3);
 
 
         // Haches
-        wooden_axe.getComponents().put(Usuable.wood, 4);
+        wooden_axe.getComponents().put(Usuables.wood, 4);
 
-        stone_axe.getComponents().put(Usuable.wood, 2);
-        stone_axe.getComponents().put(Usuable.stone, 2);
+        stone_axe.getComponents().put(Usuables.wood, 2);
+        stone_axe.getComponents().put(Usuables.stone, 2);
 
-        iron_axe.getComponents().put(Usuable.wood, 2);
-        iron_axe.getComponents().put(Usuable.iron, 3);
+        iron_axe.getComponents().put(Usuables.wood, 2);
+        iron_axe.getComponents().put(Usuables.iron, 3);
 
 
         // Pioches
-        wooden_pickaxe.getComponents().put(Usuable.wood, 4);
+        wooden_pickaxe.getComponents().put(Usuables.wood, 4);
 
-        stone_pickaxe.getComponents().put(Usuable.wood, 2);
-        stone_pickaxe.getComponents().put(Usuable.stone, 2);
+        stone_pickaxe.getComponents().put(Usuables.wood, 2);
+        stone_pickaxe.getComponents().put(Usuables.stone, 2);
 
-        iron_pickaxe.getComponents().put(Usuable.wood, 2);
-        iron_pickaxe.getComponents().put(Usuable.iron, 3);
+        iron_pickaxe.getComponents().put(Usuables.wood, 2);
+        iron_pickaxe.getComponents().put(universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables.iron, 3);
 
         // Arme à feu
-        firearm.getComponents().put(Usuable.iron, 4);
-        firearm.getComponents().put(Usuable.wood, 1);
-        firearm.getComponents().put(Usuable.canon_powder, 2); // si gunpowder existe
+        firearm.getComponents().put(Usuables.iron, 4);
+        firearm.getComponents().put(Usuables.wood, 1);
+        firearm.getComponents().put(Usuables.canon_powder, 2); // si gunpowder existe
 
         // Bombe
-        bomb.getComponents().put(Usuable.canon_powder, 3); // à adapter selon les ressources disponibles
-        bomb.getComponents().put(Usuable.iron, 1);
+        bomb.getComponents().put(Usuables.canon_powder, 3); // à adapter selon les ressources disponibles
+        bomb.getComponents().put(Usuables.iron, 1);
     }
 
     private final String name;
@@ -134,9 +134,9 @@ public enum Usuable {
     private final boolean breakable;
     private final int id;
     private final String imagePath;
-    private HashMap<Usuable, Integer> components;
+    private HashMap<Usuables, Integer> components;
 
-    Usuable(String name, int weight, int power, int durability, int id, boolean breakable ,String imagePath) {
+    Usuables(String name, int weight, int power, int durability, int id, boolean breakable , String imagePath) {
         this.name = name;
         this.weight = weight;
         this.power = power;
@@ -171,7 +171,7 @@ public enum Usuable {
 
     public boolean isBreakable() {return breakable;}
 
-    public void getComponents(HashMap<Usuable, Integer> components) {
+    public void getComponents(HashMap<Usuables, Integer> components) {
         this.components = components;
     }
 
@@ -186,7 +186,7 @@ public enum Usuable {
 
 
 
-    public HashMap<Usuable, Integer> getComponents() {
+    public HashMap<Usuables, Integer> getComponents() {
         return components;
     }
 }

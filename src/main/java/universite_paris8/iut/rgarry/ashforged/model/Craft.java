@@ -1,6 +1,7 @@
 package universite_paris8.iut.rgarry.ashforged.model;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Utilities;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 
 public class Craft {
@@ -11,20 +12,20 @@ public class Craft {
         this.character = character;
     }
 
-    public void craftWeapon(Usuable weapon) {
+    public void craftUsable(Utilities usuables) {
         boolean craftAutoriser=true;
-        for(Usuable key:weapon.getComponents().keySet()){
-            if(!(character.getInventory().getInventory().get(key)>=weapon.getComponents().get(key))){
+        for(Usuables key:usuables.getComponents().keySet()){
+            if(!(character.getInventory().getListOfInventory().get(key)>=usuables.getComponents().get(key))){
                 craftAutoriser=false;
             }
         }
         if(craftAutoriser){
-            for(Usuable key:weapon.getComponents().keySet()){
-                for(int i = 0; i<weapon.getComponents().get(key);i++){
+            for(Usuables key:usuables.getComponents().keySet()){
+                for(int i = 0; i<usuables.getComponents().get(key);i++){
                     character.getInventory().removeFromInventory(key);
                 }
             }
         }
-        character.getInventory().addToInventory(weapon);
+        character.getInventory().addToInventory(usuables);
     }
 }

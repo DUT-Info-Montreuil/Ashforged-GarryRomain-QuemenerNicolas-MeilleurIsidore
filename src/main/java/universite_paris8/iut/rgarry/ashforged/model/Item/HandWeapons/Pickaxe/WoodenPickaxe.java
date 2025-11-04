@@ -1,18 +1,18 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Pickaxe;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.HandWeapons;
 
 public class WoodenPickaxe extends HandWeapons {
     public WoodenPickaxe() {
-        super(Usuable.wooden_pickaxe.getId(),
-              Usuable.wooden_pickaxe.getName(),
-              Usuable.wooden_pickaxe.getImagePath(),
-              Usuable.wooden_pickaxe.getWeight(),
-              Usuable.wooden_pickaxe.getPower(),
-              Usuable.wooden_pickaxe.getDurability(),
-              Usuable.wooden_pickaxe.isBreakable(),
-              Usuable.wooden_pickaxe.getComponents());
+        super(Usuables.wooden_pickaxe.getId(),
+              Usuables.wooden_pickaxe.getName(),
+              Usuables.wooden_pickaxe.getImagePath(),
+              Usuables.wooden_pickaxe.getWeight(),
+              Usuables.wooden_pickaxe.getPower(),
+              Usuables.wooden_pickaxe.getDurability(),
+              Usuables.wooden_pickaxe.isBreakable(),
+              Usuables.wooden_pickaxe.getComponents());
     }
 
     @Override

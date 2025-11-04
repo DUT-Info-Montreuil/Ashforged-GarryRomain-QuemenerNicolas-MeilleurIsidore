@@ -4,7 +4,7 @@ import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
 import java.util.HashMap;
 
-public abstract class Weapons extends Utilities {
+public abstract class Utilities extends Item {
     private String name;
     private int weight;
     private int power;
@@ -14,11 +14,14 @@ public abstract class Weapons extends Utilities {
     private String imagePath;
     private HashMap<Usuables, Integer> components;
 
-    public Weapons(int id, String name, String imagePath, int weight, int power, int durability, boolean breakable, HashMap<Usuables, Integer> components) {
-        super(id, name, imagePath, weight, power, durability, breakable, components);
+    public Utilities(int id, String name, String imagePath, int weight, int power, int durability, boolean breakable, HashMap<Usuables, Integer> components) {
+        super(id, name, imagePath);
+        this.weight = weight;
+        this.power = power;
+        this.durability = durability;
+        this.breakable = breakable;
+        this.components = components;
     }
-
-    public abstract void agir();
 
     public int getId() {
         return this.id;
@@ -31,6 +34,8 @@ public abstract class Weapons extends Utilities {
     public int getPower(){return this.power;}
 
     public int getWeight(){return this.weight;}
+
+    public int getDurability(){return this.durability;}
 
     public String getImagePath() {
         return this.imagePath;

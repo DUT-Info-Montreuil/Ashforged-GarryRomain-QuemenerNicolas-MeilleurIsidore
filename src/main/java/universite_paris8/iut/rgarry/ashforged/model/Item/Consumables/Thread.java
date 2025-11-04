@@ -1,16 +1,17 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.Consumables;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
-public class Thread extends Consumables {
+public class Thread extends Consumable {
     public Thread() {
-        super(Usuable.string.getId(),
-              Usuable.string.getName(),
-              Usuable.string.getImagePath(),
-              Usuable.string.getWeight(),
-              Usuable.string.getPower(),
-              Usuable.string.getDurability(),
-              Usuable.string.isBreakable(),
-              Usuable.string.getComponents());
+        super(Usuables.string.getId(),
+              Usuables.string.getName(),
+              Usuables.string.getImagePath(),
+              Usuables.string.getWeight(),
+              Usuables.string.getPower(),
+              Usuables.string.getDurability(),
+              Usuables.string.isBreakable(),
+              Usuables.string.getComponents());
     }
 }

@@ -19,8 +19,14 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Field;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumables.GoldenPiece;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumables.Wood;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Tile;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
+import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Pickaxe.StonePickaxe;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Item;
+import universite_paris8.iut.rgarry.ashforged.model.Item.RangedWeapons.Bow;
+import universite_paris8.iut.rgarry.ashforged.model.Item.StoneSword;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
@@ -141,13 +147,13 @@ public class Controller implements Initializable {
         initializeCamera(environment.getField());
 
         // Add some starting items to player's inventory
-        personnage.getInventory().addToInventory(Consomable.golden_piece);
-        personnage.getInventory().addToInventory(Usuable.stone_pickaxe);
-        personnage.getInventory().addToInventory(Usuable.stone_sword);
-        personnage.getInventory().addToInventory(Usuable.bow);
-        personnage.getInventory().addToInventory(Consomable.wood);
-        personnage.getInventory().addToInventory(Consomable.wood);
-        personnage.getInventory().addToInventory(Consomable.wood);
+        personnage.getInventory().addToInventory(new GoldenPiece());
+        personnage.getInventory().addToInventory(new StonePickaxe());
+        personnage.getInventory().addToInventory(new StoneSword());
+        personnage.getInventory().addToInventory(new Bow());
+        personnage.getInventory().addToInventory(new Wood());
+        personnage.getInventory().addToInventory(new Wood());
+        personnage.getInventory().addToInventory(new Wood());
 
         paneperso.setMouseTransparent(true);
         updateInventory();
@@ -277,7 +283,7 @@ public class Controller implements Initializable {
      * @return The image of the item, or null if none exists.
      */
     public Image getItemImageAt(int index) {
-        ItemInterface item = personnage.getInventory().findKey(index);
+        Item item = personnage.getInventory().findKey(index);
         if (item != null) {
             return item.getImage();
         }
@@ -295,7 +301,7 @@ public class Controller implements Initializable {
         tilepane.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 // Attack with weapon if holding a weapon other than pickaxe
-                if (personnage.getHoldingItem() instanceof Usuable && !personnage.getHoldingItem().getName().contains("pickaxe")) {
+                if (personnage.getHoldingItem() instanceof Usuables && !personnage.getHoldingItem().getName().contains("pickaxe")) {
                     personnage.attack();
                 }
                 // Mining blocks with pickaxe if close enough and block is breakable.
@@ -345,12 +351,12 @@ public class Controller implements Initializable {
 
             imageView.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    HashMap<ItemInterface, Integer> inventoryMap = personnage.getInventory().getInventory();
+                    HashMap<Item, Integer> inventoryMap = personnage.getInventory().getListOfInventory();
                     if (inventoryMap != null) {
-                        List<ItemInterface> items = new ArrayList<>(inventoryMap.keySet());
+                        List<Item> items = new ArrayList<>(inventoryMap.keySet());
 
                         if (finalI1 < items.size()) {
-                            ItemInterface item = items.get(finalI1);
+                            Item item = items.get(finalI1);
                             if (!(item == null)) {
                                 personnage.setHoldingItem(item);
                                 int quantite = inventoryMap.get(item);

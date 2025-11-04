@@ -1,18 +1,18 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.Pickaxe;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 import universite_paris8.iut.rgarry.ashforged.model.Item.HandWeapons.HandWeapons;
 
 public class StonePickaxe extends HandWeapons {
     public StonePickaxe() {
-        super(Usuable.stone_pickaxe.getId(),
-              Usuable.stone_pickaxe.getName(),
-              Usuable.stone_pickaxe.getImagePath(),
-              Usuable.stone_pickaxe.getWeight(),
-              Usuable.stone_pickaxe.getPower(),
-              Usuable.stone_pickaxe.getDurability(),
-              Usuable.stone_pickaxe.isBreakable(),
-              Usuable.stone_pickaxe.getComponents());
+        super(Usuables.stone_pickaxe.getId(),
+              Usuables.stone_pickaxe.getName(),
+              Usuables.stone_pickaxe.getImagePath(),
+              Usuables.stone_pickaxe.getWeight(),
+              Usuables.stone_pickaxe.getPower(),
+              Usuables.stone_pickaxe.getDurability(),
+              Usuables.stone_pickaxe.isBreakable(),
+              Usuables.stone_pickaxe.getComponents());
     }
 
     @Override

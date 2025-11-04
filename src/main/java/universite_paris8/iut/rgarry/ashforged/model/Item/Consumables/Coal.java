@@ -1,17 +1,17 @@
 package universite_paris8.iut.rgarry.ashforged.model.Item.Consumables;
 
-import universite_paris8.iut.rgarry.ashforged.model.Item.Consumables.Consumables;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Consumable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Enum.Usuables;
 
-public class Coal extends Consumables {
+public class Coal extends Consumable {
     public Coal() {
-        super(Usuable.coal.getId(),
-              Usuable.coal.getName(),
-              Usuable.coal.getImagePath(),
-              Usuable.coal.getWeight(),
-              Usuable.coal.getPower(),
-              Usuable.coal.getDurability(),
-              Usuable.coal.isBreakable(),
-              Usuable.coal.getComponents());
+        super(Usuables.coal.getId(),
+              Usuables.coal.getName(),
+              Usuables.coal.getImagePath(),
+              Usuables.coal.getWeight(),
+              Usuables.coal.getPower(),
+              Usuables.coal.getDurability(),
+              Usuables.coal.isBreakable(),
+              Usuables.coal.getComponents());
     }
 }
