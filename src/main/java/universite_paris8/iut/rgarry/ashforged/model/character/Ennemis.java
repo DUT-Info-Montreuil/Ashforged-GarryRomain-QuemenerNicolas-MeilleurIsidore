@@ -1,12 +1,10 @@
 package universite_paris8.iut.rgarry.ashforged.model.character;
 
-import universite_paris8.iut.rgarry.ashforged.model.BFS;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
-import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
-import universite_paris8.iut.rgarry.ashforged.model.Position;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
-
+import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
+import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
+import universite_paris8.iut.rgarry.ashforged.model.ia.MovementStrategy;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,17 +17,16 @@ public class Ennemis extends NonePlayer {
     private int force;
     private final Random random = new Random();
     private final int JUMP_STRENGHT = -12;
-    private boolean aVuJoueur = false;
 
     private ItemInterface holdingItem;
 
-    // Bornes de déplacement en tuiles (non initialisées dans le constructeur ici)
     private int minX;
     private int maxX;
 
     private char directionCourante = 'i';
 
-
+    // Strategy de déplacement
+    private MovementStrategy movementStrategy;
 
     public Ennemis(String name, int x, int y,int speed, int health, int force, char direction,  ItemInterface item, double velocityY) {
         super(name, x, y, speed, health, direction, velocityY);
@@ -39,8 +36,7 @@ public class Ennemis extends NonePlayer {
         this.setHoldingItem(item);
     }
 
-    /** Choisit une direction aléatoire */
-    @Override
+    // ====== Déplacement bas niveau (utilisés par les stratégies) ======
     public void choisirDirectionAleatoire() {
         int r = random.nextInt(3);
         if (r == 0) directionCourante = 'g';
@@ -48,7 +44,6 @@ public class Ennemis extends NonePlayer {
         else directionCourante = 'i';
     }
 
-    /** Se déplace selon direction aléatoire */
     public void seDeplacerRandom() {
         if (directionCourante == 'g') {
             vaAGauche();
@@ -57,27 +52,29 @@ public class Ennemis extends NonePlayer {
         }
     }
 
-
-
-    /** Version avec saut si collision au sol */
     public void vaADroite() {
         int newX = getX() + getSpeed();
-        if (!Environment.getInstance().checkCollision(newX + 31, getY()) && !Environment.getInstance().checkCollision(newX + 31, getY() + 31) && Environment.getInstance().getField().isWithinMap(newX, getY())) {
+        if (!Environment.getInstance().checkCollision(newX + 31, getY()) &&
+                !Environment.getInstance().checkCollision(newX + 31, getY() + 31) &&
+                Environment.getInstance().getField().isWithinMap(newX, getY())) {
             setX(newX);
         } else {
-            if (Environment.getInstance().checkCollision(getX(), getY() + 32) && Environment.getInstance().checkCollision(getX() + 31, getY() + 32)) {
+            if (Environment.getInstance().checkCollision(getX(), getY() + 32) &&
+                    Environment.getInstance().checkCollision(getX() + 31, getY() + 32)) {
                 setVelocityY(JUMP_STRENGHT);
             }
         }
     }
 
-    /** Version avec saut si collision au sol */
     public void vaAGauche() {
         int newX = getX() - getSpeed();
-        if (!Environment.getInstance().checkCollision(newX, getY()) && !Environment.getInstance().checkCollision(newX, getY() + 31) && Environment.getInstance().getField().isWithinMap(newX, getY())) {
+        if (!Environment.getInstance().checkCollision(newX, getY()) &&
+                !Environment.getInstance().checkCollision(newX, getY() + 31) &&
+                Environment.getInstance().getField().isWithinMap(newX, getY())) {
             setX(newX);
         } else {
-            if (Environment.getInstance().checkCollision(getX(), getY() + 32) && Environment.getInstance().checkCollision(getX() + 31, getY() + 32)) {
+            if (Environment.getInstance().checkCollision(getX(), getY() + 32) &&
+                    Environment.getInstance().checkCollision(getX() + 31, getY() + 32)) {
                 setVelocityY(JUMP_STRENGHT);
             }
         }
@@ -85,52 +82,18 @@ public class Ennemis extends NonePlayer {
 
     @Override
     public void seDeplacer() {
-        // Position du joueur
-        Character hero = Environment.getInstance().getHero();
-        int mobX = getX() / 64;
-        int mobY = getY() / 64;
-        int heroX = hero.getX() / 64;
-        int heroY = hero.getY() / 64;
-
-        // Recherche de chemin BFS
-        BFS bfs = new BFS(Environment.getInstance().getField());
-        Position start = new Position(mobX, mobY);
-        Position goal = new Position(heroX, heroY);
-
-        List<Position> path = bfs.findPath(start, goal);
-
-        if (Math.abs(heroX - mobX) <= 5) {
-            aVuJoueur = true;
-        }
-
-        if (aVuJoueur) {
-            if (path.size() > 1) {
-                Position next = path.get(1);
-
-                if (next.x < mobX) vaAGauche();
-                else if (next.x > mobX) vaADroite();
-
-                // Saut si case au-dessus
-                if (next.y < mobY) {
-                    if (Environment.getInstance().checkCollision(getX(), getY() + 32) && Environment.getInstance().checkCollision(getX() + 31, getY() + 32)) {
-                        setVelocityY(JUMP_STRENGHT);
-                    }
-                }
-            }
-        } else {
-            seDeplacerRandom();
+        if (movementStrategy != null) {
+            movementStrategy.move(this, Environment.getInstance());
         }
     }
 
     public void onDeath() {
         Random rand = new Random();
 
-        // 5% chance to drop weapon
         if (getHoldingItem() != null && rand.nextInt(100) < 5) {
-//            Environment.getInstance().getHero().addToInventory(getHoldingItem());
+            // drop arme (à connecter à l'inventaire du héros)
         }
 
-        // List of possible resources
         List<ItemInterface> resources = Arrays.asList(
                 Usuable.iron,
                 Usuable.canon_powder,
@@ -143,15 +106,12 @@ public class Ennemis extends NonePlayer {
                 Usuable.golden_piece
         );
 
-        // Randomly decide how many resources to drop (at least 1)
         int numDrops = 1 + rand.nextInt(resources.size());
-
         for (int i = 0; i < numDrops; i++) {
             ItemInterface resource = resources.get(rand.nextInt(resources.size()));
-//            Environment.getInstance().getHero().addToInventory(resource);
+            // drop ressource (à connecter à l'inventaire du héros)
         }
     }
-
 
     public void attack() {
         System.out.println(this.getName() + " Health:" + this.health());
@@ -164,11 +124,9 @@ public class Ennemis extends NonePlayer {
                     int mobY = getY() / 64;
 
                     if (Math.abs(entityX - mobX) < 2 && Math.abs(entityY - mobY) < 2) {
-                        int damage;
-                        if (getForce() > 1)
-                            damage = (int) (getForce() * 0.5 + ((double) getHoldingItem().getDamage() / 2));
-                        else
-                            damage = getHoldingItem().getDamage() / 2;
+                        int damage = (getForce() > 1)
+                                ? (int) (getForce() * 0.5 + ((double) getHoldingItem().getDamage() / 2))
+                                : getHoldingItem().getDamage() / 2;
                         this.health().setHealthProperty(health().getHealth() - damage);
                     }
                 }
@@ -176,9 +134,8 @@ public class Ennemis extends NonePlayer {
         }
     }
 
-
     public void setVelocityY(double velocityY) {
-       this.velocityY = velocityY;
+        this.velocityY = velocityY;
     }
 
     public int getForce(){return force;}
@@ -186,8 +143,7 @@ public class Ennemis extends NonePlayer {
     public ItemInterface getHoldingItem() { return holdingItem; }
     public void setHoldingItem(ItemInterface holdingItem) { this.holdingItem = holdingItem; }
 
-    public void action() {
-//        this.applyGravity(Environment.getInstance());
-        this.seDeplacer();
+    public void setMovementStrategy(MovementStrategy movementStrategy) {
+        this.movementStrategy = movementStrategy;
     }
 }

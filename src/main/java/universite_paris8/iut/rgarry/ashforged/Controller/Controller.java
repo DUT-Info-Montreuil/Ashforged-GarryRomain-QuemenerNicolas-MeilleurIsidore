@@ -27,7 +27,6 @@ import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Tile;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Usuable;
 import universite_paris8.iut.rgarry.ashforged.model.Item.Weapon;
-import universite_paris8.iut.rgarry.ashforged.model.Projectile.Arrow;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
 import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
 import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
