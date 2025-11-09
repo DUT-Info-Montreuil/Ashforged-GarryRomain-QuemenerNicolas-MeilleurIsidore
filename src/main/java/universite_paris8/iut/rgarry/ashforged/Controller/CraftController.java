@@ -69,7 +69,7 @@ public class CraftController {
             return;
         }
         // Retrieve current inventory from character
-        inventory = character.getInventory();
+        inventory = Character.getInstance().getInventory().getListOfInventory();
 
         // Update each resource label with corresponding item quantity or zero if absent
         dirtLabel.setText(inventory.getOrDefault(ItemStock.Usuable.ground, 0).toString());
@@ -94,11 +94,11 @@ public class CraftController {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.feather, 0) >= 1) {
             // Remove required materials from inventory
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.string);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.string);
             // Add crafted bow to inventory
-            character.addToInventory(ItemStock.Weapon.bow);
+            character.getInventory().addToInventory(ItemStock.Weapon.bow);
             affichageResultatLabel.setText("Arc fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un arc");
@@ -113,9 +113,9 @@ public class CraftController {
      */
     public void craftStick(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.addToInventory(ItemStock.Weapon.stick);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().addToInventory(ItemStock.Weapon.stick);
             affichageResultatLabel.setText("Bâton fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un bâton");
@@ -131,9 +131,9 @@ public class CraftController {
     public void craftWoodenKnife(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 4) {
             for (int i = 0; i < 4; i++) {
-                character.removeFromInventory(ItemStock.Usuable.wood);
+                character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
             }
-            character.addToInventory(ItemStock.Weapon.wooden_knife);
+            character.getInventory().addToInventory(ItemStock.Weapon.wooden_knife);
             affichageResultatLabel.setText("Couteau en bois fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en bois");
@@ -150,11 +150,11 @@ public class CraftController {
     public void craftStoneKnife(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.stone, 0) >= 2) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.stone);
-            character.removeFromInventory(ItemStock.Usuable.stone);
-            character.addToInventory(ItemStock.Weapon.stone_knife);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.stone);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.stone);
+            character.getInventory().addToInventory(ItemStock.Weapon.stone_knife);
             affichageResultatLabel.setText("Couteau en pierre fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en pierre");
@@ -171,12 +171,12 @@ public class CraftController {
     public void craftIronKnife(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.iron, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
             for (int i = 0; i < 3; i++) {
-                character.removeFromInventory(ItemStock.Usuable.iron);
+                character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
             }
-            character.addToInventory(ItemStock.Weapon.iron_knife);
+            character.getInventory().addToInventory(ItemStock.Weapon.iron_knife);
             affichageResultatLabel.setText("Couteau en fer fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un couteau en fer");
@@ -186,11 +186,11 @@ public class CraftController {
 
     public void craftWoodenSword(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 4) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.addToInventory(ItemStock.Weapon.wooden_sword);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().addToInventory(ItemStock.Weapon.wooden_sword);
             affichageResultatLabel.setText("Épée en bois fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une épée en bois");
@@ -201,11 +201,11 @@ public class CraftController {
     public void craftStoneSword(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.ground, 0) >= 2) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.addToInventory(ItemStock.Weapon.stone_sword);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.ground);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.ground);
+            character.getInventory().addToInventory(ItemStock.Weapon.stone_sword);
             affichageResultatLabel.setText("Épée en pierre fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une épée en pierre");
@@ -216,12 +216,12 @@ public class CraftController {
     public void craftIronSword(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.iron, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.addToInventory(ItemStock.Weapon.iron_sword);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().addToInventory(ItemStock.Weapon.iron_sword);
             affichageResultatLabel.setText("Épée en fer fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une épée en fer");
@@ -231,11 +231,11 @@ public class CraftController {
 
     public void craftWoodenSabre(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 4) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.addToInventory(ItemStock.Weapon.wooden_sabre);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().addToInventory(ItemStock.Weapon.wooden_sabre);
             affichageResultatLabel.setText("Sabre en bois fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un sabre en bois");
@@ -246,11 +246,11 @@ public class CraftController {
     public void craftStoneSabre(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.ground, 0) >= 2) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.addToInventory(ItemStock.Weapon.stone_sabre);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.ground);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.ground);
+            character.getInventory().addToInventory(ItemStock.Weapon.stone_sabre);
             affichageResultatLabel.setText("Sabre en pierre fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un sabre en pierre");
@@ -261,12 +261,12 @@ public class CraftController {
     public void craftIronSabre(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.iron, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.addToInventory(ItemStock.Weapon.iron_sabre);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().addToInventory(ItemStock.Weapon.iron_sabre);
             affichageResultatLabel.setText("Sabre en fer fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer un sabre en fer");
@@ -276,11 +276,11 @@ public class CraftController {
 
     public void craftWoodenAxe(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 4) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.addToInventory(ItemStock.Weapon.wooden_axe);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().addToInventory(ItemStock.Weapon.wooden_axe);
             affichageResultatLabel.setText("Hache en bois fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une hache en bois");
@@ -291,11 +291,11 @@ public class CraftController {
     public void craftStoneAxe(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.ground, 0) >= 2) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.addToInventory(ItemStock.Weapon.stone_axe);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.ground);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.ground);
+            character.getInventory().addToInventory(ItemStock.Weapon.stone_axe);
             affichageResultatLabel.setText("Hache en pierre fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une hache en pierre");
@@ -306,12 +306,12 @@ public class CraftController {
     public void craftIronAxe(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.iron, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.addToInventory(ItemStock.Weapon.iron_axe);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().addToInventory(ItemStock.Weapon.iron_axe);
             affichageResultatLabel.setText("Hache en fer fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une hache en fer");
@@ -322,11 +322,11 @@ public class CraftController {
 
     public void craftWoodenPickaxe(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 4) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.addToInventory(ItemStock.Weapon.wooden_pickaxe);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().addToInventory(ItemStock.Weapon.wooden_pickaxe);
             affichageResultatLabel.setText("Pioche en bois fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une pioche en bois");
@@ -337,11 +337,11 @@ public class CraftController {
     public void craftStonePickaxe(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.ground, 0) >= 2) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.removeFromInventory(ItemStock.Usuable.ground);
-            character.addToInventory(ItemStock.Weapon.stone_pickaxe);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.ground);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.ground);
+            character.getInventory().addToInventory(ItemStock.Weapon.stone_pickaxe);
             affichageResultatLabel.setText("Pioche en pierre fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une pioche en pierre");
@@ -352,12 +352,12 @@ public class CraftController {
     public void craftIronPickaxe(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 2 &&
                 inventory.getOrDefault(ItemStock.Usuable.iron, 0) >= 3) {
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.addToInventory(ItemStock.Weapon.iron_pickaxe);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().addToInventory(ItemStock.Weapon.iron_pickaxe);
             affichageResultatLabel.setText("Pioche en fer fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une pioche en fer");
@@ -370,14 +370,14 @@ public class CraftController {
         if (inventory.getOrDefault(ItemStock.Usuable.iron, 0) >= 4 &&
                 inventory.getOrDefault(ItemStock.Usuable.wood, 0) >= 1 &&
                 inventory.getOrDefault(ItemStock.Usuable.canon_powder, 0) >= 2) {
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.removeFromInventory(ItemStock.Usuable.wood);
-            character.removeFromInventory(ItemStock.Usuable.canon_powder);
-            character.removeFromInventory(ItemStock.Usuable.canon_powder);
-            character.addToInventory(ItemStock.Weapon.firearm);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.wood);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.canon_powder);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.canon_powder);
+            character.getInventory().addToInventory(ItemStock.Weapon.firearm);
             affichageResultatLabel.setText("Arme à feu fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une arme à feu");
@@ -388,11 +388,11 @@ public class CraftController {
     public void craftBomb(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.canon_powder, 0) >= 3 &&
                 inventory.getOrDefault(ItemStock.Usuable.iron, 0) >= 1) {
-            character.removeFromInventory(ItemStock.Usuable.canon_powder);
-            character.removeFromInventory(ItemStock.Usuable.canon_powder);
-            character.removeFromInventory(ItemStock.Usuable.canon_powder);
-            character.removeFromInventory(ItemStock.Usuable.iron);
-            character.addToInventory(ItemStock.Weapon.bomb);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.canon_powder);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.canon_powder);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.canon_powder);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.iron);
+            character.getInventory().addToInventory(ItemStock.Weapon.bomb);
             affichageResultatLabel.setText("Bombe fabriquée avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer une bombe");
@@ -402,12 +402,12 @@ public class CraftController {
 
     public void craftEnma(ActionEvent actionEvent) {
         if (inventory.getOrDefault(ItemStock.Usuable.enchanted_mineral, 0) >= 5) {
-            character.removeFromInventory(ItemStock.Usuable.enchanted_mineral);
-            character.removeFromInventory(ItemStock.Usuable.enchanted_mineral);
-            character.removeFromInventory(ItemStock.Usuable.enchanted_mineral);
-            character.removeFromInventory(ItemStock.Usuable.enchanted_mineral);
-            character.removeFromInventory(ItemStock.Usuable.enchanted_mineral);
-            character.addToInventory(ItemStock.Weapon.enma);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.enchanted_mineral);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.enchanted_mineral);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.enchanted_mineral);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.enchanted_mineral);
+            character.getInventory().removeFromInventory(ItemStock.Usuable.enchanted_mineral);
+            character.getInventory().addToInventory(ItemStock.Weapon.enma);
             affichageResultatLabel.setText("Enma fabriqué avec succès!");
         } else {
             affichageResultatLabel.setText("Ressources insuffisantes pour créer Enma");

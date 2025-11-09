@@ -4,8 +4,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.ImageView;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
-import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
-import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
+import universite_paris8.iut.rgarry.ashforged.model.character.NonePlayer;
+import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
 
 /**
  * Represents an arrow projectile in the game.
@@ -94,28 +94,28 @@ public class Arrow {
     }
 
     /**
-     * Checks if the arrow hits any mobs, applies damage, and deactivates the arrow on hit.
+     * Checks if the arrow hits any Ennemis, applies damage, and deactivates the arrow on hit.
      */
     public void attackFleche() {
-        for (Entity entity : environment.getEntities()) {
-            if(entity instanceof Mobs) {
-                int dx = Math.abs(entity.getX() / 64 - this.getX() / 64);
-                int dy = Math.abs(entity.getY() / 64 - this.getY() / 64);
+        for (NonePlayer NonePlayer : environment.getNonePlayer()) {
+            if(NonePlayer instanceof Ennemis) {
+                int dx = Math.abs(NonePlayer.getX() / 64 - this.getX() / 64);
+                int dy = Math.abs(NonePlayer.getY() / 64 - this.getY() / 64);
                 if (dx == 0 && dy == 0) {
                     System.out.println("Hit!");
                     int damage;
-                    if (environment.getHero().getStats()[1] > 1)
-                        damage = (int) (environment.getHero().getStats()[1] * 0.5 + ((double) damageFleche / 2));
+                    if (environment.getHero().getHoldingItem().getDamage() > 1)
+                        damage = (int) (environment.getHero().getHoldingItem().getDamage() * 0.5 + ((double) damageFleche / 2));
                     else
                         damage = damageFleche / 2;
 
-                    if(entity.getHealth() - damage <= 0) {
-                        entity.setHealth(0);
-                        System.out.println("You killed " + entity.getName() + " with an arrow!");
-                        environment.getHero().gainExp(entity.getLevel());
+                    if(NonePlayer.health().getHealth() - damage <= 0) {
+                        NonePlayer.setHealth(0);
+                        System.out.println("You killed " + NonePlayer.getName() + " with an arrow!");
+                        environment.getHero().gainExp(NonePlayer.getLevel());
                     } else {
-                        entity.setHealth(entity.getHealth() - damage);
-                        System.out.println("You dealt " + damage + " damage to " + entity.getName() + "!");
+                        NonePlayer.setHealth(NonePlayer.health().getHealth() - damage);
+                        System.out.println("You dealt " + damage + " damage to " + NonePlayer.getName() + "!");
                     }
                     isActive = false;
                     break; // Arrow hits only one target

@@ -2,31 +2,31 @@ package universite_paris8.iut.rgarry.ashforged.Controller;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
+import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
 
 public class MobController {
 
     private final TilePane tilePane;
     private final Pane mobPane;
 
-    private static Mobs mongolfière;
-    private static Mobs soldat;
-    private static Mobs zombie;
-    private static Mobs bandit;
-    private static Mobs boss;
-    private static Mobs kozuki;
+    private static Ennemis mongolfière;
+    private static Ennemis soldat;
+    private static Ennemis zombie;
+    private static Ennemis bandit;
+    private static Ennemis boss;
+    private static Ennemis kozuki;
 
     /**
-     * Constructeur du contrôleur de Mobs.
+     * Constructeur du contrôleur de Ennemis.
      *
-     * @param tilePane TilePane pour afficher la liste ou grille des Mobs
-     * @param panePerso Pane dédié à l'affichage des Mobs dans la scène
+     * @param tilePane TilePane pour afficher la liste ou grille des Ennemis
+     * @param panePerso Pane dédié à l'affichage des Ennemis dans la scène
      */
     public MobController(TilePane tilePane, Pane panePerso) {
         this.tilePane = tilePane;
         this.mobPane = panePerso;
     }
 
-    // TODO : Ajouter méthodes pour initialiser, afficher, gérer les mobs
+    // TODO : Ajouter méthodes pour initialiser, afficher, gérer les Ennemis
 
 }

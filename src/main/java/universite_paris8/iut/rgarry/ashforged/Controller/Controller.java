@@ -25,10 +25,8 @@ import universite_paris8.iut.rgarry.ashforged.model.Field;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemInterface;
 import universite_paris8.iut.rgarry.ashforged.model.Item.ItemStock;
 import universite_paris8.iut.rgarry.ashforged.model.Projectile.Arrow;
+import universite_paris8.iut.rgarry.ashforged.model.character.*;
 import universite_paris8.iut.rgarry.ashforged.model.character.Character;
-import universite_paris8.iut.rgarry.ashforged.model.character.Entity;
-import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
-import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
 import universite_paris8.iut.rgarry.ashforged.view.*;
 
 import java.io.IOException;
@@ -93,7 +91,7 @@ public class Controller implements Initializable {
     private CraftView craftView;
     private MobView mobView;
 
-    private List<Entity> entitiesToDie = new ArrayList<>(); // entities scheduled for removal
+    private List<NonePlayer> entitiesToDie = new ArrayList<>(); // entities scheduled for removal
 
     private ObservableList<Arrow> arrows; // currently active arrows in game
 
@@ -131,7 +129,7 @@ public class Controller implements Initializable {
         this.craftView = new CraftView();
 
         // Initialize the game environment with the field
-        environment = new Environment(field);
+        environment = Environment.getInstance();
 
         // Get the player character (hero)
         personnage = environment.getHero();
@@ -163,13 +161,14 @@ public class Controller implements Initializable {
         initializeCamera(field);
 
         // Add some starting items to player's inventory
-        personnage.addToInventory(ItemStock.Usuable.golden_piece);
-        personnage.addToInventory(ItemStock.Weapon.stone_pickaxe);
-        personnage.addToInventory(ItemStock.Weapon.stone_sword);
-        personnage.addToInventory(ItemStock.Weapon.bow);
-        personnage.addToInventory(ItemStock.Usuable.wood);
-        personnage.addToInventory(ItemStock.Usuable.wood);
-        personnage.addToInventory(ItemStock.Usuable.wood);
+        personnage.getInventory().addToInventory(ItemStock.Usuable.golden_piece);
+        personnage.getInventory().addToInventory(ItemStock.Weapon.stone_pickaxe);
+        personnage.getInventory().addToInventory(ItemStock.Weapon.stone_sword);
+        personnage.getInventory().addToInventory(ItemStock.Weapon.bow);
+        personnage.getInventory().addToInventory(ItemStock.Usuable.wood);
+        personnage.getInventory().addToInventory(ItemStock.Usuable.wood);
+        personnage.getInventory().addToInventory(ItemStock.Usuable.wood);
+
 
         paneperso.setMouseTransparent(true);
         updateInventory();
@@ -200,17 +199,17 @@ public class Controller implements Initializable {
             if (compteur == 300) compteur = 0; // reset counter periodically
 
             // Collect entities with zero or less health to remove
-            for (Entity entity : environment.getEntities()) {
-                if (entity.getHealth() <= 0) entitiesToDie.add(entity);
+            for (NonePlayer nonePlayer : environment.getNonePlayer()) {
+                if (nonePlayer.health().getHealth() <= 0) entitiesToDie.add(nonePlayer);
             }
 
             // Remove dead entities from scene and environment
-            for (Entity entity : entitiesToDie) {
-                if (entity instanceof Mobs) {
-                    ((Mobs) entity).onDeath();
+            for (NonePlayer nonePlayer : entitiesToDie) {
+                if (nonePlayer instanceof Ennemis) {
+                    ((Ennemis) nonePlayer).onDeath();
                 }
-                paneperso.getChildren().remove(entity.getNode());
-                environment.removeEntity(entity);
+                paneperso.getChildren().remove(nonePlayer.getNode());
+                environment.removeEntity(nonePlayer);
             }
             entitiesToDie.clear();
 
@@ -224,35 +223,35 @@ public class Controller implements Initializable {
 
             // NPC and mobs choose random directions every 100 cycles
             if (compteur % 100 == 0) {
-                for (Npc npc : mobView.getNpcs()) {
+                for (NPC npc : mobView.getNpcs()) {
                     npc.choisirDirectionAleatoire();
                 }
-                for (Mobs mob : mobView.getMobs()) {
+                for (Ennemis mob : mobView.getMobs()) {
                     mob.choisirDirectionAleatoire();
                 }
             }
 
             // Apply gravity and move NPCs
-            for (Npc npc : mobView.getNpcs()) {
-                npc.applyGravity(environment);
+            for (NPC npc : mobView.getNpcs()) {
+                npc.getGravity().applyGravity(npc);
                 npc.seDeplacer();
             }
             // Execute mob AI actions
-            for (Mobs mob : mobView.getMobs()) {
+            for (Ennemis mob : mobView.getMobs()) {
                 mob.action();
             }
 
             // Entities attack every 150 cycles
             if (compteur % 150 == 0) {
-                for (Entity e : environment.getEntities()) {
+                for (Ennemis e : environment.getMobs()) {
                     e.attack();
                 }
             }
 
             // Health regeneration every 300 cycles
             if (compteur % 300 == 0) {
-                if (personnage.getHealth() > 0) {
-                    personnage.setHealth(Math.min(personnage.getHealth() + (personnage.getMaxHealth() / 10), personnage.getMaxHealth()));
+                if (personnage.health().getHealth() > 0) {
+                    personnage.health().setHealthProperty(Math.min(personnage.health().getHealth() + (personnage.health().getMaxHealth() / 10), personnage.health().getMaxHealth()));
                 }
             }
 
@@ -264,7 +263,7 @@ public class Controller implements Initializable {
 
             // Update player movement and apply gravity
             personnage.seDeplacer();
-            personnage.applyGravity(environment);
+            personnage.getGravity().applyGravity(personnage);
 
             compteur += 1;
         }));
@@ -300,7 +299,7 @@ public class Controller implements Initializable {
      * @return The image of the item, or null if none exists.
      */
     public Image getItemImageAt(int index) {
-        ItemInterface item = personnage.findKey(personnage.getInventory(), index);
+        ItemInterface item = personnage.getInventory().findKey(index);
         if (item != null) {
             return item.getImage();
         }
@@ -326,7 +325,7 @@ public class Controller implements Initializable {
                 else if (personnage.getHoldingItem() != null && personnage.getHoldingItem().getName().contains("pickaxe")) {
                     if (Math.abs(personnage.getX() - (int) (event.getX())) < (64 * 3) && Math.abs(personnage.getY() - (int) (event.getY())) < (64 * 3)) {
                         if (field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY())) != 1) {
-                            personnage.addToInventory(ItemStock.Tile.fromId(field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY()))));
+                            personnage.getInventory().addToInventory(ItemStock.Tile.fromId(field.block(field.getXView((int) event.getX()), field.getYView((int) event.getY()))));
                             field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), 1);
                             ImageView test = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
                             test.setImage(ciel);
@@ -346,7 +345,7 @@ public class Controller implements Initializable {
                             field.setBlock(field.getXView((int) event.getX()), field.getYView((int) event.getY()), personnage.getHoldingItem().getId());
                             ImageView blockPoser = (ImageView) tilepane.getChildren().get((field.getXView((int) event.getX()) + (field.getYView((int) event.getY())) * field.getWidth()));
                             blockPoser.setImage(personnage.getHoldingItem().getImage());
-                            personnage.removeFromInventory(personnage.getHoldingItem());
+                            personnage.getInventory().removeFromInventory(personnage.getHoldingItem());
                         }
                     }
                 }
@@ -367,7 +366,7 @@ public class Controller implements Initializable {
 
             imageView.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    HashMap<ItemInterface, Integer> inventoryMap = personnage.getInventory();
+                    HashMap<ItemInterface, Integer> inventoryMap = personnage.getInventory().getListOfInventory();
                     if (inventoryMap != null) {
                         List<ItemInterface> items = new ArrayList<>(inventoryMap.keySet());
 
@@ -416,24 +415,24 @@ public class Controller implements Initializable {
         double maxBarWidth = 200.0;
         healthBar.widthProperty().bind(
                 Bindings.createDoubleBinding(
-                        () -> (personnage.getHealth() / (double) personnage.getMaxHealth()) * maxBarWidth,
-                        personnage.healthProperty()
+                        () -> (personnage.health().getHealth() / (double) personnage.health().getMaxHealth()) * maxBarWidth,
+                        personnage.health().getHealthProperty()
                 )
         );
         expBar.widthProperty().bind(
                 Bindings.createDoubleBinding(
                         () -> (personnage.getExp() / (double) personnage.getExpToNextLevel()) * maxBarWidth,
-                        personnage.expProperty(), personnage.expToNextLevelProperty()
+                        personnage.getExpProperty(), personnage.getExpToNextLevelProperty()
                 )
         );
         lvlLabel.textProperty().bind(Bindings.createStringBinding(
                 () -> String.valueOf(personnage.getLevel()),
-                personnage.levelProperty()
+                personnage.getLevel()
         ));
     }
 
     public void deathMenu() {
-        personnage.healthProperty().addListener((obs, oldVal, newVal) -> {
+        personnage.health().getHealthProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.intValue() <= 0) {
 
                 try {

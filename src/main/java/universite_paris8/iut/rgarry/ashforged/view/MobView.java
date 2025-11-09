@@ -4,8 +4,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.rgarry.ashforged.model.Environment;
-import universite_paris8.iut.rgarry.ashforged.model.character.Mobs;
-import universite_paris8.iut.rgarry.ashforged.model.character.Npc;
+import universite_paris8.iut.rgarry.ashforged.model.character.Ennemis;
+import universite_paris8.iut.rgarry.ashforged.model.character.NPC;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,8 @@ import java.util.List;
 public class MobView {
     private Pane paneperso; // JavaFX Pane where characters are displayed
     private ImageView mob; // Placeholder for mob ImageView (not used in current implementation)
-    private List<Npc> npcs = new ArrayList<>(); // List of NPCs to render
-    private List<Mobs> mobs = new ArrayList<>(); // List of mobs to render
+    private List<NPC> npcs = new ArrayList<>(); // List of NPCs to render
+    private List<Ennemis> mobs = new ArrayList<>(); // List of mobs to render
     private Environment environment; // Game environment containing mobs and NPCs
 
     // Default image used for mobs
@@ -47,7 +48,7 @@ public class MobView {
         Image brandaImage = new Image(getClass().getResource("/universite_paris8/iut/rgarry/ashforged/Image/PNJ/leftTerry.png").toExternalForm());
 
         // Assign image and position to each NPC based on name
-        for (Npc npc : npcs) {
+        for (NPC npc : npcs) {
             ImageView npcView;
             if (npc.getName().equals("Paolo")) {
                 npcView = new ImageView(paoloImage);
@@ -83,13 +84,13 @@ public class MobView {
      */
     public void setMobsView() {
         mobs = environment.getMobs();
-        for (Mobs m : mobs) {
-            if (m.getNode() == null) { // Only add if not already added
+        for (Ennemis m : mobs) {
+            if (m.getImageView() == null) { // Only add if not already added
                 ImageView mobView = new ImageView(mobImage);
                 mobView.layoutXProperty().bind(m.getXProperty().asObject());
                 mobView.layoutYProperty().bind(m.getYProperty().asObject());
                 paneperso.getChildren().add(mobView);
-                m.setNode(mobView); // Save reference to the node
+                m.setImageView(mobView); // Save reference to the ImageView
             }
         }
     }
@@ -99,7 +100,7 @@ public class MobView {
      *
      * @return list of Npc objects
      */
-    public List<Npc> getNpcs(){
+    public List<NPC> getNpcs(){
         return npcs;
     }
 
@@ -108,7 +109,7 @@ public class MobView {
      *
      * @return list of Mobs objects
      */
-    public List<Mobs> getMobs(){
+    public List<Ennemis> getMobs(){
         return mobs;
     }
 }
