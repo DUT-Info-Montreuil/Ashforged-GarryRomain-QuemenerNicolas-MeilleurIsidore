@@ -1,7 +1,7 @@
 # Ashforged
 ## Contexte de réalisation
 
-Le projet final que nous avons eu à réalier pour notre première année en BUT Informatique a été la réalisation d'un [Terraria](https://terraria.org) like, avec [Java](https://www.java.com/fr/) et [JavaFX](https://openjfx.io) pour la réalisation de l'affichage graphique. 
+Le projet final que nous avons eu à réaliser pour notre première année en BUT Informatique a été la réalisation d'un [Terraria](https://terraria.org) like, avec [Java](https://www.java.com/fr/) et [JavaFX](https://openjfx.io) pour la réalisation de l'affichage graphique. 
 De plus nous avons réalisé des jeux de tests avec  [JUnit](https://junit.org/junit5/) afin d'assurer le bon fonctionnement de notre logiciel et de matérialiser des traces de jeux d'essais.
 
 
